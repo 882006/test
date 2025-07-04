@@ -3,29 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nem's Discord Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Reset CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        /* Background với hiệu ứng ánh sáng */
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyễn Nem's Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -42,7 +19,7 @@
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #ffffff;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
             display: flex;
             justify-content: center;
@@ -50,15 +27,20 @@
             padding: 20px;
         }
         
-        .background-video {
+        .video-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: -1;
-            opacity: 0.2;
+            opacity: 0.05; /* Mờ 95% */
+        }
+        
+        .video-background iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .light-particles {
@@ -79,19 +61,20 @@
             padding: 20px;
             z-index: 10;
             position: relative;
+            background: rgba(20, 20, 36, 0.85);
+            border-radius: 20px;
+            border: 3px solid #8a5cf6;
+            box-shadow: 0 0 40px rgba(138, 92, 246, 0.5);
+            overflow: hidden;
         }
         
         /* Profile header - bố cục mới */
         .profile-header {
             display: flex;
             gap: 40px;
-            margin-bottom: 40px;
-            background: rgba(30, 30, 46, 0.8);
-            border-radius: 20px;
+            margin-bottom: 30px;
             padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            position: relative;
         }
         
         .profile-left {
@@ -124,16 +107,22 @@
             border-radius: 15px;
             padding: 20px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .username-box {
+            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.4);
         }
         
         .username {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
+            color: white;
+            text-align: center;
         }
         
         .status {
@@ -197,7 +186,7 @@
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             margin: 20px 0;
             flex-wrap: wrap;
         }
@@ -212,6 +201,10 @@
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-10px);
         }
         
         .social-icon {
@@ -253,280 +246,43 @@
         .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.3); }
         .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
         .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.3); }
+        .tiktok .social-icon { background: rgba(0, 242, 234, 0.1); border-color: rgba(0, 242, 234, 0.3); }
         
         .social-link:hover .youtube .social-icon { background: rgba(255, 0, 0, 0.2); }
         .social-link:hover .spotify .social-icon { background: rgba(29, 185, 84, 0.2); }
         .social-link:hover .discord .social-icon { background: rgba(114, 137, 218, 0.2); }
+        .social-link:hover .tiktok .social-icon { background: rgba(0, 242, 234, 0.2); }
         
         .social-label {
             font-size: 1rem;
             text-align: center;
         }
         
-        /* Playlists */
-        .playlist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+        /* Spotify Player */
+        .spotify-player-container {
             margin-top: 20px;
-        }
-        
-        .playlist-card {
-            background: rgba(40, 40, 62, 0.7);
+            height: 380px;
             border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .playlist-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(138, 92, 246, 0.3);
-        }
-        
-        .playlist-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .playlist-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #ff79c6;
-        }
-        
-        .playlist-platform {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .saved-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-            padding: 6px 12px;
-            background: rgba(29, 185, 84, 0.15);
-            border-radius: 20px;
-            color: #1DB954;
-            font-size: 0.9rem;
-        }
-        
-        .song-list {
+        .spotify-player {
             width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .song-list th {
-            text-align: left;
-            padding: 10px 5px;
-            font-weight: normal;
-            color: #b0b0c0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
-        }
-        
-        .song-list td {
-            padding: 10px 5px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .song-list tr:hover td {
-            background: rgba(255, 255, 255, 0.05);
-            color: #8a5cf6;
-        }
-        
-        .song-list tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .copy-icon {
-            position: absolute;
-            right: 5px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            color: #50fa7b;
-        }
-        
-        .song-list tr:hover .copy-icon {
-            opacity: 1;
-        }
-        
-        /* Gaming Profile */
-        .rank-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .rank-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
             height: 100%;
-            background: linear-gradient(to bottom, #8a5cf6, #ff79c6);
-        }
-        
-        .rank-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #ffd700, #ffb700);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #000;
-            font-size: 1.5rem;
-            z-index: 2;
-        }
-        
-        .rank-details {
-            flex-grow: 1;
-            z-index: 2;
-        }
-        
-        .rank-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #ffd700;
-        }
-        
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
-            background: rgba(255, 121, 198, 0.2);
-            border-radius: 20px;
-            color: #ff79c6;
-            font-size: 1rem;
-            margin-top: 10px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 121, 198, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 121, 198, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 121, 198, 0); }
-        }
-        
-        .game-section-title {
-            font-size: 1.5rem;
-            color: #50fa7b;
-            margin: 25px 0 15px;
-            padding-left: 10px;
-            border-left: 3px solid #50fa7b;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 25px 0;
-        }
-        
-        .stat-card {
-            background: rgba(40, 40, 62, 0.7);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border-color: rgba(80, 250, 123, 0.3);
-        }
-        
-        .stat-title {
-            font-size: 1rem;
-            color: #b0b0c0;
-            margin-bottom: 10px;
-        }
-        
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        
-        .stat-kd {
-            color: #50fa7b;
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .feature {
-            padding: 10px 20px;
-            background: rgba(138, 92, 246, 0.15);
-            border-radius: 20px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-        }
-        
-        .nav-menu {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            flex-grow: 1;
-            text-align: center;
-            justify-content: center;
-        }
-        
-        .nav-item:hover {
-            background: rgba(138, 92, 246, 0.2);
-            border-color: rgba(138, 92, 246, 0.5);
-            transform: translateY(-3px);
+            border: none;
         }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
-            margin-top: 40px;
+            padding: 20px;
+            margin-top: 20px;
             color: #b0b0c0;
             font-size: 0.95rem;
             position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .copyright {
@@ -569,14 +325,11 @@
             .profile-header {
                 flex-direction: column;
                 gap: 30px;
+                padding: 20px;
             }
             
             .profile-left {
                 flex: 0 0 auto;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
             }
             
             .social-links {
@@ -589,21 +342,40 @@
                 font-size: 2rem;
             }
             
-            .nav-menu {
-                flex-direction: column;
+            .username {
+                font-size: 1.8rem;
+            }
+            
+            .spotify-player-container {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .profile-pic {
+                width: 180px;
+                height: 180px;
             }
             
             .username {
-                font-size: 2rem;
+                font-size: 1.6rem;
+            }
+            
+            .bio {
+                font-size: 1rem;
+            }
+            
+            .spotify-player-container {
+                height: 250px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Video nền với hiệu ứng -->
-    <video class="background-video" autoplay loop muted playsinline>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-galaxy-background-1610-large.mp4" type="video/mp4">
-    </video>
+    <!-- Video nền YouTube -->
+    <div class="video-background">
+        <iframe src="https://www.youtube.com/embed/iYesXBFWtls?autoplay=1&mute=0&loop=1&playlist=iYesXBFWtls&controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
     
     <div class="light-particles" id="particles"></div>
     
@@ -614,7 +386,9 @@
             <div class="profile-left">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Profile Picture" class="profile-pic">
                 <div class="status-container">
-                    <div class="username">Nguyễn Nem</div>
+                    <div class="username-box">
+                        <div class="username">Nguyễn Nem</div>
+                    </div>
                     <div class="status">
                         <i class="fas fa-moon"></i> Idle
                     </div>
@@ -638,6 +412,13 @@
                             <span class="social-label">YouTube</span>
                         </a>
                         
+                        <a href="https://www.tiktok.com/@nguyennem2006?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link tiktok">
+                            <div class="social-icon">
+                                <i class="fab fa-tiktok"></i>
+                            </div>
+                            <span class="social-label">TikTok</span>
+                        </a>
+                        
                         <a href="https://open.spotify.com/user/31njaguxvody6xit6gajvngzhhe4?si=55bdc1bfb41c4cf0" target="_blank" class="social-link spotify">
                             <div class="social-icon">
                                 <i class="fab fa-spotify"></i>
@@ -654,120 +435,15 @@
                     </div>
                 </div>
                 
-                <!-- Playlist yêu thích -->
+                <!-- Spotify Player -->
                 <div class="card">
-                    <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
-                    <p>Listen to my music collections</p>
+                    <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlist</h2>
+                    <p>Listen to my music collection</p>
                     
-                    <div class="playlist-grid">
-                        <!-- Playlist 1 -->
-                        <div class="playlist-card">
-                            <div class="playlist-header">
-                                <div class="playlist-name">Zachz Winner R</div>
-                                <div class="playlist-platform">Spotify</div>
-                            </div>
-                            <div class="saved-badge">
-                                <i class="fas fa-check"></i> Saved on Spotify
-                            </div>
-                            
-                            <table class="song-list">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Artist</th>
-                                        <th>Duration</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Love For You</td>
-                                        <td>Zachz Winner</td>
-                                        <td>02:08</td>
-                                        <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/1"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>catassema</td>
-                                        <td>Special Zachz Winner</td>
-                                        <td>01:38</td>
-                                        <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/2"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Papi Julio</td>
-                                        <td>VIPCEQ Spoon</td>
-                                        <td>02:24</td>
-                                        <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/3"></i></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="spotify-player-container">
+                        <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4xTpGY9MLJPI?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Gaming Profile -->
-        <div class="card">
-            <h2 class="card-title"><i class="fas fa-gamepad"></i> Gaming Profile</h2>
-            <p>Track my gaming stats</p>
-            
-            <div class="rank-info">
-                <div class="rank-icon">D2</div>
-                <div class="rank-details">
-                    <div class="rank-title">Diamond 2</div>
-                    <div>TOP 0.5% at ACT #8</div>
-                    <div class="live-badge">
-                        <i class="fas fa-sync-alt"></i> Live Update On
-                    </div>
-                </div>
-            </div>
-            
-            <h3 class="game-section-title">VALORANT COMPETITIVE OVERVIEW</h3>
-            <p>1st Playtime / 25 Matches</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-title">Rating</div>
-                    <div class="stat-value">497</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-title">Level</div>
-                    <div class="stat-value">Gold 1</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-title">Damage/Round</div>
-                    <div class="stat-value">184.2</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-title">K/D Ratio</div>
-                    <div class="stat-value stat-kd">1.24</div>
-                </div>
-            </div>
-            
-            <div class="features">
-                <div class="feature">VALORANT Tracker Mobile</div>
-                <div class="feature">The best mobile data available</div>
-            </div>
-            
-            <div class="nav-menu">
-                <a href="#" class="nav-item">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-trophy"></i> Leaderboards
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-user"></i> My Profile
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-images"></i> Images
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-newspaper"></i> News
-                </a>
             </div>
         </div>
         
@@ -780,16 +456,13 @@
         </footer>
     </div>
     
-    <!-- Thông báo sao chép -->
-    <div class="copy-notification" id="copyNotification">Link đã được sao chép!</div>
-    
     <script>
         // Tạo hiệu ứng hạt ánh sáng
         function createParticles() {
             const container = document.getElementById('particles');
             const colors = ['#8a5cf6', '#ff79c6', '#50fa7b', '#ffffff'];
             
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.style.position = 'absolute';
                 particle.style.width = Math.random() * 5 + 2 + 'px';
@@ -798,7 +471,7 @@
                 particle.style.borderRadius = '50%';
                 particle.style.left = Math.random() * 100 + 'vw';
                 particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.opacity = Math.random() * 0.7 + 0.1;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
                 particle.style.boxShadow = '0 0 10px currentColor';
                 particle.style.zIndex = '-1';
                 
@@ -815,27 +488,6 @@
             }
         }
         
-        // Sao chép link khi click vào icon copy
-        document.querySelectorAll('.copy-icon').forEach(icon => {
-            icon.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const link = this.getAttribute('data-link');
-                navigator.clipboard.writeText(link).then(() => {
-                    showCopyNotification();
-                });
-            });
-        });
-        
-        // Hiển thị thông báo sao chép
-        function showCopyNotification() {
-            const notification = document.getElementById('copyNotification');
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 2000);
-        }
-        
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
@@ -845,6 +497,14 @@
             viewCount++;
             localStorage.setItem('viewCount', viewCount);
             document.querySelector('.view-counter').textContent = `Views: ${viewCount}`;
+            
+            // Bật âm thanh cho video nền (chỉ hoạt động nếu người dùng tương tác)
+            document.addEventListener('click', function() {
+                const iframe = document.querySelector('.video-background iframe');
+                if (iframe) {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                }
+            }, { once: true });
         });
     </script>
 </body>
