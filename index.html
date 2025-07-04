@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nem's Spotify Player</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Nguyễn Nem's Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Reset CSS */
         * {
             margin: 0;
             padding: 0;
@@ -13,228 +14,350 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        /* Background với hiệu ứng ánh sáng */
         body {
-            background: linear-gradient(135deg, #1a2a3a, #0d1b2a);
-            color: #fff;
+            background: #0f0c29;
+            color: #ffffff;
             min-height: 100vh;
+            overflow: hidden;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
         
-        .container {
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 380px;
-            background: rgba(25, 25, 35, 0.9);
+            height: 100%;
+            z-index: -1;
+            opacity: 1; /* Background sáng hơn */
+            object-fit: cover;
+            filter: brightness(1.2); /* Tăng độ sáng */
+        }
+        
+        .light-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(255, 121, 198, 0.2)); /* Màu sắc đặc trưng */
+            z-index: -1;
+            opacity: 0.6; /* Giảm độ mờ */
+        }
+        
+        .light-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* View counter ở góc trái trên */
+        .global-view-counter {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            background: rgba(30, 30, 46, 0.7);
+            padding: 8px 15px;
             border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1DB954;
-            margin-bottom: 5px;
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        
-        .social-icons a {
-            color: #b3b3b3;
-            font-size: 18px;
-            transition: all 0.3s;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: rgba(50, 50, 60, 0.5);
+            gap: 8px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
-        .social-icons a:hover {
-            color: #1DB954;
-            transform: scale(1.1);
-            background: rgba(29, 185, 84, 0.2);
+        /* Container chính - thu nhỏ hơn và trong suốt hơn */
+        .container {
+            max-width: 850px; /* Giảm kích thước container */
+            width: 90%; /* Giảm chiều rộng */
+            margin: 0 auto;
+            padding: 15px;
+            z-index: 10;
+            position: relative;
+            background: rgba(30, 26, 46, 0.75); /* Màu tím đen sáng với độ trong suốt cao */
+            border-radius: 20px;
+            border: 1px solid #8a5cf6; /* Viền mỏng hơn */
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
+            overflow: hidden;
+            backdrop-filter: blur(6px); /* Giảm độ mờ */
         }
         
-        .profile {
+        /* Profile header */
+        .profile-header {
+            display: flex;
+            gap: 25px; /* Giảm khoảng cách */
+            margin-bottom: 15px; /* Giảm margin */
+            padding: 15px; /* Giảm padding */
+            position: relative;
+        }
+        
+        .profile-left {
+            flex: 0 0 200px; /* Thu nhỏ kích thước */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .profile-pic {
+            width: 150px; /* Thu nhỏ ảnh profile */
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #8a5cf6;
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
+            margin-bottom: 15px; /* Giảm margin */
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(138, 92, 246, 0.7);
+        }
+        
+        .status-container {
+            width: 100%;
+            background: rgba(40, 40, 62, 0.6); /* Tăng độ trong suốt */
+            border-radius: 15px;
+            padding: 12px; /* Giảm padding */
             text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .profile h1 {
-            font-size: 24px;
-            margin-bottom: 8px;
-            color: #fff;
+        .username-box {
+            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
+            padding: 10px 12px; /* Giảm padding */
+            border-radius: 12px;
+            margin-bottom: 12px; /* Giảm margin */
+            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
+        }
+        
+        .username {
+            font-size: 1.4rem; /* Cỡ chữ nhỏ hơn */
+            font-weight: bold;
+            color: white;
+            text-align: center;
         }
         
         .status {
-            display: inline-block;
-            background: #1DB954;
-            color: #121212;
-            font-size: 12px;
-            padding: 4px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 15px;
+            background: rgba(255, 214, 10, 0.15);
             border-radius: 20px;
-            margin-bottom: 12px;
-            font-weight: bold;
+            color: #ffd60a;
+            font-size: 0.95rem; /* Giảm cỡ chữ */
+            margin-top: 8px;
         }
         
-        .profile p {
-            color: #b3b3b3;
-            font-size: 14px;
+        .bio {
+            font-size: 0.9rem; /* Giảm cỡ chữ */
+            color: #b0b0c0;
             line-height: 1.5;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        
-        .playlist-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .playlist-btn {
-            flex: 1;
-            background: rgba(50, 50, 60, 0.7);
-            border: none;
-            padding: 12px 5px;
-            border-radius: 8px;
-            color: #e0e0e0;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .playlist-btn.active {
-            background: #1DB954;
-            color: #121212;
-            font-weight: bold;
-        }
-        
-        .player {
-            background: rgba(30, 30, 40, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-        
-        .now-playing {
+            margin-top: 12px; /* Giảm margin */
             text-align: center;
-            margin-bottom: 20px;
+            font-style: italic;
+            padding: 0 8px; /* Giảm padding */
         }
         
-        .now-playing .title {
-            font-size: 16px;
-            color: #fff;
-            margin-bottom: 5px;
-            font-weight: 500;
+        .profile-right {
+            flex: 1;
         }
         
-        .now-playing .artist {
-            font-size: 13px;
-            color: #b3b3b3;
+        /* Card layout - làm trong suốt hơn */
+        .card {
+            background: rgba(35, 31, 51, 0.7); /* Tăng độ trong suốt */
+            border-radius: 15px;
+            padding: 15px; /* Giảm padding */
+            margin-bottom: 20px; /* Giảm margin */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(6px); /* Giảm độ mờ */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
         }
         
-        .timeline {
-            height: 4px;
-            background: #4d4d4d;
-            border-radius: 2px;
-            margin-bottom: 25px;
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            border-color: rgba(138, 92, 246, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.4rem; /* Giảm cỡ chữ */
+            color: #8a5cf6;
+            margin-bottom: 10px; /* Giảm margin */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-title i {
+            font-size: 1.2rem; /* Giảm cỡ chữ */
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Giảm khoảng cách */
+            margin: 10px 0; /* Giảm margin */
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+            width: 80px; /* Giảm kích thước */
+            transition: all 0.3s ease;
             position: relative;
-            cursor: not-allowed;
+            z-index: 2;
         }
         
-        .progress {
-            position: absolute;
-            height: 100%;
-            width: 35%;
-            background: #1DB954;
-            border-radius: 2px;
+        .social-link:hover {
+            transform: translateY(-8px);
         }
         
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-        
-        .control-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 18px;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .social-icon {
+            width: 60px; /* Giảm kích thước */
+            height: 60px; /* Giảm kích thước */
             border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        #play {
-            background: #1DB954;
-            width: 50px;
-            height: 50px;
-            font-size: 22px;
-        }
-        
-        #play:hover {
-            transform: scale(1.05);
-            background: #1ed760;
-        }
-        
-        .volume-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 15px;
-            background: rgba(50, 50, 60, 0.5);
-            border-radius: 20px;
-            opacity: 0.4;
-            cursor: not-allowed;
+            justify-content: center;
+            font-size: 1.8rem; /* Giảm cỡ chữ */
+            margin-bottom: 10px; /* Giảm margin */
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .volume-container i {
-            color: #b3b3b3;
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .social-link:hover .social-icon {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .social-link:hover .social-icon::before {
+            left: 100%;
+        }
+        
+        .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.3); }
+        .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
+        .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.3); }
+        .tiktok .social-icon { background: rgba(0, 242, 234, 0.1); border-color: rgba(0, 242, 234, 0.3); }
+        
+        .social-link:hover .youtube .social-icon { background: rgba(255, 0, 0, 0.2); }
+        .social-link:hover .spotify .social-icon { background: rgba(29, 185, 84, 0.2); }
+        .social-link:hover .discord .social-icon { background: rgba(114, 137, 218, 0.2); }
+        .social-link:hover .tiktok .social-icon { background: rgba(0, 242, 234, 0.2); }
+        
+        .social-label {
+            font-size: 0.85rem; /* Giảm cỡ chữ */
+            text-align: center;
+        }
+        
+        /* Spotify Playlists */
+        .playlists-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Giảm kích thước */
+            gap: 15px; /* Giảm khoảng cách */
+            margin-top: 10px; /* Giảm margin */
+        }
+        
+        .playlist-card {
+            background: rgba(40, 40, 62, 0.6); /* Tăng độ trong suốt */
+            border-radius: 12px;
+            padding: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 300px; /* Giảm chiều cao */
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(138, 92, 246, 0.3);
+        }
+        
+        .spotify-player {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer mới ở giữa dưới */
+        .main-footer {
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+        }
+        
+        .copyright {
+            display: inline-block;
+            background: rgba(30, 30, 46, 0.7);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: #b0b0c0;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+        }
+        
+        /* Volume controls */
+        .volume-control {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 100;
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 50px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid #8a5cf6;
         }
         
         .volume-slider {
-            width: 100%;
+            width: 80px;
             -webkit-appearance: none;
             height: 4px;
-            background: #4d4d4d;
-            border-radius: 2px;
+            background: #4a4a6d;
+            border-radius: 5px;
             outline: none;
         }
         
@@ -242,185 +365,318 @@
             -webkit-appearance: none;
             width: 12px;
             height: 12px;
-            background: #fff;
             border-radius: 50%;
-            cursor: not-allowed;
+            background: #8a5cf6;
+            cursor: pointer;
         }
         
-        .footer {
-            text-align: center;
-            color: #6a6a6a;
-            font-size: 12px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .decoration {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            background: rgba(29, 185, 84, 0.1);
+        .volume-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
-            z-index: -1;
+            transition: background 0.3s;
         }
         
-        .decoration-2 {
-            position: absolute;
-            bottom: -30px;
-            left: -30px;
-            width: 100px;
-            height: 100px;
-            background: rgba(29, 185, 84, 0.08);
-            border-radius: 50%;
-            z-index: -1;
+        .volume-btn:hover {
+            background: rgba(138, 92, 246, 0.3);
         }
         
-        .current-time {
-            position: absolute;
-            left: 0;
-            top: -18px;
-            font-size: 10px;
-            color: #b3b3b3;
+        /* Responsive */
+        @media (max-width: 900px) {
+            .profile-header {
+                flex-direction: column;
+                gap: 20px; /* Giảm khoảng cách */
+                padding: 10px; /* Giảm padding */
+            }
+            
+            .profile-left {
+                flex: 0 0 auto;
+            }
+            
+            .social-links {
+                gap: 10px; /* Giảm khoảng cách */
+            }
+            
+            .social-icon {
+                width: 50px; /* Giảm kích thước */
+                height: 50px; /* Giảm kích thước */
+                font-size: 1.6rem; /* Giảm cỡ chữ */
+            }
+            
+            .username {
+                font-size: 1.3rem; /* Giảm cỡ chữ */
+            }
+            
+            .playlist-card {
+                height: 250px; /* Giảm chiều cao */
+            }
+            
+            .global-view-counter {
+                top: 10px;
+                left: 10px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
         }
         
-        .total-time {
-            position: absolute;
-            right: 0;
-            top: -18px;
-            font-size: 10px;
-            color: #b3b3b3;
+        @media (max-width: 500px) {
+            .container {
+                width: 95%; /* Tăng chiều rộng trên mobile */
+                padding: 10px; /* Giảm padding */
+            }
+            
+            .profile-pic {
+                width: 130px; /* Giảm kích thước */
+                height: 130px; /* Giảm kích thước */
+            }
+            
+            .username {
+                font-size: 1.2rem; /* Giảm cỡ chữ */
+            }
+            
+            .bio {
+                font-size: 0.85rem; /* Giảm cỡ chữ */
+            }
+            
+            .playlist-card {
+                height: 200px; /* Giảm chiều cao */
+            }
+            
+            .social-icon {
+                width: 45px; /* Giảm kích thước */
+                height: 45px; /* Giảm kích thước */
+                font-size: 1.5rem; /* Giảm cỡ chữ */
+            }
+            
+            .social-link {
+                width: 70px; /* Giảm kích thước */
+            }
+            
+            .global-view-counter {
+                top: 8px;
+                left: 8px;
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Video nền từ file local -->
+    <video class="video-background" id="bgVideo" autoplay loop muted>
+        <source src="video/videoplayback.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="light-overlay"></div>
+    <div class="light-particles" id="particles"></div>
+    
+    <!-- Số lượt xem ở góc trái trên -->
+    <div class="global-view-counter" id="globalViewCounter">
+        <i class="fas fa-eye"></i> Views: 128
+    </div>
+    
+    <!-- Volume controls -->
+    <div class="volume-control">
+        <button class="volume-btn" id="muteBtn">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <input type="range" min="0" max="1" step="0.01" value="1" class="volume-slider" id="volumeSlider">
+    </div>
+    
+    <!-- Container chính -->
     <div class="container">
-        <div class="decoration"></div>
-        <div class="decoration-2"></div>
-        
-        <div class="header">
-            <div class="logo">Nem's Player</div>
-        </div>
-        
-        <div class="social-icons">
-            <a href="#youtube"><i class="fab fa-youtube"></i></a>
-            <a href="#tiktok"><i class="fab fa-tiktok"></i></a>
-            <a href="#spotify"><i class="fab fa-spotify"></i></a>
-            <a href="#discord"><i class="fab fa-discord"></i></a>
-        </div>
-        
-        <div class="profile">
-            <h1>Nguyễn Nem</h1>
-            <span class="status">Idle</span>
-            <p>Just a Content Creator boy like cat, BoyWithLike and Marino music</p>
-        </div>
-        
-        <div class="playlist-selector">
-            <button class="playlist-btn active" data-playlist="1">
-                so tired (all Versions)
-            </button>
-            <button class="playlist-btn" data-playlist="2">
-                Zachz Winner Radio
-            </button>
-        </div>
-        
-        <div class="player">
-            <div class="now-playing">
-                <div class="title" id="current-playlist">so tired (all Versions)</div>
-                <div class="artist">Nem Nguyễn</div>
+        <!-- Profile header -->
+        <div class="profile-header">
+            <div class="profile-left">
+                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic">
+                <div class="status-container">
+                    <div class="username-box">
+                        <div class="username">Nguyễn Nem</div>
+                    </div>
+                    <div class="status">
+                        <i class="fas fa-moon"></i> Idle
+                    </div>
+                    <div class="bio">
+                        Just a Content Creator boy like cat, BoyWithUke and Marino music 🐾🎧✨
+                    </div>
+                </div>
             </div>
             
-            <div class="timeline">
-                <div class="current-time">1:25</div>
-                <div class="progress"></div>
-                <div class="total-time">3:45</div>
+            <div class="profile-right">
+                <!-- Kết nối với tôi -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-link"></i> Connect With Me</h2>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@nemnuong" target="_blank" class="social-link youtube">
+                            <div class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <span class="social-label">YouTube</span>
+                        </a>
+                        
+                        <a href="https://www.tiktok.com/@nguyennem2006?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link tiktok">
+                            <div class="social-icon">
+                                <i class="fab fa-tiktok"></i>
+                            </div>
+                            <span class="social-label">TikTok</span>
+                        </a>
+                        
+                        <a href="https://open.spotify.com/user/31njaguxvody6xit6gajvngzhhe4?si=55bdc1bfb41c4cf0" target="_blank" class="social-link spotify">
+                            <div class="social-icon">
+                                <i class="fab fa-spotify"></i>
+                            </div>
+                            <span class="social-label">Spotify</span>
+                        </a>
+                        
+                        <a href="https://discord.gg/2zrethSUr9" target="_blank" class="social-link discord">
+                            <div class="social-icon">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <span class="social-label">Discord</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Spotify Playlists -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
+                    <div class="playlists-container">
+                        <div class="playlist-card" id="playlist1">
+                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                        </div>
+                        <div class="playlist-card" id="playlist2">
+                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="controls">
-                <button class="control-btn" id="prev">
-                    <i class="fas fa-step-backward"></i>
-                </button>
-                <button class="control-btn" id="play">
-                    <i class="fas fa-play"></i>
-                </button>
-                <button class="control-btn" id="next">
-                    <i class="fas fa-step-forward"></i>
-                </button>
-            </div>
-            
-            <div class="volume-container">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" class="volume-slider" id="volume" min="0" max="100" value="80" disabled>
-            </div>
-        </div>
-        
-        <div class="footer">
-            © 2025 by Nem. Created with GitHub.
         </div>
     </div>
-
+    
+    <!-- Footer ở giữa dưới -->
+    <div class="main-footer">
+        <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
+    </div>
+    
     <script>
-        // Chọn playlist
-        const playlistButtons = document.querySelectorAll('.playlist-btn');
-        const currentPlaylist = document.getElementById('current-playlist');
-        
-        playlistButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                playlistButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                if(this.dataset.playlist === '1') {
-                    currentPlaylist.textContent = 'so tired (all Versions)';
-                } else {
-                    currentPlaylist.textContent = 'Zachz Winner Radio';
-                }
-            });
-        });
-        
-        // Play/Pause button
-        const playButton = document.getElementById('play');
-        let isPlaying = false;
-        
-        playButton.addEventListener('click', function() {
-            isPlaying = !isPlaying;
+        // Tạo hiệu ứng hạt ánh sáng
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#8a5cf6', '#ff79c6', '#50fa7b', '#ffffff'];
             
-            if(isPlaying) {
-                playButton.innerHTML = '<i class="fas fa-pause"></i>';
-                playButton.style.background = '#e74c3c';
-            } else {
-                playButton.innerHTML = '<i class="fas fa-play"></i>';
-                playButton.style.background = '#1DB954';
-            }
-        });
-        
-        // Next/Previous buttons
-        document.getElementById('next').addEventListener('click', function() {
-            alert('Chuyển sang bài hát tiếp theo');
-        });
-        
-        document.getElementById('prev').addEventListener('click', function() {
-            alert('Quay lại bài hát trước');
-        });
-        
-        // Thay đổi ngẫu nhiên thời gian bài hát
-        function updateTime() {
-            const currentTime = document.querySelector('.current-time');
-            const progress = document.querySelector('.progress');
-            
-            if (isPlaying) {
-                const minutes = Math.floor(Math.random() * 3);
-                const seconds = Math.floor(Math.random() * 60).toString().padStart(2, '0');
-                currentTime.textContent = `${minutes}:${seconds}`;
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.boxShadow = '0 0 10px currentColor';
+                particle.style.zIndex = '-1';
                 
-                // Cập nhật thanh tiến trình
-                const progressPercent = Math.min(100, Math.floor(Math.random() * 100));
-                progress.style.width = `${progressPercent}%`;
+                // Animation
+                particle.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: `translateY(${Math.random() > 0.5 ? '-' : ''}${Math.random() * 100}vh)` }
+                ], {
+                    duration: Math.random() * 5000 + 5000,
+                    iterations: Infinity
+                });
+                
+                container.appendChild(particle);
             }
         }
         
-        // Giả lập tiến trình bài hát
-        setInterval(updateTime, 3000);
+        // Phát ngẫu nhiên bài hát khi click vào profile
+        function setupRandomPlay() {
+            const profilePic = document.querySelector('.profile-pic');
+            const playlist1 = document.querySelector('#playlist1 iframe');
+            const playlist2 = document.querySelector('#playlist2 iframe');
+            
+            profilePic.addEventListener('click', function() {
+                // Chọn ngẫu nhiên playlist 1 hoặc 2
+                const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
+                
+                // Tạo URL mới với tham số random
+                const playlistUrl = randomPlaylist.src.split('?')[0];
+                const newUrl = playlistUrl + '?utm_source=generator&shuffle=true';
+                
+                // Cập nhật iframe với URL mới
+                randomPlaylist.src = newUrl;
+                
+                // Hiệu ứng visual feedback
+                this.style.boxShadow = '0 0 30px #50fa7b';
+                setTimeout(() => {
+                    this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
+                }, 1000);
+            });
+        }
+        
+        // Volume control
+        function setupVolumeControl() {
+            const bgVideo = document.getElementById('bgVideo');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const muteBtn = document.getElementById('muteBtn');
+            
+            // Set initial volume
+            bgVideo.volume = volumeSlider.value;
+            
+            // Volume slider change
+            volumeSlider.addEventListener('input', function() {
+                bgVideo.volume = this.value;
+                bgVideo.muted = false;
+                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            });
+            
+            // Mute button
+            muteBtn.addEventListener('click', function() {
+                bgVideo.muted = !bgVideo.muted;
+                this.innerHTML = bgVideo.muted 
+                    ? '<i class="fas fa-volume-mute"></i>' 
+                    : '<i class="fas fa-volume-up"></i>';
+                
+                // Cập nhật slider khi tắt tiếng
+                if (!bgVideo.muted) {
+                    volumeSlider.value = bgVideo.volume;
+                }
+            });
+        }
+        
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupVolumeControl();
+            setupRandomPlay();
+            
+            // Cập nhật lượt xem
+            let viewCount = localStorage.getItem('viewCount') || 128;
+            viewCount++;
+            localStorage.setItem('viewCount', viewCount);
+            document.getElementById('globalViewCounter').innerHTML = `<i class="fas fa-eye"></i> Views: ${viewCount}`;
+            
+            // Tự động tắt nhạc nền khi bật Spotify
+            document.querySelectorAll('.spotify-player').forEach(player => {
+                player.addEventListener('click', function() {
+                    const bgVideo = document.getElementById('bgVideo');
+                    if (bgVideo) {
+                        bgVideo.muted = true;
+                        document.getElementById('muteBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
