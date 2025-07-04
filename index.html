@@ -3,22 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nem's Profile</title>
+    <title>Nem's Discord Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CÁC BIẾN MÀU SẮC - DỄ THAY ĐỔI */
-        :root {
-            --background: #121212;      /* Màu nền chính */
-            --card-bg: #1e1e1e;         /* Màu nền card */
-            --text: #ffffff;            /* Màu chữ chính */
-            --text-secondary: #b0b0b0;  /* Màu chữ phụ */
-            --primary: #bb86fc;         /* Màu chủ đạo 1 */
-            --secondary: #03dac6;       /* Màu chủ đạo 2 */
-            --border: #333333;          /* Màu viền */
-            --highlight: #3700b3;       /* Màu nhấn */
-        }
-        
-        /* THIẾT LẬP CƠ BẢN */
+        /* Reset CSS */
         * {
             margin: 0;
             padding: 0;
@@ -26,56 +14,132 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        /* Background với hiệu ứng ánh sáng */
         body {
-            background-color: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 20px;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
         
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .light-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Container chính */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-        
-        section {
-            background-color: var(--card-bg);
-            border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
+            z-index: 10;
+            position: relative;
         }
         
-        h1, h2, h3 {
-            color: var(--primary);
-        }
-        
-        /* HEADER */
-        header {
+        /* Header profile */
+        .profile-header {
             text-align: center;
-            padding: 30px 0;
+            padding: 40px 0;
+            position: relative;
+            margin-bottom: 30px;
         }
         
         .profile-pic {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--primary);
-            margin: 0 auto 15px;
+            border: 4px solid #8a5cf6;
+            box-shadow: 0 0 30px rgba(138, 92, 246, 0.7);
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(138, 92, 246, 0.9);
         }
         
         .username {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: var(--secondary);
+            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 10px 0;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
         }
         
-        /* SOCIAL LINKS */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 15px;
+            background: rgba(80, 250, 123, 0.15);
+            border-radius: 20px;
+            color: #50fa7b;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        /* Card layout */
+        .card {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(138, 92, 246, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            color: #8a5cf6;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 1.5rem;
+        }
+        
+        /* Social Links */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             margin: 20px 0;
             flex-wrap: wrap;
         }
@@ -85,39 +149,116 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: var(--text);
+            color: #ffffff;
             width: 100px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
         
         .social-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .youtube { color: #ff0000; }
-        .spotify { color: #1DB954; }
-        .discord { color: #7289DA; }
-        
-        /* PLAYLISTS */
-        .playlist {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border);
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
         
-        .playlist:last-child {
-            border-bottom: none;
+        .social-link:hover .social-icon {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-link:hover .social-icon::before {
+            left: 100%;
+        }
+        
+        .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.3); }
+        .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
+        .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.3); }
+        
+        .social-link:hover .youtube .social-icon { background: rgba(255, 0, 0, 0.2); }
+        .social-link:hover .spotify .social-icon { background: rgba(29, 185, 84, 0.2); }
+        .social-link:hover .discord .social-icon { background: rgba(114, 137, 218, 0.2); }
+        
+        .social-label {
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        /* Playlists */
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .playlist-card {
+            background: rgba(40, 40, 62, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(138, 92, 246, 0.3);
         }
         
         .playlist-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
         .playlist-name {
+            font-size: 1.3rem;
             font-weight: bold;
-            color: var(--secondary);
+            color: #ff79c6;
+        }
+        
+        .playlist-platform {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .saved-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding: 6px 12px;
+            background: rgba(29, 185, 84, 0.15);
+            border-radius: 20px;
+            color: #1DB954;
+            font-size: 0.9rem;
         }
         
         .song-list {
@@ -127,80 +268,167 @@
         
         .song-list th {
             text-align: left;
-            padding: 8px 0;
+            padding: 10px 5px;
             font-weight: normal;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--border);
+            color: #b0b0c0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
         }
         
         .song-list td {
-            padding: 8px 0;
+            padding: 10px 5px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .song-list tr:hover td {
+            background: rgba(255, 255, 255, 0.05);
+            color: #8a5cf6;
         }
         
         .song-list tr:last-child td {
             border-bottom: none;
         }
         
-        /* GAMING PROFILE */
+        .copy-icon {
+            position: absolute;
+            right: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: #50fa7b;
+        }
+        
+        .song-list tr:hover .copy-icon {
+            opacity: 1;
+        }
+        
+        /* Gaming Profile */
         .rank-info {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rank-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #8a5cf6, #ff79c6);
         }
         
         .rank-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #b9f2ff, #a7c7e7);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd700, #ffb700);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: #000;
+            font-size: 1.5rem;
+            z-index: 2;
+        }
+        
+        .rank-details {
+            flex-grow: 1;
+            z-index: 2;
+        }
+        
+        .rank-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffd700;
+        }
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(255, 121, 198, 0.2);
+            border-radius: 20px;
+            color: #ff79c6;
+            font-size: 1rem;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 121, 198, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 121, 198, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 121, 198, 0); }
+        }
+        
+        .game-section-title {
+            font-size: 1.5rem;
+            color: #50fa7b;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 3px solid #50fa7b;
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
+            gap: 20px;
+            margin: 25px 0;
         }
         
         .stat-card {
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 5px;
+            background: rgba(40, 40, 62, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(80, 250, 123, 0.3);
         }
         
         .stat-title {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
+            font-size: 1rem;
+            color: #b0b0c0;
+            margin-bottom: 10px;
         }
         
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
         }
         
+        .stat-kd {
+            color: #50fa7b;
+        }
+        
         .features {
-            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
         }
         
         .feature {
-            display: inline-block;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 5px 10px;
+            padding: 10px 20px;
+            background: rgba(138, 92, 246, 0.15);
             border-radius: 20px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            border: 1px solid rgba(138, 92, 246, 0.3);
         }
         
         .nav-menu {
@@ -208,30 +436,74 @@
             justify-content: space-between;
             margin-top: 20px;
             flex-wrap: wrap;
+            gap: 10px;
         }
         
         .nav-item {
-            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
             text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
+            padding: 12px 25px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            flex-grow: 1;
+            text-align: center;
+            justify-content: center;
         }
         
+        .nav-item:hover {
+            background: rgba(138, 92, 246, 0.2);
+            border-color: rgba(138, 92, 246, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            padding: 30px;
+            margin-top: 40px;
+            color: #b0b0c0;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .copyright {
+            margin-bottom: 10px;
         }
         
         .view-counter {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            margin-top: 10px;
+            gap: 10px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+        
+        /* Hiệu ứng sao chép */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(80, 250, 123, 0.9);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
         
         /* Responsive */
@@ -244,134 +516,183 @@
                 gap: 15px;
             }
             
+            .social-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            
             .nav-menu {
                 flex-direction: column;
+            }
+            
+            .profile-header {
+                padding: 30px 0;
+            }
+            
+            .username {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Video nền với hiệu ứng -->
+    <video class="background-video" autoplay loop muted playsinline>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-galaxy-background-1610-large.mp4" type="video/mp4">
+    </video>
+    
+    <div class="light-particles" id="particles"></div>
+    
+    <!-- Container chính -->
     <div class="container">
-        <header>
-            <h1>About Me</h1>
-            <img src="images/chosocoolface.jpg" alt="Profile Picture" class="profile-pic">
+        <!-- Profile header -->
+        <div class="profile-header">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Profile Picture" class="profile-pic">
             <div class="username">@nem_nuong</div>
-        </header>
+            <div class="status">
+                <i class="fas fa-circle" style="color: #50fa7b;"></i> Online
+            </div>
+        </div>
         
-        <section>
-            <h2>Connect With Me</h2>
+        <!-- Kết nối với tôi -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-link"></i> Connect With Me</h2>
             <p>Follow me on social platforms</p>
             
             <div class="social-links">
-                <a href="https://www.youtube.com/@nemnuong" target="_blank" class="social-link">
-                    <div class="social-icon youtube"><i class="fab fa-youtube"></i></div>
-                    <span>YouTube</span>
+                <a href="https://www.youtube.com/@nemnuong" target="_blank" class="social-link youtube">
+                    <div class="social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <span class="social-label">YouTube</span>
                 </a>
                 
-                <a href="https://open.spotify.com/user/31njaguxvody6xit6gajvngzhhe4?si=55bdc1bfb41c4cf0" target="_blank" class="social-link">
-                    <div class="social-icon spotify"><i class="fab fa-spotify"></i></div>
-                    <span>Spotify</span>
+                <a href="https://open.spotify.com/user/31njaguxvody6xit6gajvngzhhe4?si=55bdc1bfb41c4cf0" target="_blank" class="social-link spotify">
+                    <div class="social-icon">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <span class="social-label">Spotify</span>
                 </a>
                 
-                <a href="https://discord.gg/2zrethSUr9" target="_blank" class="social-link">
-                    <div class="social-icon discord"><i class="fab fa-discord"></i></div>
-                    <span>Discord</span>
+                <a href="https://discord.gg/2zrethSUr9" target="_blank" class="social-link discord">
+                    <div class="social-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <span class="social-label">Discord</span>
                 </a>
             </div>
-        </section>
+        </div>
         
-        <section>
-            <h2>Favorite Playlists</h2>
+        <!-- Playlist yêu thích -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
             <p>Listen to my music collections</p>
             
-            <div class="playlist">
-                <div class="playlist-header">
-                    <div class="playlist-name">Zachz Winner R</div>
-                    <div>Spotify</div>
+            <div class="playlist-grid">
+                <!-- Playlist 1 -->
+                <div class="playlist-card">
+                    <div class="playlist-header">
+                        <div class="playlist-name">Zachz Winner R</div>
+                        <div class="playlist-platform">Spotify</div>
+                    </div>
+                    <div class="saved-badge">
+                        <i class="fas fa-check"></i> Saved on Spotify
+                    </div>
+                    
+                    <table class="song-list">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Duration</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Love For You</td>
+                                <td>Zachz Winner</td>
+                                <td>02:08</td>
+                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/1"></i></td>
+                            </tr>
+                            <tr>
+                                <td>catassema</td>
+                                <td>Special Zachz Winner</td>
+                                <td>01:38</td>
+                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/2"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Papi Julio</td>
+                                <td>VIPCEQ Spoon</td>
+                                <td>02:24</td>
+                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/3"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <p><i class="fas fa-check" style="color: var(--secondary);"></i> Saved on Spotify</p>
                 
-                <table class="song-list">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Love For You</td>
-                            <td>Zachz Winner</td>
-                            <td>02:08</td>
-                        </tr>
-                        <tr>
-                            <td>catassema</td>
-                            <td>Special Zachz Winner</td>
-                            <td>01:38</td>
-                        </tr>
-                        <tr>
-                            <td>Papi Julio</td>
-                            <td>VIPCEQ Spoon</td>
-                            <td>02:24</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="playlist">
-                <div class="playlist-header">
-                    <div class="playlist-name">so tired (all Vers)</div>
-                    <div>Spotify</div>
+                <!-- Playlist 2 -->
+                <div class="playlist-card">
+                    <div class="playlist-header">
+                        <div class="playlist-name">so tired (all Vers)</div>
+                        <div class="playlist-platform">Spotify</div>
+                    </div>
+                    <div class="saved-badge">
+                        <i class="fas fa-check"></i> Saved on Spotify
+                    </div>
+                    
+                    <table class="song-list">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Duration</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SO TIRED 2 - Speed Up</td>
+                                <td>MUSIA, TGLCHOKKV, DJ Pau</td>
+                                <td>01:52</td>
+                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/4"></i></td>
+                            </tr>
+                            <tr>
+                                <td>SO TIRED 2 - Slowed</td>
+                                <td>MUSIA, TGLCHOKKV, DJ Pau</td>
+                                <td>02:38</td>
+                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/5"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Loneliness 2</td>
+                                <td>CHAKI, SIGILI, LXRF/PARK</td>
+                                <td>02:19</td>
+                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/6"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <p><i class="fas fa-check" style="color: var(--secondary);"></i> Saved on Spotify</p>
-                
-                <table class="song-list">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>SO TIRED 2 - Speed Up</td>
-                            <td>MUSIA, TGLCHOKKV, DJ Pau</td>
-                            <td>01:52</td>
-                        </tr>
-                        <tr>
-                            <td>SO TIRED 2 - Slowed</td>
-                            <td>MUSIA, TGLCHOKKV, DJ Pau</td>
-                            <td>02:38</td>
-                        </tr>
-                        <tr>
-                            <td>Loneliness 2</td>
-                            <td>CHAKI, SIGILI, LXRF/PARK</td>
-                            <td>02:19</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
-        </section>
+        </div>
         
-        <section>
-            <h2>Gaming Profile</h2>
+        <!-- Gaming Profile -->
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-gamepad"></i> Gaming Profile</h2>
             <p>Track my gaming stats</p>
             
             <div class="rank-info">
                 <div class="rank-icon">D2</div>
-                <div>
-                    <div><strong>Diamond 2</strong></div>
+                <div class="rank-details">
+                    <div class="rank-title">Diamond 2</div>
                     <div>TOP 0.5% at ACT #8</div>
+                    <div class="live-badge">
+                        <i class="fas fa-sync-alt"></i> Live Update On
+                    </div>
                 </div>
             </div>
             
-            <div class="feature">
-                <i class="fas fa-sync-alt"></i> Live Update On
-            </div>
-            
-            <h3>VALORANT COMPETITIVE OVERVIEW</h3>
+            <h3 class="game-section-title">VALORANT COMPETITIVE OVERVIEW</h3>
             <p>1st Playtime / 25 Matches</p>
             
             <div class="stats-grid">
@@ -392,7 +713,7 @@
                 
                 <div class="stat-card">
                     <div class="stat-title">K/D Ratio</div>
-                    <div class="stat-value">1.24</div>
+                    <div class="stat-value stat-kd">1.24</div>
                 </div>
             </div>
             
@@ -402,20 +723,99 @@
             </div>
             
             <div class="nav-menu">
-                <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="#" class="nav-item"><i class="fas fa-trophy"></i> Leaderboards</a>
-                <a href="#" class="nav-item"><i class="fas fa-user"></i> My Profile</a>
-                <a href="#" class="nav-item"><i class="fas fa-images"></i> Images</a>
-                <a href="#" class="nav-item"><i class="fas fa-newspaper"></i> News</a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-trophy"></i> Leaderboards
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-images"></i> Images
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-newspaper"></i> News
+                </a>
             </div>
-        </section>
+        </div>
         
+        <!-- Footer -->
         <footer>
-            <p>© 2025 by Nem. Created with GitHub.</p>
+            <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
             <div class="view-counter">
                 <i class="fas fa-eye"></i> Views: 128
             </div>
         </footer>
     </div>
+    
+    <!-- Thông báo sao chép -->
+    <div class="copy-notification" id="copyNotification">Link đã được sao chép!</div>
+    
+    <script>
+        // Tạo hiệu ứng hạt ánh sáng
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#8a5cf6', '#ff79c6', '#50fa7b', '#ffffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.opacity = Math.random() * 0.7 + 0.1;
+                particle.style.boxShadow = '0 0 10px currentColor';
+                particle.style.zIndex = '-1';
+                
+                // Animation
+                particle.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: `translateY(${Math.random() > 0.5 ? '-' : ''}${Math.random() * 100}vh)` }
+                ], {
+                    duration: Math.random() * 5000 + 5000,
+                    iterations: Infinity
+                });
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Sao chép link khi click vào icon copy
+        document.querySelectorAll('.copy-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const link = this.getAttribute('data-link');
+                navigator.clipboard.writeText(link).then(() => {
+                    showCopyNotification();
+                });
+            });
+        });
+        
+        // Hiển thị thông báo sao chép
+        function showCopyNotification() {
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+        
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Cập nhật lượt xem
+            let viewCount = localStorage.getItem('viewCount') || 128;
+            viewCount++;
+            localStorage.setItem('viewCount', viewCount);
+            document.querySelector('.view-counter').textContent = `Views: ${viewCount}`;
+        });
+    </script>
 </body>
 </html>
