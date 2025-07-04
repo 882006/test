@@ -34,12 +34,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.8; /* Độ mờ giảm xuống */
-        }
-        
-        .video-background iframe {
-            width: 100%;
-            height: 100%;
+            opacity: 0.8;
             object-fit: cover;
         }
         
@@ -49,7 +44,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 12, 41, 0.7);
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.7), rgba(48, 43, 99, 0.7));
             z-index: -1;
         }
         
@@ -73,7 +68,7 @@
             position: relative;
             background: rgba(20, 20, 36, 0.85);
             border-radius: 20px;
-            border: 2px solid #8a5cf6; /* Viền thu nhỏ lại */
+            border: 2px solid #8a5cf6;
             box-shadow: 0 0 30px rgba(138, 92, 246, 0.5);
             overflow: hidden;
         }
@@ -129,7 +124,7 @@
         }
         
         .username {
-            font-size: 1.8rem; /* Cỡ chữ vừa phải hơn */
+            font-size: 1.8rem;
             font-weight: bold;
             color: white;
             text-align: center;
@@ -373,16 +368,78 @@
                 height: 250px;
             }
         }
+        
+        /* Volume controls */
+        .volume-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 50px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid #8a5cf6;
+        }
+        
+        .volume-slider {
+            width: 100px;
+            -webkit-appearance: none;
+            height: 5px;
+            background: #4a4a6d;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #8a5cf6;
+            cursor: pointer;
+        }
+        
+        .volume-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .volume-btn:hover {
+            background: rgba(138, 92, 246, 0.3);
+        }
     </style>
 </head>
 <body>
-    <!-- Video nền YouTube -->
-    <div class="video-background">
-        <iframe src="https://www.youtube.com/embed/iYesXBFWtls?autoplay=1&mute=0&loop=1&playlist=iYesXBFWtls&controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+    <!-- Video nền HTML5 không quảng cáo -->
+    <video class="video-background" id="bgVideo" autoplay loop muted>
+        <source src="https://cdn.pixabay.com/vimeo/892193769/earth-193769.mp4?width=1280&hash=4d5b4a8b6c1fbc3b5b1b0d3b6f8e3d3f6b5c5e1a" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
+    
+    <!-- Volume controls -->
+    <div class="volume-control">
+        <button class="volume-btn" id="muteBtn">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <input type="range" min="0" max="1" step="0.01" value="1" class="volume-slider" id="volumeSlider">
+    </div>
     
     <!-- Container chính -->
     <div class="container">
@@ -499,17 +556,39 @@
             const players = document.querySelectorAll('.spotify-player');
             players.forEach(player => {
                 player.contentWindow.addEventListener('click', function() {
-                    const iframe = document.querySelector('.video-background iframe');
-                    if (iframe) {
-                        // Tạm dừng video YouTube
-                        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    const bgVideo = document.getElementById('bgVideo');
+                    if (bgVideo) {
+                        bgVideo.muted = true;
+                        document.getElementById('muteBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
                     }
                 });
             });
         }
         
-        // Khởi tạo
+        // Volume control
         document.addEventListener('DOMContentLoaded', () => {
+            const bgVideo = document.getElementById('bgVideo');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const muteBtn = document.getElementById('muteBtn');
+            
+            // Set initial volume
+            bgVideo.volume = volumeSlider.value;
+            
+            // Volume slider change
+            volumeSlider.addEventListener('input', () => {
+                bgVideo.volume = volumeSlider.value;
+                bgVideo.muted = false;
+                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            });
+            
+            // Mute button
+            muteBtn.addEventListener('click', () => {
+                bgVideo.muted = !bgVideo.muted;
+                muteBtn.innerHTML = bgVideo.muted 
+                    ? '<i class="fas fa-volume-mute"></i>' 
+                    : '<i class="fas fa-volume-up"></i>';
+            });
+            
             createParticles();
             
             // Cập nhật lượt xem
