@@ -3,42 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify của Nem</title>
+    <title>Nem's Spotify Player</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-        body{background:linear-gradient(135deg,#1a2a3a,#0d1b2a);color:#fff;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
-        .container{width:100%;max-width:400px;background:rgba(25,25,35,.8);border-radius:20px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,.3);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
-        .social-icons{display:flex;justify-content:center;gap:18px;margin-bottom:20px}
-        .social-icons a{color:#b3b3b3;font-size:20px;transition:all .3s}
-        .social-icons a:hover{color:#1DB954;transform:scale(1.1)}
-        .profile{text-align:center;margin-bottom:25px}
-        .profile h1{font-size:26px;margin-bottom:8px;color:#fff}
-        .status{display:inline-block;background:#1DB954;color:#121212;font-size:12px;padding:4px 10px;border-radius:20px;margin-bottom:10px;font-weight:bold}
-        .profile p{color:#b3b3b3;font-size:14px;line-height:1.5}
-        .playlist-selector{display:flex;gap:10px;margin-bottom:25px}
-        .playlist-btn{flex:1;background:rgba(50,50,60,.7);border:none;padding:12px 5px;border-radius:8px;color:#e0e0e0;font-size:13px;cursor:pointer;transition:all .3s}
-        .playlist-btn.active{background:#1DB954;color:#121212;font-weight:bold}
-        .player{background:rgba(30,30,40,.9);border-radius:15px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.2)}
-        .now-playing{text-align:center;margin-bottom:20px}
-        .now-playing .title{font-size:16px;color:#fff;margin-bottom:5px}
-        .now-playing .artist{font-size:13px;color:#b3b3b3}
-        .timeline{height:4px;background:#4d4d4d;border-radius:2px;margin-bottom:25px;position:relative;cursor:not-allowed}
-        .progress{position:absolute;height:100%;width:35%;background:#1DB954;border-radius:2px}
-        .controls{display:flex;justify-content:center;align-items:center;gap:25px;margin-bottom:25px}
-        .control-btn{background:0;border:0;color:#fff;font-size:18px;cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .3s}
-        .control-btn:hover{background:rgba(255,255,255,.1)}
-        #play{background:#1DB954;width:50px;height:50px;font-size:22px}
-        #play:hover{transform:scale(1.05);background:#1ed760}
-        .volume-container{display:flex;align-items:center;gap:10px;padding:8px 15px;background:rgba(50,50,60,.5);border-radius:20px;opacity:.4}
-        .volume-container i{color:#b3b3b3}
-        .volume-slider{width:100%;-webkit-appearance:none;height:4px;background:#4d4d4d;border-radius:2px;outline:0}
-        .volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:#fff;border-radius:50%;cursor:not-allowed}
-        .footer{text-align:center;margin-top:25px;color:#6a6a6a;font-size:12px}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #0d1b2a);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 380px;
+            background: rgba(25, 25, 35, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1DB954;
+            margin-bottom: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: #b3b3b3;
+            font-size: 18px;
+            transition: all 0.3s;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(50, 50, 60, 0.5);
+        }
+        
+        .social-icons a:hover {
+            color: #1DB954;
+            transform: scale(1.1);
+            background: rgba(29, 185, 84, 0.2);
+        }
+        
+        .profile {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .profile h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        
+        .status {
+            display: inline-block;
+            background: #1DB954;
+            color: #121212;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        
+        .profile p {
+            color: #b3b3b3;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .playlist-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .playlist-btn {
+            flex: 1;
+            background: rgba(50, 50, 60, 0.7);
+            border: none;
+            padding: 12px 5px;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .playlist-btn.active {
+            background: #1DB954;
+            color: #121212;
+            font-weight: bold;
+        }
+        
+        .player {
+            background: rgba(30, 30, 40, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .now-playing {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .now-playing .title {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .now-playing .artist {
+            font-size: 13px;
+            color: #b3b3b3;
+        }
+        
+        .timeline {
+            height: 4px;
+            background: #4d4d4d;
+            border-radius: 2px;
+            margin-bottom: 25px;
+            position: relative;
+            cursor: not-allowed;
+        }
+        
+        .progress {
+            position: absolute;
+            height: 100%;
+            width: 35%;
+            background: #1DB954;
+            border-radius: 2px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .control-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        #play {
+            background: #1DB954;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+        }
+        
+        #play:hover {
+            transform: scale(1.05);
+            background: #1ed760;
+        }
+        
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(50, 50, 60, 0.5);
+            border-radius: 20px;
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .volume-container i {
+            color: #b3b3b3;
+        }
+        
+        .volume-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 4px;
+            background: #4d4d4d;
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: not-allowed;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #6a6a6a;
+            font-size: 12px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .decoration {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .decoration-2 {
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(29, 185, 84, 0.08);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .current-time {
+            position: absolute;
+            left: 0;
+            top: -18px;
+            font-size: 10px;
+            color: #b3b3b3;
+        }
+        
+        .total-time {
+            position: absolute;
+            right: 0;
+            top: -18px;
+            font-size: 10px;
+            color: #b3b3b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="decoration"></div>
+        <div class="decoration-2"></div>
+        
+        <div class="header">
+            <div class="logo">Nem's Player</div>
+        </div>
+        
         <div class="social-icons">
             <a href="#youtube"><i class="fab fa-youtube"></i></a>
             <a href="#tiktok"><i class="fab fa-tiktok"></i></a>
@@ -53,8 +317,12 @@
         </div>
         
         <div class="playlist-selector">
-            <button class="playlist-btn active" data-playlist="1">so tired (all Versions)</button>
-            <button class="playlist-btn" data-playlist="2">Zachz Winner Radio</button>
+            <button class="playlist-btn active" data-playlist="1">
+                so tired (all Versions)
+            </button>
+            <button class="playlist-btn" data-playlist="2">
+                Zachz Winner Radio
+            </button>
         </div>
         
         <div class="player">
@@ -64,13 +332,21 @@
             </div>
             
             <div class="timeline">
+                <div class="current-time">1:25</div>
                 <div class="progress"></div>
+                <div class="total-time">3:45</div>
             </div>
             
             <div class="controls">
-                <button class="control-btn" id="prev"><i class="fas fa-step-backward"></i></button>
-                <button class="control-btn" id="play"><i class="fas fa-play"></i></button>
-                <button class="control-btn" id="next"><i class="fas fa-step-forward"></i></button>
+                <button class="control-btn" id="prev">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn" id="play">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="next">
+                    <i class="fas fa-step-forward"></i>
+                </button>
             </div>
             
             <div class="volume-container">
@@ -79,29 +355,72 @@
             </div>
         </div>
         
-        <div class="footer">© 2025 by Nem. Created with GitHub.</div>
+        <div class="footer">
+            © 2025 by Nem. Created with GitHub.
+        </div>
     </div>
 
     <script>
-        document.querySelectorAll('.playlist-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.playlist-btn').forEach(b => b.classList.remove('active'));
+        // Chọn playlist
+        const playlistButtons = document.querySelectorAll('.playlist-btn');
+        const currentPlaylist = document.getElementById('current-playlist');
+        
+        playlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                playlistButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
-                document.getElementById('current-playlist').textContent = this.textContent;
+                
+                if(this.dataset.playlist === '1') {
+                    currentPlaylist.textContent = 'so tired (all Versions)';
+                } else {
+                    currentPlaylist.textContent = 'Zachz Winner Radio';
+                }
             });
         });
         
-        const playBtn = document.getElementById('play');
+        // Play/Pause button
+        const playButton = document.getElementById('play');
         let isPlaying = false;
         
-        playBtn.addEventListener('click', () => {
+        playButton.addEventListener('click', function() {
             isPlaying = !isPlaying;
-            playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
-            playBtn.style.background = isPlaying ? '#e74c3c' : '#1DB954';
+            
+            if(isPlaying) {
+                playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                playButton.style.background = '#e74c3c';
+            } else {
+                playButton.innerHTML = '<i class="fas fa-play"></i>';
+                playButton.style.background = '#1DB954';
+            }
         });
         
-        document.getElementById('next').addEventListener('click', () => alert('Chuyển sang bài tiếp theo'));
-        document.getElementById('prev').addEventListener('click', () => alert('Quay lại bài trước'));
+        // Next/Previous buttons
+        document.getElementById('next').addEventListener('click', function() {
+            alert('Chuyển sang bài hát tiếp theo');
+        });
+        
+        document.getElementById('prev').addEventListener('click', function() {
+            alert('Quay lại bài hát trước');
+        });
+        
+        // Thay đổi ngẫu nhiên thời gian bài hát
+        function updateTime() {
+            const currentTime = document.querySelector('.current-time');
+            const progress = document.querySelector('.progress');
+            
+            if (isPlaying) {
+                const minutes = Math.floor(Math.random() * 3);
+                const seconds = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+                currentTime.textContent = `${minutes}:${seconds}`;
+                
+                // Cập nhật thanh tiến trình
+                const progressPercent = Math.min(100, Math.floor(Math.random() * 100));
+                progress.style.width = `${progressPercent}%`;
+            }
+        }
+        
+        // Giả lập tiến trình bài hát
+        setInterval(updateTime, 3000);
     </script>
 </body>
 </html>
