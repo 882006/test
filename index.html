@@ -21,6 +21,33 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+        }<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Nem's Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Background với hiệu ứng ánh sáng */
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
         .background-video {
@@ -47,36 +74,56 @@
         /* Container chính */
         .container {
             max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
             padding: 20px;
             z-index: 10;
             position: relative;
         }
         
-        /* Header profile */
+        /* Profile header - bố cục mới */
         .profile-header {
-            text-align: center;
-            padding: 40px 0;
-            position: relative;
-            margin-bottom: 30px;
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-left {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .profile-pic {
-            width: 160px;
-            height: 160px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #8a5cf6;
             box-shadow: 0 0 30px rgba(138, 92, 246, 0.7);
-            margin: 0 auto 20px;
+            margin-bottom: 25px;
             position: relative;
-            z-index: 2;
             transition: all 0.3s ease;
         }
         
         .profile-pic:hover {
             transform: scale(1.05);
             box-shadow: 0 0 40px rgba(138, 92, 246, 0.9);
+        }
+        
+        .status-container {
+            width: 100%;
+            background: rgba(40, 40, 62, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
         }
         
         .username {
@@ -86,22 +133,33 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin: 10px 0;
-            display: inline-block;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 15px;
         }
         
         .status {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 15px;
-            background: rgba(80, 250, 123, 0.15);
+            padding: 8px 20px;
+            background: rgba(255, 214, 10, 0.15);
             border-radius: 20px;
-            color: #50fa7b;
-            font-size: 0.9rem;
+            color: #ffd60a;
+            font-size: 1.1rem;
             margin-top: 10px;
+        }
+        
+        .bio {
+            font-size: 1.1rem;
+            color: #b0b0c0;
+            line-height: 1.6;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+            padding: 0 15px;
+        }
+        
+        .profile-right {
+            flex: 1;
         }
         
         /* Card layout */
@@ -507,7 +565,16 @@
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .profile-header {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .profile-left {
+                flex: 0 0 auto;
+            }
+            
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -526,10 +593,6 @@
                 flex-direction: column;
             }
             
-            .profile-header {
-                padding: 30px 0;
-            }
-            
             .username {
                 font-size: 2rem;
             }
@@ -546,132 +609,99 @@
     
     <!-- Container chính -->
     <div class="container">
-        <!-- Profile header -->
+        <!-- Profile header với bố cục mới -->
         <div class="profile-header">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Profile Picture" class="profile-pic">
-            <div class="username">@nem_nuong</div>
-            <div class="status">
-                <i class="fas fa-circle" style="color: #50fa7b;"></i> Online
+            <div class="profile-left">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Profile Picture" class="profile-pic">
+                <div class="status-container">
+                    <div class="username">Nguyễn Nem</div>
+                    <div class="status">
+                        <i class="fas fa-moon"></i> Idle
+                    </div>
+                    <div class="bio">
+                        Just a Content Creator boy like cat, BoyWithUke and Marino music 🐾🎧✨
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <!-- Kết nối với tôi -->
-        <div class="card">
-            <h2 class="card-title"><i class="fas fa-link"></i> Connect With Me</h2>
-            <p>Follow me on social platforms</p>
             
-            <div class="social-links">
-                <a href="https://www.youtube.com/@nemnuong" target="_blank" class="social-link youtube">
-                    <div class="social-icon">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <span class="social-label">YouTube</span>
-                </a>
-                
-                <a href="https://open.spotify.com/user/31njaguxvody6xit6gajvngzhhe4?si=55bdc1bfb41c4cf0" target="_blank" class="social-link spotify">
-                    <div class="social-icon">
-                        <i class="fab fa-spotify"></i>
-                    </div>
-                    <span class="social-label">Spotify</span>
-                </a>
-                
-                <a href="https://discord.gg/2zrethSUr9" target="_blank" class="social-link discord">
-                    <div class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <span class="social-label">Discord</span>
-                </a>
-            </div>
-        </div>
-        
-        <!-- Playlist yêu thích -->
-        <div class="card">
-            <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
-            <p>Listen to my music collections</p>
-            
-            <div class="playlist-grid">
-                <!-- Playlist 1 -->
-                <div class="playlist-card">
-                    <div class="playlist-header">
-                        <div class="playlist-name">Zachz Winner R</div>
-                        <div class="playlist-platform">Spotify</div>
-                    </div>
-                    <div class="saved-badge">
-                        <i class="fas fa-check"></i> Saved on Spotify
-                    </div>
+            <div class="profile-right">
+                <!-- Kết nối với tôi -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-link"></i> Connect With Me</h2>
+                    <p>Follow me on social media content</p>
                     
-                    <table class="song-list">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th>Duration</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Love For You</td>
-                                <td>Zachz Winner</td>
-                                <td>02:08</td>
-                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/1"></i></td>
-                            </tr>
-                            <tr>
-                                <td>catassema</td>
-                                <td>Special Zachz Winner</td>
-                                <td>01:38</td>
-                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/2"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Papi Julio</td>
-                                <td>VIPCEQ Spoon</td>
-                                <td>02:24</td>
-                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/3"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@nemnuong" target="_blank" class="social-link youtube">
+                            <div class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <span class="social-label">YouTube</span>
+                        </a>
+                        
+                        <a href="https://open.spotify.com/user/31njaguxvody6xit6gajvngzhhe4?si=55bdc1bfb41c4cf0" target="_blank" class="social-link spotify">
+                            <div class="social-icon">
+                                <i class="fab fa-spotify"></i>
+                            </div>
+                            <span class="social-label">Spotify</span>
+                        </a>
+                        
+                        <a href="https://discord.gg/2zrethSUr9" target="_blank" class="social-link discord">
+                            <div class="social-icon">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <span class="social-label">Discord</span>
+                        </a>
+                    </div>
                 </div>
                 
-                <!-- Playlist 2 -->
-                <div class="playlist-card">
-                    <div class="playlist-header">
-                        <div class="playlist-name">so tired (all Vers)</div>
-                        <div class="playlist-platform">Spotify</div>
-                    </div>
-                    <div class="saved-badge">
-                        <i class="fas fa-check"></i> Saved on Spotify
-                    </div>
+                <!-- Playlist yêu thích -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
+                    <p>Listen to my music collections</p>
                     
-                    <table class="song-list">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th>Duration</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SO TIRED 2 - Speed Up</td>
-                                <td>MUSIA, TGLCHOKKV, DJ Pau</td>
-                                <td>01:52</td>
-                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/4"></i></td>
-                            </tr>
-                            <tr>
-                                <td>SO TIRED 2 - Slowed</td>
-                                <td>MUSIA, TGLCHOKKV, DJ Pau</td>
-                                <td>02:38</td>
-                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/5"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Loneliness 2</td>
-                                <td>CHAKI, SIGILI, LXRF/PARK</td>
-                                <td>02:19</td>
-                                <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/6"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="playlist-grid">
+                        <!-- Playlist 1 -->
+                        <div class="playlist-card">
+                            <div class="playlist-header">
+                                <div class="playlist-name">Zachz Winner R</div>
+                                <div class="playlist-platform">Spotify</div>
+                            </div>
+                            <div class="saved-badge">
+                                <i class="fas fa-check"></i> Saved on Spotify
+                            </div>
+                            
+                            <table class="song-list">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Artist</th>
+                                        <th>Duration</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Love For You</td>
+                                        <td>Zachz Winner</td>
+                                        <td>02:08</td>
+                                        <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/1"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>catassema</td>
+                                        <td>Special Zachz Winner</td>
+                                        <td>01:38</td>
+                                        <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/2"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Papi Julio</td>
+                                        <td>VIPCEQ Spoon</td>
+                                        <td>02:24</td>
+                                        <td><i class="fas fa-copy copy-icon" data-link="https://open.spotify.com/track/3"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -743,7 +773,7 @@
         
         <!-- Footer -->
         <footer>
-            <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
+            <div class="copyright">© 2025 by Nguyễn Nem. Created with GitHub.</div>
             <div class="view-counter">
                 <i class="fas fa-eye"></i> Views: 128
             </div>
