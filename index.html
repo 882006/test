@@ -16,7 +16,7 @@
         
         /* Background với hiệu ứng ánh sáng */
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: #0f0c29;
             color: #ffffff;
             min-height: 100vh;
             overflow: hidden;
@@ -34,13 +34,23 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.05; /* Mờ 95% */
+            opacity: 0.8; /* Độ mờ giảm xuống */
         }
         
         .video-background iframe {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        .light-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 12, 41, 0.7);
+            z-index: -1;
         }
         
         .light-particles {
@@ -63,8 +73,8 @@
             position: relative;
             background: rgba(20, 20, 36, 0.85);
             border-radius: 20px;
-            border: 3px solid #8a5cf6;
-            box-shadow: 0 0 40px rgba(138, 92, 246, 0.5);
+            border: 2px solid #8a5cf6; /* Viền thu nhỏ lại */
+            box-shadow: 0 0 30px rgba(138, 92, 246, 0.5);
             overflow: hidden;
         }
         
@@ -112,14 +122,14 @@
         
         .username-box {
             background: linear-gradient(45deg, #8a5cf6, #ff79c6);
-            padding: 15px 30px;
+            padding: 15px 20px;
             border-radius: 15px;
             margin-bottom: 20px;
             box-shadow: 0 5px 15px rgba(138, 92, 246, 0.4);
         }
         
         .username {
-            font-size: 2.2rem;
+            font-size: 1.8rem; /* Cỡ chữ vừa phải hơn */
             font-weight: bold;
             color: white;
             text-align: center;
@@ -172,7 +182,7 @@
         .card-title {
             font-size: 1.8rem;
             color: #8a5cf6;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -258,14 +268,29 @@
             text-align: center;
         }
         
-        /* Spotify Player */
-        .spotify-player-container {
+        /* Spotify Playlists */
+        .playlists-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin-top: 20px;
-            height: 380px;
+        }
+        
+        .playlist-card {
+            background: rgba(40, 40, 62, 0.7);
             border-radius: 15px;
+            padding: 0;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 380px;
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(138, 92, 246, 0.3);
         }
         
         .spotify-player {
@@ -299,27 +324,6 @@
             font-size: 1rem;
         }
         
-        /* Hiệu ứng sao chép */
-        .copy-notification {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(80, 250, 123, 0.9);
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            z-index: 1000;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .copy-notification.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        
         /* Responsive */
         @media (max-width: 900px) {
             .profile-header {
@@ -343,10 +347,10 @@
             }
             
             .username {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             
-            .spotify-player-container {
+            .playlist-card {
                 height: 300px;
             }
         }
@@ -358,14 +362,14 @@
             }
             
             .username {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             
             .bio {
                 font-size: 1rem;
             }
             
-            .spotify-player-container {
+            .playlist-card {
                 height: 250px;
             }
         }
@@ -377,6 +381,7 @@
         <iframe src="https://www.youtube.com/embed/iYesXBFWtls?autoplay=1&mute=0&loop=1&playlist=iYesXBFWtls&controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     
+    <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
     
     <!-- Container chính -->
@@ -384,7 +389,7 @@
         <!-- Profile header với bố cục mới -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Profile Picture" class="profile-pic">
+                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic">
                 <div class="status-container">
                     <div class="username-box">
                         <div class="username">Nguyễn Nem</div>
@@ -402,8 +407,6 @@
                 <!-- Kết nối với tôi -->
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-link"></i> Connect With Me</h2>
-                    <p>Follow me on social media content</p>
-                    
                     <div class="social-links">
                         <a href="https://www.youtube.com/@nemnuong" target="_blank" class="social-link youtube">
                             <div class="social-icon">
@@ -435,13 +438,16 @@
                     </div>
                 </div>
                 
-                <!-- Spotify Player -->
+                <!-- Spotify Playlists -->
                 <div class="card">
-                    <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlist</h2>
-                    <p>Listen to my music collection</p>
-                    
-                    <div class="spotify-player-container">
-                        <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4xTpGY9MLJPI?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                    <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
+                    <div class="playlists-container">
+                        <div class="playlist-card">
+                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                        </div>
+                        <div class="playlist-card">
+                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -488,6 +494,20 @@
             }
         }
         
+        // Tắt video nền khi nhạc Spotify được bật
+        function setupSpotifyPlayers() {
+            const players = document.querySelectorAll('.spotify-player');
+            players.forEach(player => {
+                player.contentWindow.addEventListener('click', function() {
+                    const iframe = document.querySelector('.video-background iframe');
+                    if (iframe) {
+                        // Tạm dừng video YouTube
+                        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    }
+                });
+            });
+        }
+        
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
@@ -498,13 +518,8 @@
             localStorage.setItem('viewCount', viewCount);
             document.querySelector('.view-counter').textContent = `Views: ${viewCount}`;
             
-            // Bật âm thanh cho video nền (chỉ hoạt động nếu người dùng tương tác)
-            document.addEventListener('click', function() {
-                const iframe = document.querySelector('.video-background iframe');
-                if (iframe) {
-                    iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                }
-            }, { once: true });
+            // Thiết lập Spotify players
+            setupSpotifyPlayers();
         });
     </script>
 </body>
