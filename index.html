@@ -34,9 +34,9 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 1; /* Background sáng hơn */
+            opacity: 1;
             object-fit: cover;
-            filter: brightness(1.2); /* Tăng độ sáng */
+            filter: brightness(1.2);
         }
         
         .light-overlay {
@@ -45,9 +45,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(255, 121, 198, 0.2)); /* Màu sắc đặc trưng */
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(255, 121, 198, 0.2));
             z-index: -1;
-            opacity: 0.6; /* Giảm độ mờ */
+            opacity: 0.6;
         }
         
         .light-particles {
@@ -80,46 +80,50 @@
         
         /* Container chính - thu nhỏ hơn và trong suốt hơn */
         .container {
-            max-width: 850px; /* Giảm kích thước container */
-            width: 90%; /* Giảm chiều rộng */
+            max-width: 850px;
+            width: 90%;
             margin: 0 auto;
             padding: 15px;
             z-index: 10;
             position: relative;
-            background: rgba(30, 26, 46, 0.75); /* Màu tím đen sáng với độ trong suốt cao */
+            background: rgba(30, 26, 46, 0.75);
             border-radius: 20px;
-            border: 1px solid #8a5cf6; /* Viền mỏng hơn */
+            border: 1px solid #8a5cf6;
             box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
             overflow: hidden;
-            backdrop-filter: blur(6px); /* Giảm độ mờ */
+            backdrop-filter: blur(6px);
+            /* Điều chỉnh viền ngang ra */
+            margin-top: -30px; /* Kéo container lên phía trên */
+            margin-bottom: 20px;
         }
         
         /* Profile header */
         .profile-header {
             display: flex;
-            gap: 25px; /* Giảm khoảng cách */
-            margin-bottom: 15px; /* Giảm margin */
-            padding: 15px; /* Giảm padding */
+            gap: 25px;
+            margin-bottom: 15px;
+            padding: 15px;
             position: relative;
         }
         
         .profile-left {
-            flex: 0 0 200px; /* Thu nhỏ kích thước */
+            flex: 0 0 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         
         .profile-pic {
-            width: 150px; /* Thu nhỏ ảnh profile */
+            width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #8a5cf6;
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
-            margin-bottom: 15px; /* Giảm margin */
+            margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .profile-pic:hover {
@@ -129,23 +133,23 @@
         
         .status-container {
             width: 100%;
-            background: rgba(40, 40, 62, 0.6); /* Tăng độ trong suốt */
+            background: rgba(40, 40, 62, 0.6);
             border-radius: 15px;
-            padding: 12px; /* Giảm padding */
+            padding: 12px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .username-box {
             background: linear-gradient(45deg, #8a5cf6, #ff79c6);
-            padding: 10px 12px; /* Giảm padding */
+            padding: 10px 12px;
             border-radius: 12px;
-            margin-bottom: 12px; /* Giảm margin */
+            margin-bottom: 12px;
             box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
         }
         
         .username {
-            font-size: 1.4rem; /* Cỡ chữ nhỏ hơn */
+            font-size: 1.4rem;
             font-weight: bold;
             color: white;
             text-align: center;
@@ -159,18 +163,18 @@
             background: rgba(255, 214, 10, 0.15);
             border-radius: 20px;
             color: #ffd60a;
-            font-size: 0.95rem; /* Giảm cỡ chữ */
+            font-size: 0.95rem;
             margin-top: 8px;
         }
         
         .bio {
-            font-size: 0.9rem; /* Giảm cỡ chữ */
+            font-size: 0.9rem;
             color: #b0b0c0;
             line-height: 1.5;
-            margin-top: 12px; /* Giảm margin */
+            margin-top: 12px;
             text-align: center;
             font-style: italic;
-            padding: 0 8px; /* Giảm padding */
+            padding: 0 8px;
         }
         
         .profile-right {
@@ -179,12 +183,12 @@
         
         /* Card layout - làm trong suốt hơn */
         .card {
-            background: rgba(35, 31, 51, 0.7); /* Tăng độ trong suốt */
+            background: rgba(35, 31, 51, 0.7);
             border-radius: 15px;
-            padding: 15px; /* Giảm padding */
-            margin-bottom: 20px; /* Giảm margin */
+            padding: 15px;
+            margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(6px); /* Giảm độ mờ */
+            backdrop-filter: blur(6px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
         }
@@ -196,24 +200,24 @@
         }
         
         .card-title {
-            font-size: 1.4rem; /* Giảm cỡ chữ */
+            font-size: 1.4rem;
             color: #8a5cf6;
-            margin-bottom: 10px; /* Giảm margin */
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
         .card-title i {
-            font-size: 1.2rem; /* Giảm cỡ chữ */
+            font-size: 1.2rem;
         }
         
         /* Social Links */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 15px; /* Giảm khoảng cách */
-            margin: 10px 0; /* Giảm margin */
+            gap: 15px;
+            margin: 10px 0;
             flex-wrap: wrap;
         }
         
@@ -223,7 +227,7 @@
             align-items: center;
             text-decoration: none;
             color: #ffffff;
-            width: 80px; /* Giảm kích thước */
+            width: 80px;
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
@@ -234,14 +238,14 @@
         }
         
         .social-icon {
-            width: 60px; /* Giảm kích thước */
-            height: 60px; /* Giảm kích thước */
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem; /* Giảm cỡ chữ */
-            margin-bottom: 10px; /* Giảm margin */
+            font-size: 1.8rem;
+            margin-bottom: 10px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -280,27 +284,27 @@
         .social-link:hover .tiktok .social-icon { background: rgba(0, 242, 234, 0.2); }
         
         .social-label {
-            font-size: 0.85rem; /* Giảm cỡ chữ */
+            font-size: 0.85rem;
             text-align: center;
         }
         
         /* Spotify Playlists */
         .playlists-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Giảm kích thước */
-            gap: 15px; /* Giảm khoảng cách */
-            margin-top: 10px; /* Giảm margin */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
         }
         
         .playlist-card {
-            background: rgba(40, 40, 62, 0.6); /* Tăng độ trong suốt */
+            background: rgba(40, 40, 62, 0.6);
             border-radius: 12px;
             padding: 0;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 300px; /* Giảm chiều cao */
+            height: 300px;
         }
         
         .playlist-card:hover {
@@ -315,7 +319,7 @@
             border: none;
         }
         
-        /* Footer mới ở giữa dưới */
+        /* Footer mới ở giữa dưới - đã chỉnh sửa vị trí */
         .main-footer {
             position: fixed;
             bottom: 15px;
@@ -323,6 +327,8 @@
             width: 100%;
             text-align: center;
             z-index: 100;
+            /* Điều chỉnh vị trí footer */
+            bottom: 10px; /* Nâng footer lên cao hơn */
         }
         
         .copyright {
@@ -334,12 +340,14 @@
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.3);
+            /* Thêm hiệu ứng nổi bật */
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
-        /* Volume controls */
+        /* Volume controls - đã chỉnh sửa */
         .volume-control {
             position: fixed;
-            bottom: 15px;
+            bottom: 60px; /* Điều chỉnh vị trí thanh âm lượng */
             right: 15px;
             z-index: 100;
             background: rgba(30, 30, 46, 0.8);
@@ -350,6 +358,14 @@
             gap: 8px;
             backdrop-filter: blur(10px);
             border: 1px solid #8a5cf6;
+            /* Hiệu ứng mới */
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .volume-control:hover {
+            transform: scale(1.05);
+            background: rgba(40, 40, 62, 0.9);
         }
         
         .volume-slider {
@@ -389,12 +405,23 @@
             background: rgba(138, 92, 246, 0.3);
         }
         
+        /* Hiệu ứng nhấp nháy khi chơi nhạc */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px #8a5cf6; }
+            50% { box-shadow: 0 0 20px #ff79c6; }
+            100% { box-shadow: 0 0 5px #8a5cf6; }
+        }
+        
+        .playing {
+            animation: pulse 2s infinite;
+        }
+        
         /* Responsive */
         @media (max-width: 900px) {
             .profile-header {
                 flex-direction: column;
-                gap: 20px; /* Giảm khoảng cách */
-                padding: 10px; /* Giảm padding */
+                gap: 20px;
+                padding: 10px;
             }
             
             .profile-left {
@@ -402,21 +429,21 @@
             }
             
             .social-links {
-                gap: 10px; /* Giảm khoảng cách */
+                gap: 10px;
             }
             
             .social-icon {
-                width: 50px; /* Giảm kích thước */
-                height: 50px; /* Giảm kích thước */
-                font-size: 1.6rem; /* Giảm cỡ chữ */
+                width: 50px;
+                height: 50px;
+                font-size: 1.6rem;
             }
             
             .username {
-                font-size: 1.3rem; /* Giảm cỡ chữ */
+                font-size: 1.3rem;
             }
             
             .playlist-card {
-                height: 250px; /* Giảm chiều cao */
+                height: 250px;
             }
             
             .global-view-counter {
@@ -429,35 +456,36 @@
         
         @media (max-width: 500px) {
             .container {
-                width: 95%; /* Tăng chiều rộng trên mobile */
-                padding: 10px; /* Giảm padding */
+                width: 95%;
+                padding: 10px;
+                margin-top: -15px;
             }
             
             .profile-pic {
-                width: 130px; /* Giảm kích thước */
-                height: 130px; /* Giảm kích thước */
+                width: 130px;
+                height: 130px;
             }
             
             .username {
-                font-size: 1.2rem; /* Giảm cỡ chữ */
+                font-size: 1.2rem;
             }
             
             .bio {
-                font-size: 0.85rem; /* Giảm cỡ chữ */
+                font-size: 0.85rem;
             }
             
             .playlist-card {
-                height: 200px; /* Giảm chiều cao */
+                height: 200px;
             }
             
             .social-icon {
-                width: 45px; /* Giảm kích thước */
-                height: 45px; /* Giảm kích thước */
-                font-size: 1.5rem; /* Giảm cỡ chữ */
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
             }
             
             .social-link {
-                width: 70px; /* Giảm kích thước */
+                width: 70px;
             }
             
             .global-view-counter {
@@ -466,13 +494,26 @@
                 font-size: 0.75rem;
                 padding: 5px 10px;
             }
+            
+            .main-footer {
+                bottom: 8px;
+            }
+            
+            .copyright {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .volume-control {
+                bottom: 50px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Video nền từ file local -->
     <video class="video-background" id="bgVideo" autoplay loop muted>
-        <source src="video/videoplayback.webm" type="video/webm">
+        <source src="https://assets.codepen.io/3364143/skies.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     
@@ -497,7 +538,7 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic">
+                <img src="https://i.pravatar.cc/150?img=32" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="status-container">
                     <div class="username-box">
                         <div class="username">Nguyễn Nem</div>
@@ -562,7 +603,7 @@
         </div>
     </div>
     
-    <!-- Footer ở giữa dưới -->
+    <!-- Footer ở giữa dưới - đã chỉnh sửa vị trí -->
     <div class="main-footer">
         <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
@@ -601,17 +642,20 @@
         
         // Phát ngẫu nhiên bài hát khi click vào profile
         function setupRandomPlay() {
-            const profilePic = document.querySelector('.profile-pic');
+            const profilePic = document.getElementById('profilePic');
             const playlist1 = document.querySelector('#playlist1 iframe');
             const playlist2 = document.querySelector('#playlist2 iframe');
             
             profilePic.addEventListener('click', function() {
+                // Thêm hiệu ứng nhấp nháy
+                this.classList.add('playing');
+                
                 // Chọn ngẫu nhiên playlist 1 hoặc 2
                 const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
                 
                 // Tạo URL mới với tham số random
                 const playlistUrl = randomPlaylist.src.split('?')[0];
-                const newUrl = playlistUrl + '?utm_source=generator&shuffle=true';
+                const newUrl = playlistUrl + '?utm_source=generator&autoplay=1';
                 
                 // Cập nhật iframe với URL mới
                 randomPlaylist.src = newUrl;
@@ -621,10 +665,15 @@
                 setTimeout(() => {
                     this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
                 }, 1000);
+                
+                // Loại bỏ hiệu ứng nhấp nháy sau 3s
+                setTimeout(() => {
+                    this.classList.remove('playing');
+                }, 3000);
             });
         }
         
-        // Volume control
+        // Volume control cho cả video và Spotify
         function setupVolumeControl() {
             const bgVideo = document.getElementById('bgVideo');
             const volumeSlider = document.getElementById('volumeSlider');
@@ -638,6 +687,13 @@
                 bgVideo.volume = this.value;
                 bgVideo.muted = false;
                 muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                
+                // Cập nhật volume cho Spotify (giả lập)
+                document.querySelectorAll('.spotify-player').forEach(player => {
+                    // Trong thực tế, không thể thay đổi volume của Spotify player từ bên ngoài
+                    // Đây chỉ là hiệu ứng minh họa
+                    player.style.opacity = this.value < 0.3 ? 0.7 : 1;
+                });
             });
             
             // Mute button
@@ -651,6 +707,11 @@
                 if (!bgVideo.muted) {
                     volumeSlider.value = bgVideo.volume;
                 }
+                
+                // Cập nhật mute cho Spotify (giả lập)
+                document.querySelectorAll('.spotify-player').forEach(player => {
+                    player.style.opacity = bgVideo.muted ? 0.5 : 1;
+                });
             });
         }
         
