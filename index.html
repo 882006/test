@@ -34,8 +34,9 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.8;
+            opacity: 1; /* Background sáng hơn */
             object-fit: cover;
+            filter: brightness(1.2); /* Tăng độ sáng */
         }
         
         .light-overlay {
@@ -44,8 +45,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(15, 12, 41, 0.7), rgba(48, 43, 99, 0.7));
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(255, 121, 198, 0.2)); /* Màu sắc đặc trưng */
             z-index: -1;
+            opacity: 0.6; /* Giảm độ mờ */
         }
         
         .light-particles {
@@ -58,10 +60,28 @@
             z-index: -1;
         }
         
-        /* Container chính */
+        /* View counter ở góc trái trên */
+        .global-view-counter {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            background: rgba(30, 30, 46, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+        }
+        
+        /* Container chính - thu nhỏ hơn */
         .container {
-            max-width: 1100px; /* Thu nhỏ container */
-            width: 95%; /* Thêm phần trăm để co giãn */
+            max-width: 1000px;
+            width: 95%;
             margin: 0 auto;
             padding: 15px;
             z-index: 10;
@@ -69,11 +89,12 @@
             background: rgba(20, 20, 36, 0.85);
             border-radius: 20px;
             border: 1px solid #8a5cf6; /* Viền mỏng hơn */
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4); /* Shadow nhẹ hơn */
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
             overflow: hidden;
+            backdrop-filter: blur(8px); /* Giảm độ mờ */
         }
         
-        /* Profile header - bố cục mới */
+        /* Profile header */
         .profile-header {
             display: flex;
             gap: 30px;
@@ -83,19 +104,19 @@
         }
         
         .profile-left {
-            flex: 0 0 260px; /* Thu nhỏ kích thước */
+            flex: 0 0 240px; /* Thu nhỏ kích thước */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         
         .profile-pic {
-            width: 200px; /* Thu nhỏ ảnh profile */
-            height: 200px;
+            width: 180px; /* Thu nhỏ ảnh profile */
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #8a5cf6; /* Viền mỏng hơn */
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.5);
+            border: 3px solid #8a5cf6;
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
             margin-bottom: 20px;
             position: relative;
             transition: all 0.3s ease;
@@ -103,7 +124,7 @@
         
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(138, 92, 246, 0.7);
+            box-shadow: 0 0 25px rgba(138, 92, 246, 0.7);
         }
         
         .status-container {
@@ -124,7 +145,7 @@
         }
         
         .username {
-            font-size: 1.7rem; /* Cỡ chữ vừa phải */
+            font-size: 1.6rem; /* Cỡ chữ vừa phải */
             font-weight: bold;
             color: white;
             text-align: center;
@@ -163,7 +184,7 @@
             padding: 20px;
             margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px); /* Giảm độ mờ */
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
         }
@@ -294,32 +315,78 @@
             border: none;
         }
         
-        /* Footer mới - góc trái dưới */
-        .profile-footer {
-            position: absolute;
+        /* Footer mới ở giữa dưới */
+        .main-footer {
+            position: fixed;
             bottom: 15px;
-            left: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #b0b0c0;
-            font-size: 0.9rem;
-            z-index: 10;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
         }
         
         .copyright {
-            background: rgba(40, 40, 62, 0.6);
-            padding: 6px 12px;
-            border-radius: 15px;
+            display: inline-block;
+            background: rgba(30, 30, 46, 0.7);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: #b0b0c0;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(138, 92, 246, 0.3);
         }
         
-        .view-counter {
-            display: inline-flex;
+        /* Volume controls */
+        .volume-control {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 100;
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 50px;
+            padding: 8px;
+            display: flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 12px;
-            background: rgba(40, 40, 62, 0.6);
-            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid #8a5cf6;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            -webkit-appearance: none;
+            height: 4px;
+            background: #4a4a6d;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #8a5cf6;
+            cursor: pointer;
+        }
+        
+        .volume-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .volume-btn:hover {
+            background: rgba(138, 92, 246, 0.3);
         }
         
         /* Responsive */
@@ -371,64 +438,12 @@
                 height: 220px;
             }
             
-            .profile-footer {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
+            .global-view-counter {
+                top: 10px;
+                left: 10px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
             }
-        }
-        
-        /* Volume controls */
-        .volume-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            background: rgba(30, 30, 46, 0.8);
-            border-radius: 50px;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-            border: 1px solid #8a5cf6;
-        }
-        
-        .volume-slider {
-            width: 80px;
-            -webkit-appearance: none;
-            height: 4px;
-            background: #4a4a6d;
-            border-radius: 5px;
-            outline: none;
-        }
-        
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #8a5cf6;
-            cursor: pointer;
-        }
-        
-        .volume-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-        
-        .volume-btn:hover {
-            background: rgba(138, 92, 246, 0.3);
         }
     </style>
 </head>
@@ -442,6 +457,11 @@
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
     
+    <!-- Số lượt xem ở góc trái trên -->
+    <div class="global-view-counter" id="globalViewCounter">
+        <i class="fas fa-eye"></i> Views: 128
+    </div>
+    
     <!-- Volume controls -->
     <div class="volume-control">
         <button class="volume-btn" id="muteBtn">
@@ -452,7 +472,7 @@
     
     <!-- Container chính -->
     <div class="container">
-        <!-- Profile header với bố cục mới -->
+        <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
                 <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic">
@@ -508,24 +528,21 @@
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
                     <div class="playlists-container">
-                        <div class="playlist-card">
+                        <div class="playlist-card" id="playlist1">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                         </div>
-                        <div class="playlist-card">
+                        <div class="playlist-card" id="playlist2">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Footer mới ở góc trái dưới -->
-        <div class="profile-footer">
-            <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
-            <div class="view-counter">
-                <i class="fas fa-eye"></i> Views: 128
-            </div>
-        </div>
+    </div>
+    
+    <!-- Footer ở giữa dưới -->
+    <div class="main-footer">
+        <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
     
     <script>
@@ -560,22 +577,33 @@
             }
         }
         
-        // Tắt video nền khi nhạc Spotify được bật
-        function setupSpotifyPlayers() {
-            const players = document.querySelectorAll('.spotify-player');
-            players.forEach(player => {
-                player.contentWindow.addEventListener('click', function() {
-                    const bgVideo = document.getElementById('bgVideo');
-                    if (bgVideo) {
-                        bgVideo.muted = true;
-                        document.getElementById('muteBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    }
-                });
+        // Phát ngẫu nhiên bài hát khi click vào profile
+        function setupRandomPlay() {
+            const profilePic = document.querySelector('.profile-pic');
+            const playlist1 = document.querySelector('#playlist1 iframe');
+            const playlist2 = document.querySelector('#playlist2 iframe');
+            
+            profilePic.addEventListener('click', function() {
+                // Chọn ngẫu nhiên playlist 1 hoặc 2
+                const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
+                
+                // Tạo URL mới với tham số random
+                const playlistUrl = randomPlaylist.src.split('?')[0];
+                const newUrl = playlistUrl + '?utm_source=generator&shuffle=true';
+                
+                // Cập nhật iframe với URL mới
+                randomPlaylist.src = newUrl;
+                
+                // Hiệu ứng visual feedback
+                this.style.boxShadow = '0 0 30px #50fa7b';
+                setTimeout(() => {
+                    this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
+                }, 1000);
             });
         }
         
         // Volume control
-        document.addEventListener('DOMContentLoaded', () => {
+        function setupVolumeControl() {
             const bgVideo = document.getElementById('bgVideo');
             const volumeSlider = document.getElementById('volumeSlider');
             const muteBtn = document.getElementById('muteBtn');
@@ -584,30 +612,48 @@
             bgVideo.volume = volumeSlider.value;
             
             // Volume slider change
-            volumeSlider.addEventListener('input', () => {
-                bgVideo.volume = volumeSlider.value;
+            volumeSlider.addEventListener('input', function() {
+                bgVideo.volume = this.value;
                 bgVideo.muted = false;
                 muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
             });
             
             // Mute button
-            muteBtn.addEventListener('click', () => {
+            muteBtn.addEventListener('click', function() {
                 bgVideo.muted = !bgVideo.muted;
-                muteBtn.innerHTML = bgVideo.muted 
+                this.innerHTML = bgVideo.muted 
                     ? '<i class="fas fa-volume-mute"></i>' 
                     : '<i class="fas fa-volume-up"></i>';
+                
+                // Cập nhật slider khi tắt tiếng
+                if (!bgVideo.muted) {
+                    volumeSlider.value = bgVideo.volume;
+                }
             });
-            
+        }
+        
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            setupVolumeControl();
+            setupRandomPlay();
             
             // Cập nhật lượt xem
             let viewCount = localStorage.getItem('viewCount') || 128;
             viewCount++;
             localStorage.setItem('viewCount', viewCount);
-            document.querySelector('.view-counter').innerHTML = `<i class="fas fa-eye"></i> Views: ${viewCount}`;
+            document.getElementById('globalViewCounter').innerHTML = `<i class="fas fa-eye"></i> Views: ${viewCount}`;
             
-            // Thiết lập Spotify players
-            setupSpotifyPlayers();
+            // Tự động tắt nhạc nền khi bật Spotify
+            document.querySelectorAll('.spotify-player').forEach(player => {
+                player.addEventListener('click', function() {
+                    const bgVideo = document.getElementById('bgVideo');
+                    if (bgVideo) {
+                        bgVideo.muted = true;
+                        document.getElementById('muteBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    }
+                });
+            });
         });
     </script>
 </body>
