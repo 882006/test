@@ -100,7 +100,7 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
             margin-bottom: 50px;
-            padding-bottom: 50px; /* Tăng padding để chứa footer */
+            padding-bottom: 20px;
             transition: all 0.5s ease-out;
         }
         
@@ -144,6 +144,8 @@
             margin-bottom: 8px;
             transition: all 0.3s ease;
             border: 1px solid rgba(242, 198, 222, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
         .name-container:hover {
@@ -158,6 +160,8 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
         
         .username span {
@@ -225,19 +229,6 @@
             font-size: 0.95rem;
             position: relative;
             z-index: 2;
-        }
-        
-        .status-container.active {
-            animation: statusBlink 0.5s ease-out;
-        }
-        
-        @keyframes statusBlink {
-            0%, 100% { 
-                box-shadow: 0 0 5px rgba(255, 214, 10, 0.5);
-            }
-            50% { 
-                box-shadow: 0 0 20px #ffd60a, 0 0 30px #ffd60a;
-            }
         }
         
         .bio {
@@ -389,12 +380,34 @@
             border: none;
         }
         
-        /* Footer bên trong container */
-        .internal-footer {
-            position: relative;
+        .spotify-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .playlist-card:hover .spotify-overlay {
+            opacity: 1;
+        }
+        
+        .main-footer {
+            position: fixed;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
             text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
+            z-index: 100;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .main-footer.visible {
+            bottom: 15px;
         }
         
         .copyright {
@@ -496,6 +509,10 @@
                 padding: 5px 10px;
             }
             
+            .main-footer.visible {
+                bottom: 10px;
+            }
+            
             .copyright {
                 padding: 8px 15px;
                 font-size: 0.8rem;
@@ -509,12 +526,6 @@
         <source src="video/videoplayback.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
-    
-    <!-- Audio cho nhạc nền -->
-    <audio id="backgroundMusic" loop>
-        <source src="soundbackgroup.mp4" type="audio/mp4">
-        Your browser does not support the audio element.
-    </audio>
     
     <!-- Custom cursor - chấm sáng trắng -->
     <div class="custom-cursor" id="customCursor"></div>
@@ -530,7 +541,7 @@
         <div class="profile-header">
             <div class="profile-left">
                 <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
-                <div class="name-container">
+                <div class="name-container" id="nameContainer">
                     <div class="username" id="fullName">
                         <span>N</span>
                         <span>g</span>
@@ -606,20 +617,28 @@
                     <div class="playlists-container">
                         <div class="playlist-card" id="playlist1">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                            <div class="spotify-overlay" data-playlist="1"></div>
                         </div>
                         <div class="playlist-card" id="playlist2">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                            <div class="spotify-overlay" data-playlist="2"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Footer bên trong container -->
-        <div class="internal-footer">
-            <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
-        </div>
     </div>
+    
+    <!-- Footer ẩn -->
+    <div class="main-footer" id="mainFooter">
+        <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
+    </div>
+    
+    <!-- Audio element for background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="video/soundbackgroup.mp4" type="audio/mp4">
+        Your browser does not support the audio element.
+    </audio>
     
     <script>
         // Custom cursor - chấm sáng trắng đơn giản
@@ -639,7 +658,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -728,11 +747,20 @@
         // Hiệu ứng cho status
         function setupStatusEffect() {
             const statusContainer = document.getElementById('statusContainer');
-            statusContainer.addEventListener('click', function() {
-                this.classList.add('active');
-                setTimeout(() => {
-                    this.classList.remove('active');
-                }, 500);
+            statusContainer.addEventListener('click', function(e) {
+                for (let i = 0; i < 15; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
+            });
+        }
+        
+        // Hiệu ứng cho name
+        function setupNameEffect() {
+            const nameContainer = document.getElementById('nameContainer');
+            nameContainer.addEventListener('click', function(e) {
+                for (let i = 0; i < 15; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
             });
         }
         
@@ -789,6 +817,26 @@
             requestAnimationFrame(animate);
         }
         
+        // Hiển thị footer khi scroll xuống
+        function setupFooterAppear() {
+            const footer = document.getElementById('mainFooter');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                const viewportHeight = window.innerHeight;
+                
+                if (pageHeight - (currentScroll + viewportHeight) < 100) {
+                    footer.classList.add('visible');
+                } else if (currentScroll <= 0) {
+                    footer.classList.remove('visible');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        }
+        
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
             const audio = document.getElementById('backgroundMusic');
@@ -811,16 +859,30 @@
             tryPlayAudio();
             
             // Xử lý Spotify
-            const spotifyIframes = document.querySelectorAll('.spotify-player');
-            spotifyIframes.forEach(iframe => {
-                // Xử lý khi Spotify bắt đầu phát
-                iframe.addEventListener('play', () => {
+            const spotifyOverlays = document.querySelectorAll('.spotify-overlay');
+            spotifyOverlays.forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    const playlistId = this.getAttribute('data-playlist');
+                    const iframe = this.closest('.playlist-card').querySelector('iframe');
+                    
+                    // Tạm dừng nhạc nền
                     audio.pause();
-                });
-                
-                // Xử lý khi Spotify dừng
-                iframe.addEventListener('pause', () => {
-                    audio.play().catch(e => console.log("Play was prevented: ", e));
+                    
+                    // Cập nhật src để phát Spotify
+                    let src = iframe.src;
+                    if (!src.includes('autoplay=1')) {
+                        if (src.includes('?')) {
+                            src += '&autoplay=1';
+                        } else {
+                            src += '?autoplay=1';
+                        }
+                        iframe.src = src;
+                    }
+                    
+                    // Hiệu ứng bong bóng
+                    for (let i = 0; i < 10; i++) {
+                        createBubbleParticle(e.clientX, e.clientY);
+                    }
                 });
             });
             
@@ -842,6 +904,8 @@
             setupCopyrightEffect();
             setupAvatarEffect();
             setupStatusEffect();
+            setupNameEffect();
+            setupFooterAppear();
             setupBackgroundMusic();
             
             // Cập nhật lượt xem
