@@ -19,7 +19,7 @@
             background: #0f0c29;
             color: #ffffff;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             display: flex;
             justify-content: center;
@@ -62,7 +62,23 @@
             z-index: -1;
         }
         
-        /* View counter ở góc trái trên */
+        /* Cat animation */
+        .running-cat {
+            position: fixed;
+            bottom: 20px;
+            left: -100px;
+            font-size: 2rem;
+            z-index: 99;
+            opacity: 0.8;
+            animation: runCat 15s linear infinite;
+        }
+        
+        @keyframes runCat {
+            0% { left: -100px; }
+            100% { left: calc(100% + 100px); }
+        }
+        
+        /* View counter */
         .global-view-counter {
             position: fixed;
             top: 15px;
@@ -84,15 +100,12 @@
         .global-view-counter:hover {
             background: rgba(138, 92, 246, 0.5);
             cursor: pointer;
+            animation: blinkCounter 0.5s infinite;
         }
         
-        .global-view-counter:hover .view-count {
-            animation: blink 0.5s infinite;
-        }
-        
-        @keyframes blink {
+        @keyframes blinkCounter {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.7; }
         }
         
         .view-count {
@@ -100,7 +113,7 @@
             transition: all 0.3s;
         }
         
-        /* Container chính */
+        /* Container */
         .container {
             max-width: 850px;
             width: 90%;
@@ -153,21 +166,20 @@
             box-shadow: 0 0 25px rgba(138, 92, 246, 0.6);
         }
         
-        .status-container {
+        .name-container {
             width: 100%;
-            background: rgba(40, 40, 62, 0.4);
-            border-radius: 15px;
-            padding: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
+            transition: all 0.3s ease;
         }
         
-        .username-box {
-            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
-            padding: 10px 12px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
+        .name-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.5);
+            background: linear-gradient(45deg, #9b6dff, #ff8ad4);
         }
         
         .username {
@@ -185,11 +197,28 @@
             opacity: 1;
             animation: blink-char 1.8s infinite;
             margin: 0 2px;
+            transition: all 0.3s;
+        }
+        
+        .username span.nem-char {
+            position: relative;
+        }
+        
+        .username span.nem-char::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #50fa7b;
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
         
         @keyframes blink-char {
             0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(255, 121, 198, 0.5); }
-            50% { opacity: 0.7; text-shadow: 0 0 15px rgba(255, 121, 198, 0.8); }
+            50% { opacity: 0.8; text-shadow: 0 0 15px rgba(255, 121, 198, 0.8); }
         }
         
         .username span:nth-child(1) { animation-delay: 0.1s; }
@@ -204,6 +233,23 @@
         .username span:nth-child(10) { animation-delay: 1.0s; }
         .username span:nth-child(11) { animation-delay: 1.1s; }
         
+        .status-container {
+            width: 100%;
+            background: rgba(40, 40, 62, 0.4);
+            border-radius: 15px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .status-container:hover {
+            background: rgba(40, 40, 62, 0.6);
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
         .status {
             display: inline-flex;
             align-items: center;
@@ -213,7 +259,6 @@
             border-radius: 20px;
             color: #ffd60a;
             font-size: 0.95rem;
-            margin-top: 8px;
         }
         
         .bio {
@@ -392,6 +437,13 @@
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
+        /* Gradient animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         /* Responsive */
         @media (max-width: 900px) {
             .profile-header {
@@ -479,6 +531,11 @@
                 padding: 6px 15px;
                 font-size: 0.8rem;
             }
+            
+            .running-cat {
+                font-size: 1.5rem;
+                bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -492,6 +549,9 @@
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
     
+    <!-- Running cat animation -->
+    <div class="running-cat" id="runningCat">🐈</div>
+    
     <!-- Số lượt xem ở góc trái trên -->
     <div class="global-view-counter" id="globalViewCounter">
         <i class="fas fa-eye"></i> Views: <span class="view-count">128</span>
@@ -503,30 +563,30 @@
         <div class="profile-header">
             <div class="profile-left">
                 <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
-                <div class="status-container">
-                    <div class="username-box">
-                        <div class="username">
-                            <span>N</span>
-                            <span>g</span>
-                            <span>u</span>
-                            <span>y</span>
-                            <span>ễ</span>
-                            <span>n</span>
-                            <span> </span>
-                            <span>N</span>
-                            <span>e</span>
-                            <span>m</span>
-                        </div>
+                <div class="name-container">
+                    <div class="username">
+                        <span>N</span>
+                        <span>g</span>
+                        <span>u</span>
+                        <span>y</span>
+                        <span>ễ</span>
+                        <span>n</span>
+                        <span> </span>
+                        <span class="nem-char">N</span>
+                        <span class="nem-char">e</span>
+                        <span class="nem-char">m</span>
                     </div>
+                </div>
+                <div class="status-container">
                     <div class="status">
                         <i class="fas fa-moon"></i> Idle
                     </div>
-                    <div class="bio">
-                        Just a Content Creator<br>
-                        boy like cat, BoyWithUke<br>
-                        and Marino music<br>
-                        🐾🎧✨
-                    </div>
+                </div>
+                <div class="bio">
+                    Just a Content Creator<br>
+                    boy like cat, BoyWithUke<br>
+                    and Marino music<br>
+                    🐾🎧✨
                 </div>
             </div>
             
@@ -626,25 +686,21 @@
             }
         }
         
-        // Phát ngẫu nhiên bài hát khi click vào profile
+        // Phát nhạc khi click vào avatar
         function setupRandomPlay() {
             const profilePic = document.getElementById('profilePic');
-            const playlist1 = document.querySelector('#playlist1 iframe');
             const playlist2 = document.querySelector('#playlist2 iframe');
             
             profilePic.addEventListener('click', function() {
                 // Thêm hiệu ứng nhấp nháy
                 this.classList.add('playing');
                 
-                // Chọn ngẫu nhiên playlist 1 hoặc 2
-                const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
-                
                 // Tạo URL mới với tham số autoplay và shuffle
-                const playlistUrl = randomPlaylist.src.split('?')[0];
+                const playlistUrl = playlist2.src.split('?')[0];
                 const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
                 
                 // Cập nhật iframe với URL mới
-                randomPlaylist.src = newUrl;
+                playlist2.src = newUrl;
                 
                 // Hiệu ứng visual feedback
                 this.style.boxShadow = '0 0 30px #50fa7b';
@@ -652,11 +708,41 @@
                     this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
                 }, 1000);
                 
+                // Kích hoạt hiệu ứng chữ Nem
+                activateNemEffect();
+                
                 // Loại bỏ hiệu ứng nhấp nháy sau 3s
                 setTimeout(() => {
                     this.classList.remove('playing');
                 }, 3000);
             });
+        }
+        
+        // Hiệu ứng chữ Nem phát sáng theo nhạc
+        function activateNemEffect() {
+            const nemChars = document.querySelectorAll('.nem-char');
+            let delay = 0;
+            
+            nemChars.forEach(char => {
+                setTimeout(() => {
+                    char.style.textShadow = '0 0 10px #50fa7b';
+                    char.style.color = '#50fa7b';
+                    
+                    // Thêm hiệu ứng gạch chân
+                    char.style.transform = 'translateY(-3px)';
+                    
+                    setTimeout(() => {
+                        char.style.textShadow = 'none';
+                        char.style.color = 'white';
+                        char.style.transform = 'translateY(0)';
+                    }, 500);
+                }, delay);
+                
+                delay += 200;
+            });
+            
+            // Lặp lại hiệu ứng mỗi 2 giây
+            setTimeout(activateNemEffect, 2000);
         }
         
         // Hiệu ứng parallax cho background
@@ -675,11 +761,35 @@
             });
         }
         
+        // Đổi màu gradient theo thời gian
+        function setupGradientAnimation() {
+            const nameContainer = document.querySelector('.name-container');
+            let hue = 0;
+            
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                nameContainer.style.background = `linear-gradient(45deg, hsl(${hue}, 80%, 60%), hsl(${(hue + 60) % 360}, 80%, 60%)`;
+            }, 50);
+        }
+        
+        // Random cat emoji
+        function randomizeCat() {
+            const cats = ['🐈', '🐱', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾'];
+            const catElement = document.getElementById('runningCat');
+            
+            setInterval(() => {
+                const randomCat = cats[Math.floor(Math.random() * cats.length)];
+                catElement.textContent = randomCat;
+            }, 3000);
+        }
+        
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             setupRandomPlay();
             setupParallax();
+            setupGradientAnimation();
+            randomizeCat();
             
             // Cập nhật lượt xem
             let viewCount = localStorage.getItem('viewCount') || 128;
@@ -705,6 +815,20 @@
             });
             viewCounter.addEventListener('mouseout', function() {
                 this.style.background = 'rgba(30, 30, 46, 0.7)';
+            });
+            
+            // Hiệu ứng gạch chân khi hover chữ Nem
+            const nemChars = document.querySelectorAll('.nem-char');
+            nemChars.forEach(char => {
+                char.addEventListener('mouseover', () => {
+                    char.style.transform = 'translateY(-3px)';
+                    char.style.textShadow = '0 0 10px #50fa7b';
+                });
+                
+                char.addEventListener('mouseout', () => {
+                    char.style.transform = 'translateY(0)';
+                    char.style.textShadow = 'none';
+                });
             });
         });
     </script>
