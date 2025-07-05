@@ -13,6 +13,11 @@ body {
     transition: all 0.5s ease-out;
 }
 
+.container {
+    background: rgba(30, 26, 46, 0.4); /* Trong suốt hơn */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Viền mỏng màu trắng đen */
+}
+
 .bio {
     line-height: 1.8; /* Tăng khoảng cách dòng */
     font-size: 0.85rem; /* Giảm kích thước chữ */
