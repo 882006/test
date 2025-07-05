@@ -154,6 +154,21 @@
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
+        .name-container.active, .status-container.active, .copyright.active {
+            animation: elementPulse 0.5s ease-out;
+        }
+        
+        @keyframes elementPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            50% { 
+                transform: scale(1.03);
+                box-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff;
+            }
+        }
+        
         .username {
             font-size: 1.2rem;
             font-weight: bold;
@@ -401,13 +416,35 @@
             opacity: 1;
         }
         
-        .main-footer {
+        .spotify-hint {
             position: absolute;
-            bottom: 15px;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(30, 30, 46, 0.7);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            color: #8a5cf6;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            display: none;
+        }
+        
+        .playlist-card:hover .spotify-hint {
+            display: block;
+        }
+        
+        .main-footer {
+            position: fixed;
+            bottom: -60px;
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 100;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .main-footer.visible {
+            bottom: 15px;
         }
         
         .copyright {
@@ -467,50 +504,57 @@
             100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
         }
         
-        .volume-control {
+        /* Video player */
+        .video-player-container {
             position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 40px;
+            bottom: 20px;
+            right: 90px;
+            width: 200px;
             height: 120px;
-            background: rgba(30, 30, 46, 0.7);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
+            z-index: 999;
             border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
-            transform: translateY(20px);
-            opacity: 0;
-            pointer-events: none;
+            opacity: 0.8;
             transition: all 0.3s ease;
         }
         
-        .music-control:hover .volume-control {
-            transform: translateY(0);
+        .video-player-container:hover {
             opacity: 1;
-            pointer-events: all;
+            transform: scale(1.05);
         }
         
-        .volume-slider {
-            -webkit-appearance: none;
-            width: 100px;
-            height: 8px;
-            border-radius: 4px;
-            background: rgba(138, 92, 246, 0.3);
-            outline: none;
-            transform: rotate(-90deg);
-            margin-top: 50px;
+        .video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #8a5cf6;
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
+            z-index: 2;
+        }
+        
+        .video-overlay i {
+            font-size: 2rem;
+            color: white;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        
+        .video-overlay:hover i {
+            opacity: 1;
+            transform: scale(1.2);
         }
         
         @media (max-width: 900px) {
@@ -555,6 +599,13 @@
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
+            }
+            
+            .video-player-container {
+                bottom: 80px;
+                right: 15px;
+                width: 150px;
+                height: 90px;
             }
         }
         
@@ -611,6 +662,13 @@
                 height: 45px;
                 font-size: 1.3rem;
             }
+            
+            .video-player-container {
+                bottom: 70px;
+                right: 10px;
+                width: 120px;
+                height: 70px;
+            }
         }
     </style>
 </head>
@@ -627,6 +685,17 @@
     <!-- Music control -->
     <div id="musicControl" class="music-control">
         <i class="fas fa-play"></i>
+    </div>
+    
+    <!-- Video player for background music -->
+    <div class="video-player-container">
+        <video class="video-player" id="bgMusicVideo" loop>
+            <source src="video/soundbackgroup.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay" id="videoOverlay">
+            <i class="fas fa-play"></i>
+        </div>
     </div>
     
     <!-- Số lượt xem ở góc trái trên -->
@@ -717,27 +786,23 @@
                         <div class="playlist-card" id="playlist1">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                             <div class="spotify-overlay" data-playlist="1"></div>
+                            <div class="spotify-hint">Click to play</div>
                         </div>
                         <div class="playlist-card" id="playlist2">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                             <div class="spotify-overlay" data-playlist="2"></div>
+                            <div class="spotify-hint">Click to play</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Footer bên trong container -->
-        <div class="main-footer">
-            <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
-        </div>
     </div>
     
-    <!-- Audio element for background music -->
-    <audio id="backgroundMusic" loop>
-        <source src="video/soundbackgroup.mp4" type="audio/mp4">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Footer ẩn -->
+    <div class="main-footer" id="mainFooter">
+        <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
+    </div>
     
     <script>
         // Custom cursor - chấm sáng trắng đơn giản
@@ -757,7 +822,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control, .video-overlay');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -827,6 +892,11 @@
             });
             
             copyright.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
                 for (let i = 0; i < 15; i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
@@ -847,6 +917,11 @@
         function setupStatusEffect() {
             const statusContainer = document.getElementById('statusContainer');
             statusContainer.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
                 for (let i = 0; i < 15; i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
@@ -857,6 +932,11 @@
         function setupNameEffect() {
             const nameContainer = document.getElementById('nameContainer');
             nameContainer.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
                 for (let i = 0; i < 15; i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
@@ -916,23 +996,45 @@
             requestAnimationFrame(animate);
         }
         
+        // Hiển thị footer khi scroll xuống
+        function setupFooterAppear() {
+            const footer = document.getElementById('mainFooter');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                const viewportHeight = window.innerHeight;
+                
+                if (pageHeight - (currentScroll + viewportHeight) < 100) {
+                    footer.classList.add('visible');
+                } else if (currentScroll <= 0) {
+                    footer.classList.remove('visible');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        }
+        
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
             const musicControl = document.getElementById('musicControl');
-            const audio = document.getElementById('backgroundMusic');
+            const videoPlayer = document.getElementById('bgMusicVideo');
+            const videoOverlay = document.getElementById('videoOverlay');
             let isPlaying = false;
             let originalTitle = document.title;
             
-            // Thiết lập âm lượng 90%
-            audio.volume = 0.9;
+            // Thiết lập âm lượng
+            videoPlayer.volume = 0.9;
             
             // Thử phát nhạc khi trang tải
             const tryPlayAudio = () => {
-                audio.play()
+                videoPlayer.play()
                     .then(() => {
                         isPlaying = true;
                         musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                         musicControl.classList.add('playing');
+                        videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                         document.title = '♪ ' + originalTitle;
                     })
                     .catch(e => {
@@ -945,15 +1047,17 @@
             // Xử lý nút điều khiển nhạc
             musicControl.addEventListener('click', function() {
                 if (isPlaying) {
-                    audio.pause();
+                    videoPlayer.pause();
                     musicControl.innerHTML = '<i class="fas fa-play"></i>';
                     musicControl.classList.remove('playing');
+                    videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                     document.title = originalTitle;
                 } else {
-                    audio.play()
+                    videoPlayer.play()
                         .catch(e => console.log("Play was prevented: ", e));
                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                     musicControl.classList.add('playing');
+                    videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                     document.title = '♪ ' + originalTitle;
                 }
                 isPlaying = !isPlaying;
@@ -961,6 +1065,33 @@
                 // Hiệu ứng bong bóng
                 for (let i = 0; i < 15; i++) {
                     const rect = musicControl.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    createBubbleParticle(centerX, centerY);
+                }
+            });
+            
+            // Xử lý video overlay
+            videoOverlay.addEventListener('click', function() {
+                if (isPlaying) {
+                    videoPlayer.pause();
+                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                    musicControl.classList.remove('playing');
+                    videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
+                    document.title = originalTitle;
+                } else {
+                    videoPlayer.play()
+                        .catch(e => console.log("Play was prevented: ", e));
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                    musicControl.classList.add('playing');
+                    videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
+                    document.title = '♪ ' + originalTitle;
+                }
+                isPlaying = !isPlaying;
+                
+                // Hiệu ứng bong bóng
+                for (let i = 0; i < 15; i++) {
+                    const rect = videoOverlay.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
                     createBubbleParticle(centerX, centerY);
@@ -975,10 +1106,11 @@
                     
                     // Tạm dừng nhạc nền
                     if (isPlaying) {
-                        audio.pause();
+                        videoPlayer.pause();
                         isPlaying = false;
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
                         musicControl.classList.remove('playing');
+                        videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                         document.title = originalTitle;
                     }
                     
@@ -1007,8 +1139,24 @@
                     const playlistUrl = playlist2.src.split('?')[0];
                     const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
                     playlist2.src = newUrl;
+                    
+                    // Dừng nhạc nền khi Spotify phát
+                    if (isPlaying) {
+                        videoPlayer.pause();
+                        isPlaying = false;
+                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                        musicControl.classList.remove('playing');
+                        videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
+                        document.title = originalTitle;
+                    }
                 }
             }, 2000);
+            
+            // Xử lý khi video kết thúc
+            videoPlayer.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            });
         }
         
         // Khởi tạo
@@ -1019,6 +1167,7 @@
             setupAvatarEffect();
             setupStatusEffect();
             setupNameEffect();
+            setupFooterAppear();
             setupBackgroundMusic();
             
             // Cập nhật lượt xem
