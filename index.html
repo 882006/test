@@ -78,7 +78,7 @@
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
-        /* Container chính - thu nhỏ hơn và trong suốt hơn */
+        /* Container chính - điều chỉnh để không chồng lên footer */
         .container {
             max-width: 850px;
             width: 90%;
@@ -92,9 +92,7 @@
             box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
             overflow: hidden;
             backdrop-filter: blur(6px);
-            /* Điều chỉnh viền ngang ra */
-            margin-top: -30px; /* Kéo container lên phía trên */
-            margin-bottom: 20px;
+            margin-bottom: 70px; /* Tạo khoảng cách với footer */
         }
         
         /* Profile header */
@@ -181,7 +179,7 @@
             flex: 1;
         }
         
-        /* Card layout - làm trong suốt hơn */
+        /* Card layout */
         .card {
             background: rgba(35, 31, 51, 0.7);
             border-radius: 15px;
@@ -319,7 +317,7 @@
             border: none;
         }
         
-        /* Footer mới ở giữa dưới - đã chỉnh sửa vị trí */
+        /* Footer - đã điều chỉnh vị trí */
         .main-footer {
             position: fixed;
             bottom: 15px;
@@ -327,8 +325,6 @@
             width: 100%;
             text-align: center;
             z-index: 100;
-            /* Điều chỉnh vị trí footer */
-            bottom: 10px; /* Nâng footer lên cao hơn */
         }
         
         .copyright {
@@ -340,14 +336,13 @@
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.3);
-            /* Thêm hiệu ứng nổi bật */
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
-        /* Volume controls - đã chỉnh sửa */
+        /* Volume controls */
         .volume-control {
             position: fixed;
-            bottom: 60px; /* Điều chỉnh vị trí thanh âm lượng */
+            bottom: 60px; /* Điều chỉnh vị trí để không chồng lên footer */
             right: 15px;
             z-index: 100;
             background: rgba(30, 30, 46, 0.8);
@@ -358,8 +353,6 @@
             gap: 8px;
             backdrop-filter: blur(10px);
             border: 1px solid #8a5cf6;
-            /* Hiệu ứng mới */
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.4);
             transition: all 0.3s ease;
         }
         
@@ -458,7 +451,7 @@
             .container {
                 width: 95%;
                 padding: 10px;
-                margin-top: -15px;
+                margin-bottom: 60px; /* Giảm margin-bottom trên mobile */
             }
             
             .profile-pic {
@@ -496,7 +489,7 @@
             }
             
             .main-footer {
-                bottom: 8px;
+                bottom: 10px;
             }
             
             .copyright {
@@ -513,7 +506,7 @@
 <body>
     <!-- Video nền từ file local -->
     <video class="video-background" id="bgVideo" autoplay loop muted>
-        <source src="https://assets.codepen.io/3364143/skies.mp4" type="video/mp4">
+        <source src="video/videoplayback.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
     
@@ -538,7 +531,7 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="https://i.pravatar.cc/150?img=32" alt="Profile Picture" class="profile-pic" id="profilePic">
+                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="status-container">
                     <div class="username-box">
                         <div class="username">Nguyễn Nem</div>
@@ -603,7 +596,7 @@
         </div>
     </div>
     
-    <!-- Footer ở giữa dưới - đã chỉnh sửa vị trí -->
+    <!-- Footer ở giữa dưới - đã điều chỉnh vị trí -->
     <div class="main-footer">
         <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
@@ -653,9 +646,9 @@
                 // Chọn ngẫu nhiên playlist 1 hoặc 2
                 const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
                 
-                // Tạo URL mới với tham số random
+                // Tạo URL mới với tham số autoplay và shuffle
                 const playlistUrl = randomPlaylist.src.split('?')[0];
-                const newUrl = playlistUrl + '?utm_source=generator&autoplay=1';
+                const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
                 
                 // Cập nhật iframe với URL mới
                 randomPlaylist.src = newUrl;
@@ -673,7 +666,7 @@
             });
         }
         
-        // Volume control cho cả video và Spotify
+        // Volume control cho video nền
         function setupVolumeControl() {
             const bgVideo = document.getElementById('bgVideo');
             const volumeSlider = document.getElementById('volumeSlider');
@@ -687,13 +680,6 @@
                 bgVideo.volume = this.value;
                 bgVideo.muted = false;
                 muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                
-                // Cập nhật volume cho Spotify (giả lập)
-                document.querySelectorAll('.spotify-player').forEach(player => {
-                    // Trong thực tế, không thể thay đổi volume của Spotify player từ bên ngoài
-                    // Đây chỉ là hiệu ứng minh họa
-                    player.style.opacity = this.value < 0.3 ? 0.7 : 1;
-                });
             });
             
             // Mute button
@@ -707,11 +693,6 @@
                 if (!bgVideo.muted) {
                     volumeSlider.value = bgVideo.volume;
                 }
-                
-                // Cập nhật mute cho Spotify (giả lập)
-                document.querySelectorAll('.spotify-player').forEach(player => {
-                    player.style.opacity = bgVideo.muted ? 0.5 : 1;
-                });
             });
         }
         
