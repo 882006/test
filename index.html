@@ -137,7 +137,7 @@
             background: rgba(30, 26, 46, 0.4);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(138, 92, 246, 0.6);
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
             overflow: hidden;
             backdrop-filter: blur(8px);
             margin-bottom: 50px;
@@ -148,26 +148,26 @@
         /* Profile header */
         .profile-header {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             margin-bottom: 15px;
             padding: 10px;
             position: relative;
         }
         
         .profile-left {
-            flex: 0 0 180px;
+            flex: 0 0 170px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         
         .profile-pic {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #F2C6DE;
-            box-shadow: 0 0 25px rgba(242, 198, 222, 0.8);
+            border: 2px solid #F2C6DE;
+            box-shadow: 0 0 20px rgba(242, 198, 222, 0.7);
             margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
@@ -175,7 +175,7 @@
         
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 35px rgba(242, 198, 222, 0.9);
+            box-shadow: 0 0 30px rgba(242, 198, 222, 0.9);
             animation: pulse 1s infinite alternate;
         }
         
@@ -190,14 +190,14 @@
             border-radius: 12px;
             padding: 8px 10px;
             margin-bottom: 8px;
-            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.5);
+            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
             transition: all 0.3s ease;
-            border: 2px solid #F2C6DE;
+            border: 1px solid #F2C6DE;
         }
         
         .name-container:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(138, 92, 246, 0.7);
+            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.5);
         }
         
         .username {
@@ -251,7 +251,7 @@
             width: 100%;
             background: rgba(40, 40, 62, 0.4);
             border-radius: 15px;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -260,7 +260,7 @@
         
         .status-container:hover {
             background: rgba(40, 40, 62, 0.6);
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
             transform: translateY(-2px);
         }
         
@@ -268,7 +268,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 15px;
+            padding: 6px 12px;
             background: rgba(255, 214, 10, 0.15);
             border-radius: 20px;
             color: #ffd60a;
@@ -293,18 +293,17 @@
         .card {
             background: rgba(35, 31, 51, 0.7);
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 20px;
             border: 2px solid rgba(138, 92, 246, 0.3);
             backdrop-filter: blur(6px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
         }
         
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-            border-color: rgba(255, 121, 198, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
         }
         
         .card-title {
@@ -314,7 +313,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 10px rgba(138, 92, 246, 0.5);
+            text-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
         .card-title i {
@@ -325,8 +324,8 @@
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 15px 0;
+            gap: 15px;
+            margin: 10px 0;
             flex-wrap: wrap;
         }
         
@@ -336,27 +335,27 @@
             align-items: center;
             text-decoration: none;
             color: #ffffff;
-            width: 80px;
+            width: 70px;
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
         }
         
         .social-link:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
         }
         
         .social-icon {
-            width: 65px;
-            height: 65px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -374,19 +373,19 @@
         }
         
         .social-link:hover .social-icon {
-            transform: translateY(-8px) rotate(5deg);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
         }
         
         .social-link:hover .social-icon::before {
             left: 100%;
         }
         
-        .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.4); }
-        .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.4); }
-        .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.4); }
-        .tiktok .social-icon { background: rgba(0, 242, 234, 0.1); border-color: rgba(0, 242, 234, 0.4); }
-        .facebook .social-icon { background: rgba(59, 89, 152, 0.1); border-color: rgba(59, 89, 152, 0.4); }
+        .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.3); }
+        .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
+        .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.3); }
+        .tiktok .social-icon { background: rgba(0, 242, 234, 0.1); border-color: rgba(0, 242, 234, 0.3); }
+        .facebook .social-icon { background: rgba(59, 89, 152, 0.1); border-color: rgba(59, 89, 152, 0.3); }
         
         .social-link:hover .youtube .social-icon { background: rgba(255, 0, 0, 0.2); }
         .social-link:hover .spotify .social-icon { background: rgba(29, 185, 84, 0.2); }
@@ -395,18 +394,17 @@
         .social-link:hover .facebook .social-icon { background: rgba(59, 89, 152, 0.2); }
         
         .social-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-align: center;
             font-weight: bold;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
         
         /* Spotify Playlists */
         .playlists-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 10px;
         }
         
         .playlist-card {
@@ -416,14 +414,13 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(138, 92, 246, 0.3);
-            height: 160px;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            height: 150px;
         }
         
         .playlist-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 121, 198, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
         .spotify-player {
@@ -451,13 +448,13 @@
         .copyright {
             display: inline-block;
             background: rgba(30, 30, 46, 0.7);
-            padding: 10px 25px;
+            padding: 10px 20px;
             border-radius: 20px;
             color: #b0b0c0;
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
-            border: 2px solid rgba(138, 92, 246, 0.4);
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.4);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -467,7 +464,7 @@
         .copyright:hover {
             background: rgba(138, 92, 246, 0.5);
             color: white;
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.6);
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
         
         /* Music player */
@@ -475,18 +472,18 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: rgba(30, 30, 46, 0.7);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
@@ -503,26 +500,8 @@
         
         @keyframes pulseMusic {
             0% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(138, 92, 246, 0); }
+            70% { box-shadow: 0 0 0 10px rgba(138, 92, 246, 0); }
             100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
-        }
-        
-        /* Floating Bubbles */
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(2px);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
-            animation: float 15s infinite ease-in-out;
-            z-index: -1;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-10px) translateX(-15px); }
-            75% { transform: translateY(15px) translateX(5px); }
         }
         
         /* Responsive */
@@ -538,13 +517,13 @@
             }
             
             .social-links {
-                gap: 15px;
+                gap: 12px;
             }
             
             .social-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 1.6rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
             }
             
             .username {
@@ -552,7 +531,7 @@
             }
             
             .playlist-card {
-                height: 140px;
+                height: 130px;
             }
             
             .global-view-counter {
@@ -565,9 +544,9 @@
             .music-player {
                 top: 15px;
                 right: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.4rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
         }
         
@@ -579,8 +558,8 @@
             }
             
             .profile-pic {
-                width: 110px;
-                height: 110px;
+                width: 100px;
+                height: 100px;
             }
             
             .username {
@@ -592,17 +571,17 @@
             }
             
             .playlist-card {
-                height: 120px;
+                height: 110px;
             }
             
             .social-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.5rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
             }
             
             .social-link {
-                width: 70px;
+                width: 60px;
             }
             
             .global-view-counter {
@@ -617,16 +596,16 @@
             }
             
             .copyright {
-                padding: 8px 18px;
+                padding: 8px 15px;
                 font-size: 0.8rem;
             }
             
             .music-player {
                 top: 12px;
                 right: 12px;
-                width: 40px;
-                height: 40px;
-                font-size: 1.3rem;
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -763,17 +742,17 @@
             const container = document.getElementById('particles');
             const colors = ['#8a5cf6', '#ff79c6', '#50fa7b', '#ffffff'];
             
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.style.position = 'absolute';
-                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
                 particle.style.height = particle.style.width;
                 particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.borderRadius = '50%';
                 particle.style.left = Math.random() * 100 + 'vw';
                 particle.style.top = Math.random() * 100 + 'vh';
                 particle.style.opacity = Math.random() * 0.5 + 0.1;
-                particle.style.boxShadow = '0 0 10px currentColor';
+                particle.style.boxShadow = '0 0 8px currentColor';
                 particle.style.zIndex = '-1';
                 
                 // Animation
@@ -786,31 +765,6 @@
                 });
                 
                 container.appendChild(particle);
-            }
-        }
-        
-        // Tạo bong bóng nổi
-        function createFloatingBubbles() {
-            const colors = ['rgba(138, 92, 246, 0.2)', 'rgba(255, 121, 198, 0.2)', 'rgba(80, 250, 123, 0.2)'];
-            
-            for (let i = 0; i < 15; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                
-                const size = Math.random() * 80 + 30;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                bubble.style.left = `${left}%`;
-                bubble.style.top = `${top}%`;
-                
-                bubble.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                bubble.style.animationDelay = `${Math.random() * 5}s`;
-                bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
-                
-                document.body.appendChild(bubble);
             }
         }
         
@@ -946,8 +900,8 @@
                 this.style.transform = `scale(${scaleAmount})`;
                 this.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 
-                // Tạo các hạt bong bóng
-                for (let i = 0; i < 20 + (popCount * 5); i++) {
+                // Tạo các hạt bong bóng (màu trắng, số lượng ít hơn)
+                for (let i = 0; i < 8 + (popCount * 2); i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
                 
@@ -959,15 +913,15 @@
             });
         }
         
-        // Tạo hạt bong bóng
+        // Tạo hạt bong bóng (màu trắng)
         function createBubbleParticle(x, y) {
             const particle = document.createElement('div');
             particle.style.position = 'fixed';
-            particle.style.width = '10px';
-            particle.style.height = '10px';
+            particle.style.width = '8px';
+            particle.style.height = '8px';
             particle.style.borderRadius = '50%';
-            particle.style.backgroundColor = `hsla(${Math.random() * 360}, 80%, 70%, 0.8)`;
-            particle.style.boxShadow = '0 0 10px currentColor';
+            particle.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            particle.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.8)';
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
             particle.style.pointerEvents = 'none';
@@ -978,8 +932,8 @@
             
             // Animation
             const angle = Math.random() * Math.PI * 2;
-            const velocity = 2 + Math.random() * 4;
-            const lifetime = 800 + Math.random() * 700;
+            const velocity = 1.5 + Math.random() * 3;
+            const lifetime = 600 + Math.random() * 600;
             
             let posX = x;
             let posY = y;
@@ -998,7 +952,7 @@
                 
                 // Di chuyển
                 posX += Math.cos(angle) * velocity;
-                posY += Math.sin(angle) * velocity - (progress * 8);
+                posY += Math.sin(angle) * velocity - (progress * 6);
                 
                 // Biến đổi
                 opacity = 1 - progress;
@@ -1045,22 +999,6 @@
             playlist2.src = newUrl;
         }
         
-        // Hiệu ứng parallax cho background
-        function setupParallax() {
-            document.addEventListener('mousemove', function(e) {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;  
-                document.querySelector('.light-overlay').style.transform = `translate(-${x * 10}px, -${y * 10}px)`;
-                document.querySelector('.video-background').style.transform = `scale(1.05) translate(${x * 5}px, ${y * 5}px)`;
-            });
-            
-            window.addEventListener('scroll', function() {
-                const scrollY = window.scrollY;
-                document.querySelector('.container').style.transform = `translateY(${scrollY * 0.2}px)`;
-                document.querySelector('.video-background').style.filter = `brightness(${0.8 - scrollY * 0.001})`;
-            });
-        }
-        
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
             const musicPlayer = document.getElementById('musicPlayer');
@@ -1101,13 +1039,11 @@
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
-            createFloatingBubbles();
             setupCustomCursor();
             activateNameEffect();
             setupCopyrightEffect();
             setupFooterAppear();
             autoPlayPlaylist2();
-            setupParallax();
             setupBackgroundMusic();
             
             // Cập nhật lượt xem
