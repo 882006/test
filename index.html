@@ -13,6 +13,8 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             cursor: none;
+            user-select: none;
+            -webkit-user-select: none;
         }
         
         /* Custom cursor */
@@ -21,24 +23,30 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background-color: rgba(138, 92, 246, 0.8);
-            box-shadow: 0 0 8px 3px rgba(138, 92, 246, 0.5);
+            background-color: rgba(138, 92, 246, 0.9);
+            box-shadow: 0 0 8px 3px rgba(138, 92, 246, 0.7);
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+            transition: 
+                transform 0.05s cubic-bezier(0.1, 0.8, 0.2, 1),
+                width 0.2s ease,
+                height 0.2s ease,
+                background-color 0.2s ease;
             mix-blend-mode: screen;
+            will-change: transform;
         }
         
         .custom-cursor.active {
             width: 24px;
             height: 24px;
-            background-color: rgba(255, 121, 198, 0.6);
-            box-shadow: 0 0 12px 5px rgba(255, 121, 198, 0.6);
+            background-color: rgba(255, 121, 198, 0.8);
+            box-shadow: 0 0 15px 5px rgba(255, 121, 198, 0.8);
         }
         
-        /* Fix cursor for Spotify iframes */
-        .spotify-player {
+        /* Fix cursor for iframes */
+        iframe {
+            pointer-events: auto;
             cursor: pointer !important;
         }
         
@@ -201,7 +209,6 @@
         .username {
             font-size: 1.1rem;
             font-weight: bold;
-            color: white;
             text-align: center;
             display: flex;
             justify-content: center;
@@ -225,7 +232,6 @@
             0%, 100% { 
                 transform: translateY(0);
                 text-shadow: 0 0 5px rgba(138, 92, 246, 0.5);
-                color: white;
             }
             50% { 
                 transform: translateY(-5px);
@@ -235,16 +241,16 @@
         }
         
         /* Màu sắc đặc biệt cho từng chữ cái */
-        .username span:nth-child(1) { color: #54DAF4; } /* N */
-        .username span:nth-child(2) { color: #84CBFA; } /* g */
-        .username span:nth-child(3) { color: #B3BBFF; } /* u */
-        .username span:nth-child(4) { color: #B9B0F3; } /* y */
-        .username span:nth-child(5) { color: #BFA5E8; } /* ễ */
-        .username span:nth-child(6) { color: #C59ADC; } /* n */
+        .username span:nth-child(1) { color: #99DEFF; } /* N */
+        .username span:nth-child(2) { color: #94E2FC; } /* g */
+        .username span:nth-child(3) { color: #8EE5F9; } /* u */
+        .username span:nth-child(4) { color: #89E9F5; } /* y */
+        .username span:nth-child(5) { color: #83EDF2; } /* ễ */
+        .username span:nth-child(6) { color: #7EF0EF; } /* n */
         .username span:nth-child(7) { color: #ffffff; } /* khoảng trắng */
-        .username span:nth-child(8) { color: #D085C5; } /* N */
-        .username span:nth-child(9) { color: #D67ABA; } /* e */
-        .username span:nth-child(10) { color: #DC6FAE; } /* m */
+        .username span:nth-child(8) { color: #73F8E8; } /* N */
+        .username span:nth-child(9) { color: #6DFBE5; } /* e */
+        .username span:nth-child(10) { color: #68FFE2; } /* m */
         
         .status-container {
             width: 100%;
@@ -431,11 +437,16 @@
         /* Footer */
         .main-footer {
             position: fixed;
-            bottom: 15px;
+            bottom: -60px;
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 100;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .main-footer.visible {
+            bottom: 15px;
         }
         
         .copyright {
@@ -449,6 +460,20 @@
             border: 1px solid rgba(138, 92, 246, 0.3);
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .copyright::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(138,92,246,0.3) 0%, rgba(138,92,246,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
         .copyright:hover {
@@ -457,9 +482,36 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
         
+        .copyright:hover::before {
+            opacity: 1;
+        }
+        
         .copyright:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.7);
+            animation: bubblePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes bubblePop {
+            0% {
+                transform: scale(1);
+            }
+            30% {
+                transform: scale(1.2);
+                background: rgba(138, 92, 246, 0.7);
+                box-shadow: 0 0 30px rgba(138, 92, 246, 0.8);
+            }
+            50% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            80% {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1);
+                background: rgba(30, 30, 46, 0.7);
+                box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            }
         }
         
         /* Responsive */
@@ -541,7 +593,7 @@
                 padding: 5px 10px;
             }
             
-            .main-footer {
+            .main-footer.visible {
                 bottom: 10px;
             }
             
@@ -662,8 +714,8 @@
         </div>
     </div>
     
-    <!-- Footer -->
-    <div class="main-footer">
+    <!-- Footer ẩn -->
+    <div class="main-footer" id="mainFooter">
         <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
     
@@ -699,15 +751,41 @@
             }
         }
         
-        // Custom cursor
+        // Custom cursor siêu mượt
         function setupCustomCursor() {
             const cursor = document.getElementById('customCursor');
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            let lastTime = 0;
             
+            // Theo dõi vị trí chuột thực tế
             document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
             });
             
+            // Animation loop cho cursor
+            function animateCursor(timestamp) {
+                if (!lastTime) lastTime = timestamp;
+                const deltaTime = timestamp - lastTime;
+                lastTime = timestamp;
+                
+                // Tính toán vị trí mới với hiệu ứng "đuổi theo"
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                
+                // Áp dụng vị trí
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
+                
+                requestAnimationFrame(animateCursor);
+            }
+            
+            requestAnimationFrame(animateCursor);
+            
+            // Thay đổi trạng thái cursor
             document.addEventListener('mousedown', () => {
                 cursor.classList.add('active');
             });
@@ -716,8 +794,8 @@
                 cursor.classList.remove('active');
             });
             
-            // Thay đổi kích thước khi hover vào các phần tử clickable
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright');
+            // Thay đổi khi hover vào các phần tử clickable
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -727,9 +805,9 @@
                 });
             });
             
-            // Fix cho Spotify iframe
-            const spotifyIframes = document.querySelectorAll('.spotify-player');
-            spotifyIframes.forEach(iframe => {
+            // Ẩn cursor khi vào iframe
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
                 iframe.addEventListener('mouseenter', () => {
                     cursor.style.opacity = '0';
                 });
@@ -785,46 +863,102 @@
         function setupCopyrightEffect() {
             const copyright = document.getElementById('copyright');
             
-            copyright.addEventListener('click', () => {
-                copyright.style.animation = 'none';
-                void copyright.offsetWidth; // Trigger reflow
-                copyright.style.animation = 'pulse 0.5s ease-out';
+            // Hiệu ứng bong bóng khi click
+            copyright.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                // Tạo hiệu ứng ánh sáng tỏa ra
-                const lightEffect = document.createElement('div');
-                lightEffect.style.position = 'fixed';
-                lightEffect.style.width = '10px';
-                lightEffect.style.height = '10px';
-                lightEffect.style.borderRadius = '50%';
-                lightEffect.style.background = 'radial-gradient(circle, rgba(138,92,246,0.8) 0%, rgba(138,92,246,0) 70%)';
-                lightEffect.style.pointerEvents = 'none';
-                lightEffect.style.zIndex = '99';
-                lightEffect.style.left = copyright.getBoundingClientRect().left + copyright.offsetWidth/2 + 'px';
-                lightEffect.style.top = copyright.getBoundingClientRect().top + copyright.offsetHeight/2 + 'px';
-                lightEffect.style.transform = 'translate(-50%, -50%)';
-                lightEffect.style.animation = 'expandLight 1s ease-out forwards';
+                // Tạo hiệu ứng nổ bong bóng
+                this.style.animation = 'none';
+                void this.offsetWidth; // Trigger reflow
+                this.style.animation = 'bubblePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
                 
-                document.body.appendChild(lightEffect);
-                
-                setTimeout(() => {
-                    lightEffect.remove();
-                }, 1000);
+                // Tạo các hạt bong bóng
+                for (let i = 0; i < 10; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
             });
             
-            // Thêm keyframe animation động
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes pulse {
-                    0% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 92, 246, 0.3); }
-                    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(138, 92, 246, 0.7); }
-                    100% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 92, 246, 0.3); }
+            // Ngăn chặn copy text
+            copyright.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        }
+        
+        // Tạo hạt bong bóng
+        function createBubbleParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '8px';
+            particle.style.height = '8px';
+            particle.style.borderRadius = '50%';
+            particle.style.backgroundColor = `hsl(${Math.random() * 60 + 240}, 80%, 70%)`;
+            particle.style.boxShadow = '0 0 10px currentColor';
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '999';
+            particle.style.transform = 'translate(-50%, -50%)';
+            
+            document.body.appendChild(particle);
+            
+            // Animation
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 3;
+            const lifetime = 500 + Math.random() * 500;
+            
+            let posX = x;
+            let posY = y;
+            let opacity = 1;
+            let scale = 1;
+            let startTime = Date.now();
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = elapsed / lifetime;
+                
+                if (progress >= 1) {
+                    particle.remove();
+                    return;
                 }
-                @keyframes expandLight {
-                    0% { width: 10px; height: 10px; opacity: 1; }
-                    100% { width: 200px; height: 200px; opacity: 0; }
+                
+                // Di chuyển
+                posX += Math.cos(angle) * velocity;
+                posY += Math.sin(angle) * velocity - (progress * 5);
+                
+                // Biến đổi
+                opacity = 1 - progress;
+                scale = 0.5 + (1 - progress) * 0.5;
+                
+                // Áp dụng
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.opacity = opacity;
+                particle.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                
+                requestAnimationFrame(animate);
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Hiển thị footer khi scroll xuống
+        function setupFooterAppear() {
+            const footer = document.getElementById('mainFooter');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.scrollY;
+                
+                // Chỉ hiển thị khi scroll xuống
+                if (currentScroll > lastScroll && currentScroll > 100) {
+                    footer.classList.add('visible');
+                } else if (currentScroll <= 0) {
+                    footer.classList.remove('visible');
                 }
-            `;
-            document.head.appendChild(style);
+                
+                lastScroll = currentScroll;
+            });
         }
         
         // Tự động phát playlist 2
@@ -857,6 +991,7 @@
             setupCustomCursor();
             activateNameEffect();
             setupCopyrightEffect();
+            setupFooterAppear();
             autoPlayPlaylist2();
             setupParallax();
             
