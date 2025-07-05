@@ -14,6 +14,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             -webkit-user-select: none;
+            cursor: none !important; /* Ẩn con trỏ chuột mặc định */
         }
         
         /* Custom cursor - chấm sáng trắng */
@@ -687,11 +688,13 @@
         function setupCustomCursor() {
             const cursor = document.getElementById('customCursor');
             
+            // Theo dõi vị trí chuột
             document.addEventListener('mousemove', (e) => {
                 cursor.style.left = `${e.clientX}px`;
                 cursor.style.top = `${e.clientY}px`;
             });
             
+            // Thay đổi trạng thái khi nhấn chuột
             document.addEventListener('mousedown', () => {
                 cursor.classList.add('active');
             });
@@ -708,6 +711,17 @@
                 });
                 el.addEventListener('mouseout', () => {
                     cursor.classList.remove('active');
+                });
+            });
+            
+            // Ẩn chấm sáng khi hover vào iframe Spotify
+            const spotifyIframes = document.querySelectorAll('.spotify-player');
+            spotifyIframes.forEach(iframe => {
+                iframe.addEventListener('mouseenter', () => {
+                    cursor.style.opacity = '0';
+                });
+                iframe.addEventListener('mouseleave', () => {
+                    cursor.style.opacity = '1';
                 });
             });
         }
@@ -757,7 +771,6 @@
         // Hiệu ứng cho footer copyright
         function setupCopyrightEffect() {
             const copyright = document.getElementById('copyright');
-            let popCount = 0;
             
             // Ngăn chặn copy text
             copyright.addEventListener('copy', function(e) {
@@ -767,27 +780,10 @@
             
             // Hiệu ứng bong bóng khi click
             copyright.addEventListener('click', function(e) {
-                popCount++;
-                
-                // Tạo hiệu ứng nổ bong bóng
-                this.style.animation = 'none';
-                void this.offsetWidth; // Trigger reflow
-                
-                // Scale dựa trên số lần click
-                const scaleAmount = 1 + (popCount * 0.1);
-                this.style.transform = `scale(${scaleAmount})`;
-                this.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                
                 // Tạo các hạt bong bóng (màu trắng)
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < 15; i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
-                
-                // Reset sau 0.5s
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                    this.style.transition = 'transform 0.5s ease-out';
-                }, 300);
             });
         }
         
@@ -876,14 +872,27 @@
             let isPlaying = false;
             let originalTitle = document.title;
             
-            // Bắt đầu phát nhạc ngay khi trang tải
-            audio.play().catch(e => {
-                console.log("Autoplay prevented: ", e);
-                // Nếu bị chặn, hiển thị nút play rõ ràng
-                musicPlayer.style.opacity = '1';
-                musicPlayer.style.transform = 'scale(1.2)';
-            });
+            // Thử phát nhạc khi trang tải
+            const tryPlayAudio = () => {
+                audio.play()
+                    .then(() => {
+                        isPlaying = true;
+                        musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
+                        musicPlayer.classList.add('playing');
+                        document.title = '♪ ' + originalTitle;
+                    })
+                    .catch(e => {
+                        console.log("Autoplay prevented: ", e);
+                        // Nếu bị chặn, hiển thị nút play rõ ràng
+                        musicPlayer.style.opacity = '1';
+                        musicPlayer.style.transform = 'scale(1.2)';
+                    });
+            };
             
+            // Bắt đầu thử phát nhạc
+            tryPlayAudio();
+            
+            // Xử lý khi người dùng click vào nút nhạc
             musicPlayer.addEventListener('click', function() {
                 if (isPlaying) {
                     audio.pause();
@@ -891,7 +900,8 @@
                     musicPlayer.classList.remove('playing');
                     document.title = originalTitle;
                 } else {
-                    audio.play().catch(e => console.log("Play was prevented: ", e));
+                    audio.play()
+                        .catch(e => console.log("Play was prevented: ", e));
                     musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
                     musicPlayer.classList.add('playing');
                     document.title = '♪ ' + originalTitle;
