@@ -100,7 +100,7 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
             margin-bottom: 50px;
-            padding-bottom: 60px; /* Tăng padding để chứa footer */
+            padding-bottom: 50px; /* Tăng padding để chứa footer */
             transition: all 0.5s ease-out;
         }
         
@@ -117,51 +117,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        
-        .profile-pic-container {
-            position: relative;
-            margin-bottom: 20px;
+            justify-content: center; /* Căn giữa theo chiều dọc */
         }
         
         .profile-pic {
-            width: 200px;
-            height: 200px;
+            width: 180px; /* Tăng kích thước avatar */
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(242, 198, 222, 0.8);
             box-shadow: 0 0 20px rgba(242, 198, 222, 0.6);
+            margin-bottom: 15px;
+            position: relative;
             transition: all 0.3s ease;
         }
         
         .profile-pic:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(242, 198, 222, 0.8);
-        }
-        
-        .music-control {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(30, 30, 46, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            z-index: 10;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .music-control:hover {
-            background: rgba(138, 92, 246, 0.5);
-            transform: scale(1.1);
         }
         
         .name-container {
@@ -182,7 +155,7 @@
         }
         
         .username {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: bold;
             text-align: center;
             display: flex;
@@ -254,13 +227,13 @@
             background: rgba(255, 214, 10, 0.1);
             border-radius: 20px;
             color: #ffd60a;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             position: relative;
             z-index: 2;
         }
         
         .bio {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #b0b0c0;
             line-height: 1.8;
             margin-top: 12px;
@@ -271,6 +244,9 @@
         
         .profile-right {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Đẩy phần tên và trạng thái xuống dưới */
         }
         
         .card {
@@ -289,7 +265,7 @@
         }
         
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #8a5cf6;
             margin-bottom: 15px;
             display: flex;
@@ -298,7 +274,7 @@
         }
         
         .card-title i {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         
         .social-links {
@@ -326,13 +302,13 @@
         }
         
         .social-icon {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 8px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -374,7 +350,7 @@
         .social-link:hover .facebook .social-icon { background: rgba(59, 89, 152, 0.2); }
         
         .social-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-align: center;
             font-weight: bold;
         }
@@ -416,22 +392,22 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.1);
             z-index: 5;
+            cursor: pointer;
             opacity: 0;
             transition: opacity 0.3s;
-            cursor: pointer;
         }
         
         .playlist-card:hover .spotify-overlay {
             opacity: 1;
         }
         
-        .internal-footer {
+        .main-footer {
             position: absolute;
             bottom: 15px;
             left: 0;
             width: 100%;
             text-align: center;
-            z-index: 10;
+            z-index: 100;
         }
         
         .copyright {
@@ -455,6 +431,88 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
         
+        /* Music control */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(30, 30, 46, 0.7);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover {
+            background: rgba(138, 92, 246, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .music-control.playing {
+            animation: pulseMusic 2s infinite;
+        }
+        
+        @keyframes pulseMusic {
+            0% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(138, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
+        }
+        
+        .volume-control {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 40px;
+            height: 120px;
+            background: rgba(30, 30, 46, 0.7);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover .volume-control {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100px;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(138, 92, 246, 0.3);
+            outline: none;
+            transform: rotate(-90deg);
+            margin-top: 50px;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #8a5cf6;
+            cursor: pointer;
+        }
+        
         @media (max-width: 900px) {
             .profile-header {
                 flex-direction: column;
@@ -466,23 +524,18 @@
                 flex: 0 0 auto;
             }
             
-            .profile-pic {
-                width: 180px;
-                height: 180px;
-            }
-            
             .social-links {
                 gap: 12px;
             }
             
             .social-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
             }
             
             .username {
-                font-size: 1.2rem;
+                font-size: 1.0rem;
             }
             
             .playlist-card {
@@ -494,6 +547,14 @@
                 left: 10px;
                 font-size: 0.8rem;
                 padding: 6px 12px;
+            }
+            
+            .music-control {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
         
@@ -510,7 +571,7 @@
             }
             
             .username {
-                font-size: 1.1rem;
+                font-size: 1.0rem;
             }
             
             .bio {
@@ -522,13 +583,13 @@
             }
             
             .social-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.4rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
             }
             
             .social-link {
-                width: 65px;
+                width: 60px;
             }
             
             .global-view-counter {
@@ -541,6 +602,14 @@
             .copyright {
                 padding: 8px 15px;
                 font-size: 0.8rem;
+            }
+            
+            .music-control {
+                bottom: 12px;
+                right: 12px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -555,6 +624,11 @@
     <!-- Custom cursor - chấm sáng trắng -->
     <div class="custom-cursor" id="customCursor"></div>
     
+    <!-- Music control -->
+    <div id="musicControl" class="music-control">
+        <i class="fas fa-play"></i>
+    </div>
+    
     <!-- Số lượt xem ở góc trái trên -->
     <div class="global-view-counter" id="globalViewCounter">
         <i class="fas fa-eye"></i> Views: <span class="view-count">128</span>
@@ -565,12 +639,7 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <div class="profile-pic-container">
-                    <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
-                    <div class="music-control" id="musicControl">
-                        <i class="fas fa-pause"></i>
-                    </div>
-                </div>
+                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="name-container" id="nameContainer">
                     <div class="username" id="fullName">
                         <span>N</span>
@@ -659,7 +728,7 @@
         </div>
         
         <!-- Footer bên trong container -->
-        <div class="internal-footer">
+        <div class="main-footer">
             <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
         </div>
     </div>
@@ -688,7 +757,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -851,7 +920,8 @@
         function setupBackgroundMusic() {
             const musicControl = document.getElementById('musicControl');
             const audio = document.getElementById('backgroundMusic');
-            let isPlaying = true;
+            let isPlaying = false;
+            let originalTitle = document.title;
             
             // Thiết lập âm lượng 90%
             audio.volume = 0.9;
@@ -860,8 +930,10 @@
             const tryPlayAudio = () => {
                 audio.play()
                     .then(() => {
-                        // Cập nhật tiêu đề
-                        document.title = '♪ ' + document.title;
+                        isPlaying = true;
+                        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                        musicControl.classList.add('playing');
+                        document.title = '♪ ' + originalTitle;
                     })
                     .catch(e => {
                         console.log("Autoplay prevented: ", e);
@@ -875,18 +947,22 @@
                 if (isPlaying) {
                     audio.pause();
                     musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                    musicControl.classList.remove('playing');
+                    document.title = originalTitle;
                 } else {
-                    audio.play();
+                    audio.play()
+                        .catch(e => console.log("Play was prevented: ", e));
                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                    musicControl.classList.add('playing');
+                    document.title = '♪ ' + originalTitle;
                 }
                 isPlaying = !isPlaying;
                 
                 // Hiệu ứng bong bóng
-                const rect = musicControl.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 15; i++) {
+                    const rect = musicControl.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
                     createBubbleParticle(centerX, centerY);
                 }
             });
@@ -902,6 +978,8 @@
                         audio.pause();
                         isPlaying = false;
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                        musicControl.classList.remove('playing');
+                        document.title = originalTitle;
                     }
                     
                     // Cập nhật src để phát Spotify
@@ -916,7 +994,7 @@
                     }
                     
                     // Hiệu ứng bong bóng
-                    for (let i = 0; i < 15; i++) {
+                    for (let i = 0; i < 10; i++) {
                         createBubbleParticle(e.clientX, e.clientY);
                     }
                 });
