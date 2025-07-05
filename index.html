@@ -64,9 +64,9 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.6;
             object-fit: cover;
-            filter: blur(5px) brightness(0.8);
+            filter: blur(2px) brightness(0.8);
             transition: all 0.5s ease-out;
         }
         
@@ -76,9 +76,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(255, 121, 198, 0.2));
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.15), rgba(255, 121, 198, 0.15));
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.3;
             transition: all 0.5s ease-out;
         }
         
@@ -113,12 +113,6 @@
         
         .global-view-counter:hover {
             background: rgba(138, 92, 246, 0.5);
-            animation: blinkCounter 0.5s infinite;
-        }
-        
-        @keyframes blinkCounter {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
         }
         
         .view-count {
@@ -134,12 +128,12 @@
             padding: 15px;
             z-index: 10;
             position: relative;
-            background: rgba(30, 26, 46, 0.4);
+            background: rgba(30, 26, 46, 0.3);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             margin-bottom: 50px;
             padding-bottom: 20px;
             transition: all 0.5s ease-out;
@@ -162,12 +156,12 @@
         }
         
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #F2C6DE;
-            box-shadow: 0 0 20px rgba(242, 198, 222, 0.7);
+            border: 2px solid rgba(242, 198, 222, 0.6);
+            box-shadow: 0 0 15px rgba(242, 198, 222, 0.5);
             margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
@@ -175,29 +169,22 @@
         
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(242, 198, 222, 0.9);
-            animation: pulse 1s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            from { transform: scale(1.05); }
-            to { transform: scale(1.08); }
+            box-shadow: 0 0 20px rgba(242, 198, 222, 0.7);
         }
         
         .name-container {
             width: 100%;
-            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
+            background: rgba(138, 92, 246, 0.1);
             border-radius: 12px;
             padding: 8px 10px;
             margin-bottom: 8px;
-            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
             transition: all 0.3s ease;
-            border: 1px solid #F2C6DE;
+            border: 1px solid rgba(242, 198, 222, 0.3);
         }
         
         .name-container:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.5);
+            background: rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
         .username {
@@ -249,7 +236,7 @@
         
         .status-container {
             width: 100%;
-            background: rgba(40, 40, 62, 0.4);
+            background: rgba(40, 40, 62, 0.3);
             border-radius: 15px;
             padding: 8px;
             text-align: center;
@@ -259,9 +246,8 @@
         }
         
         .status-container:hover {
-            background: rgba(40, 40, 62, 0.6);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
-            transform: translateY(-2px);
+            background: rgba(40, 40, 62, 0.4);
+            box-shadow: 0 0 8px rgba(138, 92, 246, 0.2);
         }
         
         .status {
@@ -269,7 +255,7 @@
             align-items: center;
             gap: 8px;
             padding: 6px 12px;
-            background: rgba(255, 214, 10, 0.15);
+            background: rgba(255, 214, 10, 0.1);
             border-radius: 20px;
             color: #ffd60a;
             font-size: 0.95rem;
@@ -291,29 +277,28 @@
         
         /* Card layout */
         .card {
-            background: rgba(35, 31, 51, 0.7);
+            background: rgba(35, 31, 51, 0.4);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
-            border: 2px solid rgba(138, 92, 246, 0.3);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
         
         .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
         
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #8a5cf6;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
         .card-title i {
@@ -374,7 +359,7 @@
         
         .social-link:hover .social-icon {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .social-link:hover .social-icon::before {
@@ -408,19 +393,19 @@
         }
         
         .playlist-card {
-            background: rgba(40, 40, 62, 0.6);
+            background: rgba(40, 40, 62, 0.4);
             border-radius: 12px;
             padding: 0;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            height: 150px;
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            height: 140px;
         }
         
         .playlist-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .spotify-player {
@@ -470,20 +455,20 @@
         /* Music player */
         .music-player {
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
-            width: 45px;
-            height: 45px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: rgba(30, 30, 46, 0.7);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.8rem;
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
@@ -500,7 +485,7 @@
         
         @keyframes pulseMusic {
             0% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(138, 92, 246, 0); }
+            70% { box-shadow: 0 0 0 15px rgba(138, 92, 246, 0); }
             100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
         }
         
@@ -531,7 +516,7 @@
             }
             
             .playlist-card {
-                height: 130px;
+                height: 120px;
             }
             
             .global-view-counter {
@@ -542,11 +527,11 @@
             }
             
             .music-player {
-                top: 15px;
+                bottom: 15px;
                 right: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
         
@@ -558,8 +543,8 @@
             }
             
             .profile-pic {
-                width: 100px;
-                height: 100px;
+                width: 90px;
+                height: 90px;
             }
             
             .username {
@@ -571,7 +556,7 @@
             }
             
             .playlist-card {
-                height: 110px;
+                height: 100px;
             }
             
             .social-icon {
@@ -601,11 +586,11 @@
             }
             
             .music-player {
-                top: 12px;
+                bottom: 12px;
                 right: 12px;
-                width: 35px;
-                height: 35px;
-                font-size: 1.1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -616,12 +601,6 @@
         <source src="video/videoplayback.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
-    
-    <!-- Nhạc nền -->
-    <audio id="backgroundMusic" loop>
-        <source src="nhạc nền.mp4" type="audio/mp4">
-        Your browser does not support the audio element.
-    </audio>
     
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
@@ -742,7 +721,7 @@
             const container = document.getElementById('particles');
             const colors = ['#8a5cf6', '#ff79c6', '#50fa7b', '#ffffff'];
             
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 const particle = document.createElement('div');
                 particle.style.position = 'absolute';
                 particle.style.width = Math.random() * 4 + 2 + 'px';
@@ -900,8 +879,8 @@
                 this.style.transform = `scale(${scaleAmount})`;
                 this.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 
-                // Tạo các hạt bong bóng (màu trắng, số lượng ít hơn)
-                for (let i = 0; i < 8 + (popCount * 2); i++) {
+                // Tạo các hạt bong bóng (màu trắng)
+                for (let i = 0; i < 5 + (popCount * 1); i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
                 
@@ -917,11 +896,11 @@
         function createBubbleParticle(x, y) {
             const particle = document.createElement('div');
             particle.style.position = 'fixed';
-            particle.style.width = '8px';
-            particle.style.height = '8px';
+            particle.style.width = '6px';
+            particle.style.height = '6px';
             particle.style.borderRadius = '50%';
             particle.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-            particle.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.8)';
+            particle.style.boxShadow = '0 0 6px rgba(255, 255, 255, 0.8)';
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
             particle.style.pointerEvents = 'none';
@@ -932,8 +911,8 @@
             
             // Animation
             const angle = Math.random() * Math.PI * 2;
-            const velocity = 1.5 + Math.random() * 3;
-            const lifetime = 600 + Math.random() * 600;
+            const velocity = 1.2 + Math.random() * 2;
+            const lifetime = 500 + Math.random() * 500;
             
             let posX = x;
             let posY = y;
@@ -952,7 +931,7 @@
                 
                 // Di chuyển
                 posX += Math.cos(angle) * velocity;
-                posY += Math.sin(angle) * velocity - (progress * 6);
+                posY += Math.sin(angle) * velocity - (progress * 5);
                 
                 // Biến đổi
                 opacity = 1 - progress;
@@ -1002,7 +981,8 @@
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
             const musicPlayer = document.getElementById('musicPlayer');
-            const audio = document.getElementById('backgroundMusic');
+            const audio = new Audio('https://cdn.freesound.org/previews/678/678338_11861866-lq.mp3');
+            audio.loop = true;
             let isPlaying = false;
             let originalTitle = document.title;
             
