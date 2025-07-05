@@ -16,7 +16,7 @@
         
         /* Background với hiệu ứng ánh sáng */
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            background: linear-gradient(135deg, #0f0c29, #1a1a2e, #16213e);
             color: #ffffff;
             min-height: 100vh;
             overflow: hidden;
@@ -36,7 +36,7 @@
             z-index: -1;
             opacity: 1;
             object-fit: cover;
-            filter: brightness(1.2);
+            filter: brightness(1.1);
         }
         
         .light-overlay {
@@ -45,9 +45,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.1), rgba(255, 121, 198, 0.1));
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.15), rgba(255, 121, 198, 0.15));
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.5;
         }
         
         .light-particles {
@@ -75,7 +75,7 @@
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.2);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 8px rgba(138, 92, 246, 0.2);
             transition: all 0.3s ease;
         }
         
@@ -98,18 +98,18 @@
             transition: all 0.3s;
         }
         
-        /* Container chính - tối giản và trong suốt */
+        /* Container chính - tinh giản và trong suốt */
         .container {
             max-width: 850px;
             width: 90%;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px;
             z-index: 10;
             position: relative;
             background: rgba(30, 26, 46, 0.3);
             border-radius: 20px;
             border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 12px rgba(138, 92, 246, 0.2);
             overflow: hidden;
             backdrop-filter: blur(10px);
             margin-bottom: 70px;
@@ -137,7 +137,7 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(138, 92, 246, 0.5);
+            border: 2px solid rgba(138, 92, 246, 0.4);
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
             margin-bottom: 15px;
             position: relative;
@@ -148,12 +148,12 @@
         
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.5);
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
         }
         
         .status-container {
             width: 100%;
-            background: rgba(40, 40, 62, 0.4);
+            background: rgba(40, 40, 62, 0.3);
             border-radius: 15px;
             padding: 12px;
             text-align: center;
@@ -162,15 +162,15 @@
         }
         
         .username-box {
-            background: linear-gradient(45deg, rgba(138, 92, 246, 0.4), rgba(255, 121, 198, 0.4));
+            background: linear-gradient(45deg, rgba(138, 92, 246, 0.3), rgba(255, 121, 198, 0.3));
             padding: 10px 12px;
             border-radius: 12px;
             margin-bottom: 12px;
-            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.2);
+            box-shadow: 0 3px 8px rgba(138, 92, 246, 0.2);
         }
         
         .username {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: white;
             text-align: center;
@@ -190,12 +190,13 @@
         /* Khoảng cách giữa "Nguyễn" và "Nem" */
         .username .space {
             width: 8px;
+            display: inline-block;
         }
         
         /* Tạo hiệu ứng nhấp nháy cho từng ký tự */
         @keyframes blink-char {
             0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); }
-            50% { opacity: 0.5; text-shadow: 0 0 15px #ff79c6; }
+            50% { opacity: 0.6; text-shadow: 0 0 12px #ff79c6; }
         }
         
         /* Độ trễ cho từng ký tự */
@@ -205,11 +206,10 @@
         .username span:nth-child(4) { animation-delay: 0.4s; }
         .username span:nth-child(5) { animation-delay: 0.5s; }
         .username span:nth-child(6) { animation-delay: 0.6s; }
-        .username span:nth-child(7) { animation-delay: 0.7s; }
+        .username .space { animation-delay: 0.7s; }
         .username span:nth-child(8) { animation-delay: 0.8s; }
         .username span:nth-child(9) { animation-delay: 0.9s; }
         .username span:nth-child(10) { animation-delay: 1.0s; }
-        .username span:nth-child(11) { animation-delay: 1.1s; }
         
         .status {
             display: inline-flex;
@@ -219,13 +219,13 @@
             background: rgba(255, 214, 10, 0.1);
             border-radius: 20px;
             color: #ffd60a;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-top: 8px;
             backdrop-filter: blur(2px);
         }
         
         .bio {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #b0b0c0;
             line-height: 1.5;
             margin-top: 12px;
@@ -240,41 +240,41 @@
         
         /* Card layout - tinh giản */
         .card {
-            background: rgba(35, 31, 51, 0.4);
+            background: rgba(35, 31, 51, 0.3);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(6px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
         
         .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
             border-color: rgba(138, 92, 246, 0.3);
         }
         
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #8a5cf6;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 10px rgba(138, 92, 246, 0.4);
+            text-shadow: 0 0 8px rgba(138, 92, 246, 0.3);
         }
         
         .card-title i {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
         /* Social Links */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             margin: 10px 0;
             flex-wrap: wrap;
         }
@@ -285,25 +285,25 @@
             align-items: center;
             text-decoration: none;
             color: #ffffff;
-            width: 80px;
+            width: 75px;
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
         }
         
         .social-link:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
         }
         
         .social-icon {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -324,8 +324,8 @@
         }
         
         .social-link:hover .social-icon {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
         .social-link:hover .social-icon::before {
@@ -345,7 +345,7 @@
         .social-link:hover .facebook .social-icon { background: rgba(59, 89, 152, 0.15); }
         
         .social-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-align: center;
         }
         
@@ -358,20 +358,20 @@
         }
         
         .playlist-card {
-            background: rgba(40, 40, 62, 0.4);
+            background: rgba(40, 40, 62, 0.3);
             border-radius: 12px;
             padding: 0;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            height: 160px;
+            height: 150px;
             backdrop-filter: blur(3px);
         }
         
         .playlist-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.22);
             border-color: rgba(138, 92, 246, 0.3);
         }
         
@@ -393,14 +393,14 @@
         
         .copyright {
             display: inline-block;
-            background: rgba(30, 30, 46, 0.4);
-            padding: 8px 20px;
+            background: rgba(30, 30, 46, 0.3);
+            padding: 8px 18px;
             border-radius: 20px;
             color: #b0b0c0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.2);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 8px rgba(138, 92, 246, 0.2);
         }
         
         /* Responsive */
@@ -422,11 +422,11 @@
             .social-icon {
                 width: 50px;
                 height: 50px;
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             
             .username {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             
             .playlist-card {
@@ -444,7 +444,7 @@
         @media (max-width: 500px) {
             .container {
                 width: 95%;
-                padding: 10px;
+                padding: 15px;
                 margin-bottom: 60px;
             }
             
@@ -454,11 +454,11 @@
             }
             
             .username {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
             .bio {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
             
             .playlist-card {
@@ -468,7 +468,7 @@
             .social-icon {
                 width: 45px;
                 height: 45px;
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             
             .social-link {
@@ -641,9 +641,9 @@
             
             profilePic.addEventListener('click', function() {
                 // Hiệu ứng visual feedback
-                this.style.boxShadow = '0 0 30px #50fa7b';
+                this.style.boxShadow = '0 0 25px #50fa7b';
                 setTimeout(() => {
-                    this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
+                    this.style.boxShadow = '0 0 10px rgba(138, 92, 246, 0.4)';
                 }, 1000);
                 
                 // Chọn ngẫu nhiên playlist 1 hoặc 2
