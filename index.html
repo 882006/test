@@ -623,7 +623,7 @@
 <body>
     <!-- Video nền từ file local -->
     <video class="video-background" id="bgVideo" autoplay loop muted>
-        <source src="video/videoplayback.webm" type="video/webm">
+        <source src="https://assets.codepen.io/1468070/nebula.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
     
@@ -632,8 +632,8 @@
     
     <!-- Video player for background music -->
     <div class="video-player-container">
-        <video class="video-player" id="bgMusicVideo" loop>
-            <source src="video/soundbackgroup.mp4" type="video/mp4">
+        <video class="video-player" id="bgMusicVideo" loop muted>
+            <source src="https://assets.codepen.io/1468070/nebula.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="video-overlay" id="videoOverlay">
@@ -651,7 +651,7 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=200&w=200" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="name-container" id="nameContainer">
                     <div class="username" id="fullName">
                         <span>N</span>
@@ -894,7 +894,7 @@
             particle.style.height = '6px';
             particle.style.borderRadius = '50%';
             particle.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-            particle.style.box-shadow = '0 0 6px rgba(255, 255, 255, 0.8)';
+            particle.style.boxShadow = '0 0 6px rgba(255, 255, 255, 0.8)';
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
             particle.style.pointerEvents = 'none';
@@ -942,20 +942,21 @@
         // Hiển thị footer khi scroll xuống
         function setupFooterAppear() {
             const footer = document.getElementById('mainFooter');
-            let lastScroll = 0;
+            
+            // Luôn hiển thị footer khi trang tải
+            footer.classList.add('visible');
             
             window.addEventListener('scroll', function() {
                 const currentScroll = window.scrollY;
                 const pageHeight = document.documentElement.scrollHeight;
                 const viewportHeight = window.innerHeight;
                 
+                // Hiển thị footer khi scroll đến cuối trang
                 if (pageHeight - (currentScroll + viewportHeight) < 100) {
                     footer.classList.add('visible');
                 } else if (currentScroll <= 0) {
                     footer.classList.remove('visible');
                 }
-                
-                lastScroll = currentScroll;
             });
         }
         
@@ -1039,24 +1040,6 @@
                 });
             });
             
-            // Tự động phát playlist 2
-            setTimeout(() => {
-                const playlist2 = document.querySelector('#playlist2 iframe');
-                if (playlist2) {
-                    const playlistUrl = playlist2.src.split('?')[0];
-                    const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
-                    playlist2.src = newUrl;
-                    
-                    // Dừng nhạc nền khi Spotify phát
-                    if (isPlaying) {
-                        videoPlayer.pause();
-                        isPlaying = false;
-                        videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
-                        document.title = originalTitle;
-                    }
-                }
-            }, 2000);
-            
             // Xử lý khi video kết thúc
             videoPlayer.addEventListener('ended', function() {
                 this.currentTime = 0;
@@ -1090,6 +1073,12 @@
             viewCounter.addEventListener('mouseout', function() {
                 this.style.background = 'rgba(30, 30, 46, 0.7)';
             });
+            
+            // Đảm bảo video nền chạy đúng
+            document.getElementById('bgVideo').play().catch(e => console.log("Background video autoplay prevented"));
+            
+            // Hiển thị footer ngay lập tức
+            document.getElementById('mainFooter').classList.add('visible');
         });
     </script>
 </body>
