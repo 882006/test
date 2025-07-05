@@ -942,21 +942,20 @@
         // Hiển thị footer khi scroll xuống
         function setupFooterAppear() {
             const footer = document.getElementById('mainFooter');
-            
-            // Luôn hiển thị footer khi trang tải
-            footer.classList.add('visible');
+            let lastScroll = 0;
             
             window.addEventListener('scroll', function() {
                 const currentScroll = window.scrollY;
                 const pageHeight = document.documentElement.scrollHeight;
                 const viewportHeight = window.innerHeight;
                 
-                // Hiển thị footer khi scroll đến cuối trang
                 if (pageHeight - (currentScroll + viewportHeight) < 100) {
                     footer.classList.add('visible');
                 } else if (currentScroll <= 0) {
                     footer.classList.remove('visible');
                 }
+                
+                lastScroll = currentScroll;
             });
         }
         
@@ -1076,9 +1075,6 @@
             
             // Đảm bảo video nền chạy đúng
             document.getElementById('bgVideo').play().catch(e => console.log("Background video autoplay prevented"));
-            
-            // Hiển thị footer ngay lập tức
-            document.getElementById('mainFooter').classList.add('visible');
         });
     </script>
 </body>
