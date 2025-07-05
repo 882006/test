@@ -13,6 +13,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             -webkit-user-select: none;
+            cursor: none !important;
         }
         
         .custom-cursor {
@@ -99,7 +100,7 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
             margin-bottom: 50px;
-            padding-bottom: 50px;
+            padding-bottom: 50px; /* Tăng padding để chứa footer */
             transition: all 0.5s ease-out;
         }
         
@@ -116,11 +117,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: center; /* Căn giữa theo chiều dọc */
         }
         
         .profile-pic {
-            width: 180px;
+            width: 180px; /* Tăng kích thước avatar */
             height: 180px;
             border-radius: 50%;
             object-fit: cover;
@@ -260,7 +261,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-between; /* Đẩy phần tên và trạng thái xuống dưới */
         }
         
         .card {
@@ -434,12 +435,16 @@
         
         .main-footer {
             position: fixed;
-            bottom: 15px; /* Hiển thị luôn */
+            bottom: -60px;
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 100;
             transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .main-footer.visible {
+            bottom: 15px;
         }
         
         .copyright {
@@ -670,7 +675,7 @@
 <body>
     <!-- Video nền từ file local -->
     <video class="video-background" id="bgVideo" autoplay loop muted>
-        <source src="https://assets.codepen.io/1468070/nebula.webm" type="video/webm">
+        <source src="video/videoplayback.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
     
@@ -678,18 +683,18 @@
     <div class="custom-cursor" id="customCursor"></div>
     
     <!-- Music control -->
-    <div id="musicControl" class="music-control playing">
-        <i class="fas fa-pause"></i>
+    <div id="musicControl" class="music-control">
+        <i class="fas fa-play"></i>
     </div>
     
     <!-- Video player for background music -->
     <div class="video-player-container">
-        <video class="video-player" id="bgMusicVideo" loop muted>
-            <source src="https://assets.codepen.io/1468070/nebula.mp4" type="video/mp4">
+        <video class="video-player" id="bgMusicVideo" loop>
+            <source src="video/soundbackgroup.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="video-overlay" id="videoOverlay">
-            <i class="fas fa-pause"></i>
+            <i class="fas fa-play"></i>
         </div>
     </div>
     
@@ -703,7 +708,7 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=200&w=200" alt="Profile Picture" class="profile-pic" id="profilePic">
+                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="name-container" id="nameContainer">
                     <div class="username" id="fullName">
                         <span>N</span>
@@ -794,8 +799,8 @@
         </div>
     </div>
     
-    <!-- Footer -->
-    <div class="main-footer">
+    <!-- Footer ẩn -->
+    <div class="main-footer" id="mainFooter">
         <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
     
@@ -991,19 +996,53 @@
             requestAnimationFrame(animate);
         }
         
+        // Hiển thị footer khi scroll xuống
+        function setupFooterAppear() {
+            const footer = document.getElementById('mainFooter');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                const viewportHeight = window.innerHeight;
+                
+                if (pageHeight - (currentScroll + viewportHeight) < 100) {
+                    footer.classList.add('visible');
+                } else if (currentScroll <= 0) {
+                    footer.classList.remove('visible');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        }
+        
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
             const musicControl = document.getElementById('musicControl');
             const videoPlayer = document.getElementById('bgMusicVideo');
             const videoOverlay = document.getElementById('videoOverlay');
-            let isPlaying = true;
+            let isPlaying = false;
             let originalTitle = document.title;
             
             // Thiết lập âm lượng
             videoPlayer.volume = 0.9;
             
-            // Tự động phát nhạc
-            videoPlayer.play().catch(e => console.log("Autoplay prevented: ", e));
+            // Thử phát nhạc khi trang tải
+            const tryPlayAudio = () => {
+                videoPlayer.play()
+                    .then(() => {
+                        isPlaying = true;
+                        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                        musicControl.classList.add('playing');
+                        videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
+                        document.title = '♪ ' + originalTitle;
+                    })
+                    .catch(e => {
+                        console.log("Autoplay prevented: ", e);
+                    });
+            };
+            
+            tryPlayAudio();
             
             // Xử lý nút điều khiển nhạc
             musicControl.addEventListener('click', function() {
@@ -1014,7 +1053,8 @@
                     videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                     document.title = originalTitle;
                 } else {
-                    videoPlayer.play();
+                    videoPlayer.play()
+                        .catch(e => console.log("Play was prevented: ", e));
                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                     musicControl.classList.add('playing');
                     videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1040,7 +1080,8 @@
                     videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                     document.title = originalTitle;
                 } else {
-                    videoPlayer.play();
+                    videoPlayer.play()
+                        .catch(e => console.log("Play was prevented: ", e));
                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                     musicControl.classList.add('playing');
                     videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1091,6 +1132,26 @@
                 });
             });
             
+            // Tự động phát playlist 2
+            setTimeout(() => {
+                const playlist2 = document.querySelector('#playlist2 iframe');
+                if (playlist2) {
+                    const playlistUrl = playlist2.src.split('?')[0];
+                    const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
+                    playlist2.src = newUrl;
+                    
+                    // Dừng nhạc nền khi Spotify phát
+                    if (isPlaying) {
+                        videoPlayer.pause();
+                        isPlaying = false;
+                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                        musicControl.classList.remove('playing');
+                        videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
+                        document.title = originalTitle;
+                    }
+                }
+            }, 2000);
+            
             // Xử lý khi video kết thúc
             videoPlayer.addEventListener('ended', function() {
                 this.currentTime = 0;
@@ -1106,6 +1167,7 @@
             setupAvatarEffect();
             setupStatusEffect();
             setupNameEffect();
+            setupFooterAppear();
             setupBackgroundMusic();
             
             // Cập nhật lượt xem
