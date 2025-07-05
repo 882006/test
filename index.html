@@ -92,7 +92,7 @@
             box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
             overflow: hidden;
             backdrop-filter: blur(6px);
-            margin-bottom: 70px; /* Tạo khoảng cách với footer */
+            margin-bottom: 70px;
         }
         
         /* Profile header */
@@ -286,11 +286,11 @@
             text-align: center;
         }
         
-        /* Spotify Playlists */
+        /* Spotify Playlists - Đã chỉnh sửa để nhỏ gọn hơn */
         .playlists-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-top: 10px;
         }
         
@@ -302,12 +302,12 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 300px;
+            height: 160px; /* Giảm đáng kể chiều cao */
         }
         
         .playlist-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             border-color: rgba(138, 92, 246, 0.3);
         }
         
@@ -342,7 +342,7 @@
         /* Volume controls */
         .volume-control {
             position: fixed;
-            bottom: 60px; /* Điều chỉnh vị trí để không chồng lên footer */
+            bottom: 60px;
             right: 15px;
             z-index: 100;
             background: rgba(30, 30, 46, 0.8);
@@ -436,7 +436,7 @@
             }
             
             .playlist-card {
-                height: 250px;
+                height: 140px;
             }
             
             .global-view-counter {
@@ -451,7 +451,7 @@
             .container {
                 width: 95%;
                 padding: 10px;
-                margin-bottom: 60px; /* Giảm margin-bottom trên mobile */
+                margin-bottom: 60px;
             }
             
             .profile-pic {
@@ -468,7 +468,7 @@
             }
             
             .playlist-card {
-                height: 200px;
+                height: 120px;
             }
             
             .social-icon {
@@ -580,7 +580,7 @@
                     </div>
                 </div>
                 
-                <!-- Spotify Playlists -->
+                <!-- Spotify Playlists - đã được chỉnh sửa nhỏ gọn -->
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
                     <div class="playlists-container">
