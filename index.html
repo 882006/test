@@ -12,36 +12,29 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            cursor: none;
             user-select: none;
             -webkit-user-select: none;
         }
         
-        /* Custom cursor */
+        /* Custom cursor - chấm sáng trắng */
         .custom-cursor {
             position: fixed;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background-color: rgba(138, 92, 246, 0.9);
-            box-shadow: 0 0 8px 3px rgba(138, 92, 246, 0.7);
+            background-color: white;
+            box-shadow: 0 0 10px white, 0 0 20px white;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: 
-                transform 0.05s cubic-bezier(0.1, 0.8, 0.2, 1),
-                width 0.2s ease,
-                height 0.2s ease,
-                background-color 0.2s ease;
+            transition: width 0.1s, height 0.1s;
             mix-blend-mode: screen;
-            will-change: transform;
         }
         
         .custom-cursor.active {
-            width: 24px;
-            height: 24px;
-            background-color: rgba(255, 121, 198, 0.8);
-            box-shadow: 0 0 15px 5px rgba(255, 121, 198, 0.8);
+            width: 18px;
+            height: 18px;
+            box-shadow: 0 0 15px white, 0 0 30px white;
         }
         
         /* Background */
@@ -64,7 +57,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.7;
+            opacity: 0.8;
             object-fit: cover;
             transition: all 0.5s ease-out;
         }
@@ -105,7 +98,7 @@
             padding: 15px;
             z-index: 10;
             position: relative;
-            background: rgba(30, 26, 46, 0.2);
+            background: rgba(30, 26, 46, 0.25);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
@@ -386,7 +379,6 @@
             width: 100%;
             height: 100%;
             border: none;
-            cursor: pointer !important;
         }
         
         /* Footer */
@@ -574,7 +566,7 @@
         Your browser does not support the video tag.
     </video>
     
-    <!-- Custom cursor -->
+    <!-- Custom cursor - chấm sáng trắng -->
     <div class="custom-cursor" id="customCursor"></div>
     
     <!-- Music player -->
@@ -691,7 +683,36 @@
     </audio>
     
     <script>
-        // Tạo hiệu ứng chữ "Nguyễn Nem"
+        // Custom cursor - chấm sáng trắng đơn giản
+        function setupCustomCursor() {
+            const cursor = document.getElementById('customCursor');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+            
+            document.addEventListener('mousedown', () => {
+                cursor.classList.add('active');
+            });
+            
+            document.addEventListener('mouseup', () => {
+                cursor.classList.remove('active');
+            });
+            
+            // Thay đổi khi hover vào các phần tử clickable
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon');
+            clickableElements.forEach(el => {
+                el.addEventListener('mouseover', () => {
+                    cursor.classList.add('active');
+                });
+                el.addEventListener('mouseout', () => {
+                    cursor.classList.remove('active');
+                });
+            });
+        }
+
+        // Hiệu ứng chữ "Nguyễn Nem"
         function activateNameEffect() {
             const nameChars = document.querySelectorAll('#fullName span');
             
@@ -758,7 +779,7 @@
                 this.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 
                 // Tạo các hạt bong bóng (màu trắng)
-                for (let i = 0; i < 5 + (popCount * 1); i++) {
+                for (let i = 0; i < 5; i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
                 
@@ -855,6 +876,14 @@
             let isPlaying = false;
             let originalTitle = document.title;
             
+            // Bắt đầu phát nhạc ngay khi trang tải
+            audio.play().catch(e => {
+                console.log("Autoplay prevented: ", e);
+                // Nếu bị chặn, hiển thị nút play rõ ràng
+                musicPlayer.style.opacity = '1';
+                musicPlayer.style.transform = 'scale(1.2)';
+            });
+            
             musicPlayer.addEventListener('click', function() {
                 if (isPlaying) {
                     audio.pause();
@@ -862,34 +891,18 @@
                     musicPlayer.classList.remove('playing');
                     document.title = originalTitle;
                 } else {
-                    audio.play().catch(e => console.log("Autoplay was prevented: ", e));
+                    audio.play().catch(e => console.log("Play was prevented: ", e));
                     musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
                     musicPlayer.classList.add('playing');
                     document.title = '♪ ' + originalTitle;
                 }
                 isPlaying = !isPlaying;
             });
-            
-            // Tự động bật nhạc khi trang load
-            setTimeout(() => {
-                if (!isPlaying) {
-                    audio.play().then(() => {
-                        isPlaying = true;
-                        musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
-                        musicPlayer.classList.add('playing');
-                        document.title = '♪ ' + originalTitle;
-                    }).catch(e => {
-                        console.log("Autoplay prevented: ", e);
-                        // Hiển thị nút play rõ ràng hơn nếu autoplay bị chặn
-                        musicPlayer.style.opacity = '1';
-                        musicPlayer.style.transform = 'scale(1.2)';
-                    });
-                }
-            }, 1000);
         }
         
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
+            setupCustomCursor();
             activateNameEffect();
             setupCopyrightEffect();
             setupFooterAppear();
