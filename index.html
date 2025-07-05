@@ -12,6 +12,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%238a5cf6" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>'), auto;
         }
         
         /* Background với hiệu ứng ánh sáng */
@@ -62,22 +63,6 @@
             z-index: -1;
         }
         
-        /* Cat animation */
-        .running-cat {
-            position: fixed;
-            bottom: 20px;
-            left: -100px;
-            font-size: 2rem;
-            z-index: 99;
-            opacity: 0.8;
-            animation: runCat 15s linear infinite;
-        }
-        
-        @keyframes runCat {
-            0% { left: -100px; }
-            100% { left: calc(100% + 100px); }
-        }
-        
         /* View counter */
         .global-view-counter {
             position: fixed;
@@ -99,7 +84,7 @@
         
         .global-view-counter:hover {
             background: rgba(138, 92, 246, 0.5);
-            cursor: pointer;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ff79c6" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>'), auto;
             animation: blinkCounter 0.5s infinite;
         }
         
@@ -158,12 +143,18 @@
             margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
-            cursor: pointer;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%2350fa7b" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>'), auto;
         }
         
         .profile-pic:hover {
             transform: scale(1.05);
             box-shadow: 0 0 25px rgba(138, 92, 246, 0.6);
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1.05); }
+            to { transform: scale(1.08); }
         }
         
         .name-container {
@@ -179,7 +170,6 @@
         .name-container:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(138, 92, 246, 0.5);
-            background: linear-gradient(45deg, #9b6dff, #ff8ad4);
         }
         
         .username {
@@ -195,43 +185,31 @@
         .username span {
             display: inline-block;
             opacity: 1;
-            animation: blink-char 1.8s infinite;
             margin: 0 2px;
             transition: all 0.3s;
         }
         
         .username span.nem-char {
             position: relative;
+            animation: none;
         }
         
-        .username span.nem-char::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #50fa7b;
-            transform: scaleX(0);
-            transition: transform 0.3s;
+        .username span.nem-char.active {
+            animation: nemBlink 0.5s ease-out;
         }
         
-        @keyframes blink-char {
-            0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(255, 121, 198, 0.5); }
-            50% { opacity: 0.8; text-shadow: 0 0 15px rgba(255, 121, 198, 0.8); }
+        @keyframes nemBlink {
+            0%, 100% { 
+                transform: translateY(0);
+                text-shadow: 0 0 5px rgba(138, 92, 246, 0.5);
+                color: white;
+            }
+            50% { 
+                transform: translateY(-5px);
+                text-shadow: 0 0 20px #50fa7b;
+                color: #50fa7b;
+            }
         }
-        
-        .username span:nth-child(1) { animation-delay: 0.1s; }
-        .username span:nth-child(2) { animation-delay: 0.2s; }
-        .username span:nth-child(3) { animation-delay: 0.3s; }
-        .username span:nth-child(4) { animation-delay: 0.4s; }
-        .username span:nth-child(5) { animation-delay: 0.5s; }
-        .username span:nth-child(6) { animation-delay: 0.6s; }
-        .username span:nth-child(7) { animation-delay: 0.7s; }
-        .username span:nth-child(8) { animation-delay: 0.8s; }
-        .username span:nth-child(9) { animation-delay: 0.9s; }
-        .username span:nth-child(10) { animation-delay: 1.0s; }
-        .username span:nth-child(11) { animation-delay: 1.1s; }
         
         .status-container {
             width: 100%;
@@ -437,11 +415,19 @@
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
         
-        /* Gradient animation */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Cat paw cursor */
+        .cat-paw {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%238a5cf6" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
         /* Responsive */
@@ -531,11 +517,6 @@
                 padding: 6px 15px;
                 font-size: 0.8rem;
             }
-            
-            .running-cat {
-                font-size: 1.5rem;
-                bottom: 10px;
-            }
         }
     </style>
 </head>
@@ -549,8 +530,8 @@
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
     
-    <!-- Running cat animation -->
-    <div class="running-cat" id="runningCat">🐈</div>
+    <!-- Custom cat paw cursor -->
+    <div class="cat-paw" id="catPaw"></div>
     
     <!-- Số lượt xem ở góc trái trên -->
     <div class="global-view-counter" id="globalViewCounter">
@@ -686,63 +667,31 @@
             }
         }
         
-        // Phát nhạc khi click vào avatar
-        function setupRandomPlay() {
-            const profilePic = document.getElementById('profilePic');
+        // Tự động phát playlist 2 khi load trang
+        function autoPlayPlaylist2() {
             const playlist2 = document.querySelector('#playlist2 iframe');
+            const playlistUrl = playlist2.src.split('?')[0];
+            const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
+            playlist2.src = newUrl;
             
-            profilePic.addEventListener('click', function() {
-                // Thêm hiệu ứng nhấp nháy
-                this.classList.add('playing');
-                
-                // Tạo URL mới với tham số autoplay và shuffle
-                const playlistUrl = playlist2.src.split('?')[0];
-                const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
-                
-                // Cập nhật iframe với URL mới
-                playlist2.src = newUrl;
-                
-                // Hiệu ứng visual feedback
-                this.style.boxShadow = '0 0 30px #50fa7b';
-                setTimeout(() => {
-                    this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
-                }, 1000);
-                
-                // Kích hoạt hiệu ứng chữ Nem
-                activateNemEffect();
-                
-                // Loại bỏ hiệu ứng nhấp nháy sau 3s
-                setTimeout(() => {
-                    this.classList.remove('playing');
-                }, 3000);
-            });
+            // Kích hoạt hiệu ứng chữ Nem
+            activateNemEffect();
         }
         
         // Hiệu ứng chữ Nem phát sáng theo nhạc
         function activateNemEffect() {
             const nemChars = document.querySelectorAll('.nem-char');
-            let delay = 0;
             
-            nemChars.forEach(char => {
-                setTimeout(() => {
-                    char.style.textShadow = '0 0 10px #50fa7b';
-                    char.style.color = '#50fa7b';
-                    
-                    // Thêm hiệu ứng gạch chân
-                    char.style.transform = 'translateY(-3px)';
-                    
+            setInterval(() => {
+                nemChars.forEach((char, index) => {
                     setTimeout(() => {
-                        char.style.textShadow = 'none';
-                        char.style.color = 'white';
-                        char.style.transform = 'translateY(0)';
-                    }, 500);
-                }, delay);
-                
-                delay += 200;
-            });
-            
-            // Lặp lại hiệu ứng mỗi 2 giây
-            setTimeout(activateNemEffect, 2000);
+                        char.classList.add('active');
+                        setTimeout(() => {
+                            char.classList.remove('active');
+                        }, 500);
+                    }, index * 200);
+                });
+            }, 2000);
         }
         
         // Hiệu ứng parallax cho background
@@ -761,35 +710,35 @@
             });
         }
         
-        // Đổi màu gradient theo thời gian
-        function setupGradientAnimation() {
-            const nameContainer = document.querySelector('.name-container');
-            let hue = 0;
+        // Custom cat paw cursor
+        function setupCatCursor() {
+            const catPaw = document.getElementById('catPaw');
             
-            setInterval(() => {
-                hue = (hue + 1) % 360;
-                nameContainer.style.background = `linear-gradient(45deg, hsl(${hue}, 80%, 60%), hsl(${(hue + 60) % 360}, 80%, 60%)`;
-            }, 50);
-        }
-        
-        // Random cat emoji
-        function randomizeCat() {
-            const cats = ['🐈', '🐱', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾'];
-            const catElement = document.getElementById('runningCat');
+            document.addEventListener('mousemove', (e) => {
+                catPaw.style.left = e.clientX + 'px';
+                catPaw.style.top = e.clientY + 'px';
+                catPaw.style.opacity = '1';
+            });
             
-            setInterval(() => {
-                const randomCat = cats[Math.floor(Math.random() * cats.length)];
-                catElement.textContent = randomCat;
-            }, 3000);
+            document.addEventListener('mouseleave', () => {
+                catPaw.style.opacity = '0';
+            });
+            
+            // Hiệu ứng nhấp chuột
+            document.addEventListener('click', () => {
+                catPaw.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                setTimeout(() => {
+                    catPaw.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 100);
+            });
         }
         
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
-            setupRandomPlay();
+            autoPlayPlaylist2();
             setupParallax();
-            setupGradientAnimation();
-            randomizeCat();
+            setupCatCursor();
             
             // Cập nhật lượt xem
             let viewCount = localStorage.getItem('viewCount') || 128;
@@ -817,18 +766,13 @@
                 this.style.background = 'rgba(30, 30, 46, 0.7)';
             });
             
-            // Hiệu ứng gạch chân khi hover chữ Nem
-            const nemChars = document.querySelectorAll('.nem-char');
-            nemChars.forEach(char => {
-                char.addEventListener('mouseover', () => {
-                    char.style.transform = 'translateY(-3px)';
-                    char.style.textShadow = '0 0 10px #50fa7b';
-                });
-                
-                char.addEventListener('mouseout', () => {
-                    char.style.transform = 'translateY(0)';
-                    char.style.textShadow = 'none';
-                });
+            // Hiệu ứng khi click vào avatar
+            const profilePic = document.getElementById('profilePic');
+            profilePic.addEventListener('click', function() {
+                this.style.animation = 'pulse 0.5s ease-out';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 500);
             });
         });
     </script>
