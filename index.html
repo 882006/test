@@ -18,23 +18,28 @@
         /* Custom cursor */
         .custom-cursor {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background-color: rgba(138, 92, 246, 0.8);
-            box-shadow: 0 0 10px 5px rgba(138, 92, 246, 0.5);
+            box-shadow: 0 0 8px 3px rgba(138, 92, 246, 0.5);
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
             mix-blend-mode: screen;
         }
         
         .custom-cursor.active {
-            width: 40px;
-            height: 40px;
+            width: 24px;
+            height: 24px;
             background-color: rgba(255, 121, 198, 0.6);
-            box-shadow: 0 0 15px 7px rgba(255, 121, 198, 0.6);
+            box-shadow: 0 0 12px 5px rgba(255, 121, 198, 0.6);
+        }
+        
+        /* Fix cursor for Spotify iframes */
+        .spotify-player {
+            cursor: pointer !important;
         }
         
         /* Background với hiệu ứng ánh sáng */
@@ -159,8 +164,8 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(138, 92, 246, 0.6);
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.4);
+            border: 3px solid #F2C6DE;
+            box-shadow: 0 0 15px rgba(242, 198, 222, 0.5);
             margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
@@ -168,7 +173,7 @@
         
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(138, 92, 246, 0.6);
+            box-shadow: 0 0 25px rgba(242, 198, 222, 0.7);
             animation: pulse 1s infinite alternate;
         }
         
@@ -185,6 +190,7 @@
             margin-bottom: 10px;
             box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
             transition: all 0.3s ease;
+            border: 2px solid #F2C6DE;
         }
         
         .name-container:hover {
@@ -208,6 +214,7 @@
             margin: 0 2px;
             transition: all 0.3s;
             position: relative;
+            font-weight: bold;
         }
         
         .username span.active {
@@ -222,10 +229,22 @@
             }
             50% { 
                 transform: translateY(-5px);
-                text-shadow: 0 0 20px #50fa7b;
-                color: #50fa7b;
+                text-shadow: 0 0 20px currentColor;
+                font-weight: 800;
             }
         }
+        
+        /* Màu sắc đặc biệt cho từng chữ cái */
+        .username span:nth-child(1) { color: #54DAF4; } /* N */
+        .username span:nth-child(2) { color: #84CBFA; } /* g */
+        .username span:nth-child(3) { color: #B3BBFF; } /* u */
+        .username span:nth-child(4) { color: #B9B0F3; } /* y */
+        .username span:nth-child(5) { color: #BFA5E8; } /* ễ */
+        .username span:nth-child(6) { color: #C59ADC; } /* n */
+        .username span:nth-child(7) { color: #ffffff; } /* khoảng trắng */
+        .username span:nth-child(8) { color: #D085C5; } /* N */
+        .username span:nth-child(9) { color: #D67ABA; } /* e */
+        .username span:nth-child(10) { color: #DC6FAE; } /* m */
         
         .status-container {
             width: 100%;
@@ -707,6 +726,17 @@
                     cursor.classList.remove('active');
                 });
             });
+            
+            // Fix cho Spotify iframe
+            const spotifyIframes = document.querySelectorAll('.spotify-player');
+            spotifyIframes.forEach(iframe => {
+                iframe.addEventListener('mouseenter', () => {
+                    cursor.style.opacity = '0';
+                });
+                iframe.addEventListener('mouseleave', () => {
+                    cursor.style.opacity = '1';
+                });
+            });
         }
         
         // Hiệu ứng chữ "Nguyễn Nem"
@@ -791,7 +821,7 @@
                 }
                 @keyframes expandLight {
                     0% { width: 10px; height: 10px; opacity: 1; }
-                    100% { width: 300px; height: 300px; opacity: 0; }
+                    100% { width: 200px; height: 200px; opacity: 0; }
                 }
             `;
             document.head.appendChild(style);
@@ -837,16 +867,6 @@
             document.querySelector('.view-count').textContent = viewCount;
             document.getElementById('globalViewCounter').innerHTML = `<i class="fas fa-eye"></i> Views: <span class="view-count">${viewCount}</span>`;
             
-            // Tự động tắt nhạc nền khi bật Spotify
-            document.querySelectorAll('.spotify-player').forEach(player => {
-                player.addEventListener('click', function() {
-                    const bgVideo = document.getElementById('bgVideo');
-                    if (bgVideo) {
-                        bgVideo.muted = true;
-                    }
-                });
-            });
-
             // Hiệu ứng khi hover vào view counter
             const viewCounter = document.getElementById('globalViewCounter');
             viewCounter.addEventListener('mouseover', function() {
