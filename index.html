@@ -44,12 +44,6 @@
             box-shadow: 0 0 15px 5px rgba(255, 121, 198, 0.8);
         }
         
-        /* Fix cursor for iframes */
-        iframe {
-            pointer-events: auto;
-            cursor: pointer !important;
-        }
-        
         /* Background với hiệu ứng ánh sáng */
         body {
             background: #0f0c29;
@@ -231,12 +225,13 @@
         @keyframes charBlink {
             0%, 100% { 
                 transform: translateY(0);
-                text-shadow: 0 0 5px rgba(138, 92, 246, 0.5);
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             }
             50% { 
                 transform: translateY(-5px);
-                text-shadow: 0 0 20px currentColor;
+                text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff;
                 font-weight: 800;
+                color: white;
             }
         }
         
@@ -432,6 +427,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            cursor: pointer !important;
         }
         
         /* Footer */
@@ -464,54 +460,10 @@
             overflow: hidden;
         }
         
-        .copyright::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(138,92,246,0.3) 0%, rgba(138,92,246,0) 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
         .copyright:hover {
             background: rgba(138, 92, 246, 0.5);
             color: white;
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
-        }
-        
-        .copyright:hover::before {
-            opacity: 1;
-        }
-        
-        .copyright:active {
-            animation: bubblePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        
-        @keyframes bubblePop {
-            0% {
-                transform: scale(1);
-            }
-            30% {
-                transform: scale(1.2);
-                background: rgba(138, 92, 246, 0.7);
-                box-shadow: 0 0 30px rgba(138, 92, 246, 0.8);
-            }
-            50% {
-                transform: scale(0.8);
-                opacity: 0.8;
-            }
-            80% {
-                transform: scale(1.1);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1);
-                background: rgba(30, 30, 46, 0.7);
-                box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
-            }
         }
         
         /* Responsive */
@@ -805,7 +757,7 @@
                 });
             });
             
-            // Ẩn cursor khi vào iframe
+            // Fix cho Spotify iframe
             const iframes = document.querySelectorAll('iframe');
             iframes.forEach(iframe => {
                 iframe.addEventListener('mouseenter', () => {
@@ -862,26 +814,37 @@
         // Hiệu ứng cho footer copyright
         function setupCopyrightEffect() {
             const copyright = document.getElementById('copyright');
-            
-            // Hiệu ứng bong bóng khi click
-            copyright.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Tạo hiệu ứng nổ bong bóng
-                this.style.animation = 'none';
-                void this.offsetWidth; // Trigger reflow
-                this.style.animation = 'bubblePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-                
-                // Tạo các hạt bong bóng
-                for (let i = 0; i < 10; i++) {
-                    createBubbleParticle(e.clientX, e.clientY);
-                }
-            });
+            let popCount = 0;
             
             // Ngăn chặn copy text
             copyright.addEventListener('copy', function(e) {
                 e.preventDefault();
                 return false;
+            });
+            
+            // Hiệu ứng bong bóng khi click
+            copyright.addEventListener('click', function(e) {
+                popCount++;
+                
+                // Tạo hiệu ứng nổ bong bóng
+                this.style.animation = 'none';
+                void this.offsetWidth; // Trigger reflow
+                
+                // Scale dựa trên số lần click
+                const scaleAmount = 1 + (popCount * 0.1);
+                this.style.transform = `scale(${scaleAmount})`;
+                this.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                
+                // Tạo các hạt bong bóng
+                for (let i = 0; i < 10 + (popCount * 2); i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
+                
+                // Reset sau 0.5s
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    this.style.transition = 'transform 0.5s ease-out';
+                }, 300);
             });
         }
         
@@ -892,8 +855,8 @@
             particle.style.width = '8px';
             particle.style.height = '8px';
             particle.style.borderRadius = '50%';
-            particle.style.backgroundColor = `hsl(${Math.random() * 60 + 240}, 80%, 70%)`;
-            particle.style.boxShadow = '0 0 10px currentColor';
+            particle.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 70%)`;
+            particle.style.boxShadow = '0 0 8px currentColor';
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
             particle.style.pointerEvents = 'none';
