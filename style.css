@@ -9,6 +9,15 @@ body {
     transition: background-color 1s, color 1s;
 }
 
+.container, .video-background, .light-overlay {
+    transition: all 0.5s ease-out;
+}
+
+.bio {
+    line-height: 1.8; /* Tăng khoảng cách dòng */
+    font-size: 0.85rem; /* Giảm kích thước chữ */
+}
+
 :root {
     --background: #121212;      /* Màu nền chính */
     --card-bg: #1e1e1e;         /* Màu nền card */
