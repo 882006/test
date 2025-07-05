@@ -100,7 +100,7 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
             margin-bottom: 50px;
-            padding-bottom: 20px;
+            padding-bottom: 60px; /* Tăng padding để chứa footer */
             transition: all 0.5s ease-out;
         }
         
@@ -119,21 +119,49 @@
             align-items: center;
         }
         
+        .profile-pic-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
         .profile-pic {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(242, 198, 222, 0.8);
             box-shadow: 0 0 20px rgba(242, 198, 222, 0.6);
-            margin-bottom: 15px;
-            position: relative;
             transition: all 0.3s ease;
         }
         
         .profile-pic:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(242, 198, 222, 0.8);
+        }
+        
+        .music-control {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(30, 30, 46, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover {
+            background: rgba(138, 92, 246, 0.5);
+            transform: scale(1.1);
         }
         
         .name-container {
@@ -154,7 +182,7 @@
         }
         
         .username {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
             text-align: center;
             display: flex;
@@ -226,13 +254,13 @@
             background: rgba(255, 214, 10, 0.1);
             border-radius: 20px;
             color: #ffd60a;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             position: relative;
             z-index: 2;
         }
         
         .bio {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #b0b0c0;
             line-height: 1.8;
             margin-top: 12px;
@@ -261,7 +289,7 @@
         }
         
         .card-title {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: #8a5cf6;
             margin-bottom: 15px;
             display: flex;
@@ -270,7 +298,7 @@
         }
         
         .card-title i {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
         
         .social-links {
@@ -298,13 +326,13 @@
         }
         
         .social-icon {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 8px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -346,7 +374,7 @@
         .social-link:hover .facebook .social-icon { background: rgba(59, 89, 152, 0.2); }
         
         .social-label {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: center;
             font-weight: bold;
         }
@@ -390,24 +418,20 @@
             z-index: 5;
             opacity: 0;
             transition: opacity 0.3s;
+            cursor: pointer;
         }
         
         .playlist-card:hover .spotify-overlay {
             opacity: 1;
         }
         
-        .main-footer {
-            position: fixed;
-            bottom: -60px;
+        .internal-footer {
+            position: absolute;
+            bottom: 15px;
             left: 0;
             width: 100%;
             text-align: center;
-            z-index: 100;
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .main-footer.visible {
-            bottom: 15px;
+            z-index: 10;
         }
         
         .copyright {
@@ -442,18 +466,23 @@
                 flex: 0 0 auto;
             }
             
+            .profile-pic {
+                width: 180px;
+                height: 180px;
+            }
+            
             .social-links {
                 gap: 12px;
             }
             
             .social-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.4rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
             
             .username {
-                font-size: 1.0rem;
+                font-size: 1.2rem;
             }
             
             .playlist-card {
@@ -476,12 +505,12 @@
             }
             
             .profile-pic {
-                width: 130px;
-                height: 130px;
+                width: 150px;
+                height: 150px;
             }
             
             .username {
-                font-size: 1.0rem;
+                font-size: 1.1rem;
             }
             
             .bio {
@@ -493,13 +522,13 @@
             }
             
             .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.3rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
             }
             
             .social-link {
-                width: 60px;
+                width: 65px;
             }
             
             .global-view-counter {
@@ -507,10 +536,6 @@
                 left: 8px;
                 font-size: 0.75rem;
                 padding: 5px 10px;
-            }
-            
-            .main-footer.visible {
-                bottom: 10px;
             }
             
             .copyright {
@@ -540,7 +565,12 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                <div class="profile-pic-container">
+                    <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                    <div class="music-control" id="musicControl">
+                        <i class="fas fa-pause"></i>
+                    </div>
+                </div>
                 <div class="name-container" id="nameContainer">
                     <div class="username" id="fullName">
                         <span>N</span>
@@ -627,11 +657,11 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Footer ẩn -->
-    <div class="main-footer" id="mainFooter">
-        <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
+        
+        <!-- Footer bên trong container -->
+        <div class="internal-footer">
+            <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
+        </div>
     </div>
     
     <!-- Audio element for background music -->
@@ -658,7 +688,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -817,29 +847,11 @@
             requestAnimationFrame(animate);
         }
         
-        // Hiển thị footer khi scroll xuống
-        function setupFooterAppear() {
-            const footer = document.getElementById('mainFooter');
-            let lastScroll = 0;
-            
-            window.addEventListener('scroll', function() {
-                const currentScroll = window.scrollY;
-                const pageHeight = document.documentElement.scrollHeight;
-                const viewportHeight = window.innerHeight;
-                
-                if (pageHeight - (currentScroll + viewportHeight) < 100) {
-                    footer.classList.add('visible');
-                } else if (currentScroll <= 0) {
-                    footer.classList.remove('visible');
-                }
-                
-                lastScroll = currentScroll;
-            });
-        }
-        
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
+            const musicControl = document.getElementById('musicControl');
             const audio = document.getElementById('backgroundMusic');
+            let isPlaying = true;
             
             // Thiết lập âm lượng 90%
             audio.volume = 0.9;
@@ -858,15 +870,39 @@
             
             tryPlayAudio();
             
-            // Xử lý Spotify
-            const spotifyOverlays = document.querySelectorAll('.spotify-overlay');
-            spotifyOverlays.forEach(overlay => {
+            // Xử lý nút điều khiển nhạc
+            musicControl.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    audio.play();
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+                
+                // Hiệu ứng bong bóng
+                const rect = musicControl.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                for (let i = 0; i < 10; i++) {
+                    createBubbleParticle(centerX, centerY);
+                }
+            });
+            
+            // Xử lý Spotify overlay
+            document.querySelectorAll('.spotify-overlay').forEach(overlay => {
                 overlay.addEventListener('click', function(e) {
                     const playlistId = this.getAttribute('data-playlist');
                     const iframe = this.closest('.playlist-card').querySelector('iframe');
                     
                     // Tạm dừng nhạc nền
-                    audio.pause();
+                    if (isPlaying) {
+                        audio.pause();
+                        isPlaying = false;
+                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                    }
                     
                     // Cập nhật src để phát Spotify
                     let src = iframe.src;
@@ -880,7 +916,7 @@
                     }
                     
                     // Hiệu ứng bong bóng
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < 15; i++) {
                         createBubbleParticle(e.clientX, e.clientY);
                     }
                 });
@@ -905,7 +941,6 @@
             setupAvatarEffect();
             setupStatusEffect();
             setupNameEffect();
-            setupFooterAppear();
             setupBackgroundMusic();
             
             // Cập nhật lượt xem
