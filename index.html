@@ -466,6 +466,43 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
         
+        /* Music player */
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(30, 30, 46, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .music-player:hover {
+            background: rgba(138, 92, 246, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .music-player.playing {
+            animation: pulseMusic 2s infinite;
+        }
+        
+        @keyframes pulseMusic {
+            0% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(138, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
+        }
+        
         /* Responsive */
         @media (max-width: 900px) {
             .profile-header {
@@ -501,6 +538,14 @@
                 left: 10px;
                 font-size: 0.8rem;
                 padding: 6px 12px;
+            }
+            
+            .music-player {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
             }
         }
         
@@ -553,6 +598,14 @@
                 padding: 6px 15px;
                 font-size: 0.8rem;
             }
+            
+            .music-player {
+                top: 12px;
+                right: 12px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -568,6 +621,11 @@
     
     <!-- Custom cursor -->
     <div class="custom-cursor" id="customCursor"></div>
+    
+    <!-- Music player -->
+    <div id="musicPlayer" class="music-player">
+        <i class="fas fa-play"></i>
+    </div>
     
     <!-- Số lượt xem ở góc trái trên -->
     <div class="global-view-counter" id="globalViewCounter">
@@ -912,9 +970,11 @@
             
             window.addEventListener('scroll', function() {
                 const currentScroll = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                const viewportHeight = window.innerHeight;
                 
-                // Chỉ hiển thị khi scroll xuống
-                if (currentScroll > lastScroll && currentScroll > 100) {
+                // Hiển thị footer khi đến gần cuối trang
+                if (pageHeight - (currentScroll + viewportHeight) < 100) {
                     footer.classList.add('visible');
                 } else if (currentScroll <= 0) {
                     footer.classList.remove('visible');
@@ -948,6 +1008,44 @@
             });
         }
         
+        // Thiết lập nhạc nền
+        function setupBackgroundMusic() {
+            const musicPlayer = document.getElementById('musicPlayer');
+            const audio = new Audio('https://cdn.freesound.org/previews/678/678338_11861866-lq.mp3');
+            audio.loop = true;
+            let isPlaying = false;
+            let originalTitle = document.title;
+            
+            musicPlayer.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    musicPlayer.innerHTML = '<i class="fas fa-play"></i>';
+                    musicPlayer.classList.remove('playing');
+                    document.title = originalTitle;
+                } else {
+                    audio.play().catch(e => console.log("Autoplay was prevented: ", e));
+                    musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
+                    musicPlayer.classList.add('playing');
+                    document.title = '♪ ' + originalTitle;
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // Tự động bật nhạc khi trang load (có thể bị chặn bởi trình duyệt)
+            setTimeout(() => {
+                if (!isPlaying) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
+                        musicPlayer.classList.add('playing');
+                        document.title = '♪ ' + originalTitle;
+                    }).catch(e => {
+                        console.log("Autoplay prevented: ", e);
+                    });
+                }
+            }, 3000);
+        }
+        
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
@@ -957,6 +1055,7 @@
             setupFooterAppear();
             autoPlayPlaylist2();
             setupParallax();
+            setupBackgroundMusic();
             
             // Cập nhật lượt xem
             let viewCount = localStorage.getItem('viewCount') || 128;
