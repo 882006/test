@@ -16,7 +16,7 @@
         
         /* Background với hiệu ứng ánh sáng */
         body {
-            background: #0f0c29;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             color: #ffffff;
             min-height: 100vh;
             overflow: hidden;
@@ -45,7 +45,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(255, 121, 198, 0.2));
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.1), rgba(255, 121, 198, 0.1));
             z-index: -1;
             opacity: 0.6;
         }
@@ -66,7 +66,7 @@
             top: 15px;
             left: 15px;
             z-index: 100;
-            background: rgba(30, 30, 46, 0.7);
+            background: rgba(30, 30, 46, 0.4);
             padding: 8px 15px;
             border-radius: 20px;
             display: flex;
@@ -74,13 +74,13 @@
             gap: 8px;
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.2);
             transition: all 0.3s ease;
         }
         
         .global-view-counter:hover {
-            background: rgba(138, 92, 246, 0.5);
+            background: rgba(138, 92, 246, 0.3);
             cursor: pointer;
         }
         
@@ -98,7 +98,7 @@
             transition: all 0.3s;
         }
         
-        /* Container chính - điều chỉnh để không chồng lên footer */
+        /* Container chính - tối giản và trong suốt */
         .container {
             max-width: 850px;
             width: 90%;
@@ -106,14 +106,14 @@
             padding: 15px;
             z-index: 10;
             position: relative;
-            background: rgba(30, 26, 46, 0.75);
+            background: rgba(30, 26, 46, 0.3);
             border-radius: 20px;
-            border: 1px solid #8a5cf6;
-            box-shadow: 0 0 20px rgba(138, 92, 246, 0.4);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.2);
             overflow: hidden;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(10px);
             margin-bottom: 70px;
-            padding-bottom: 20px; /* Thêm padding dưới để tránh chạm footer */
+            padding-bottom: 20px;
         }
         
         /* Profile header */
@@ -137,34 +137,36 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #8a5cf6;
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
+            border: 2px solid rgba(138, 92, 246, 0.5);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
             margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
             cursor: pointer;
+            backdrop-filter: blur(2px);
         }
         
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(138, 92, 246, 0.7);
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.5);
         }
         
         .status-container {
             width: 100%;
-            background: rgba(40, 40, 62, 0.6);
+            background: rgba(40, 40, 62, 0.4);
             border-radius: 15px;
             padding: 12px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
         }
         
         .username-box {
-            background: linear-gradient(45deg, #8a5cf6, #ff79c6);
+            background: linear-gradient(45deg, rgba(138, 92, 246, 0.4), rgba(255, 121, 198, 0.4));
             padding: 10px 12px;
             border-radius: 12px;
             margin-bottom: 12px;
-            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.3);
+            box-shadow: 0 3px 10px rgba(138, 92, 246, 0.2);
         }
         
         .username {
@@ -175,18 +177,25 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            letter-spacing: 1px;
         }
         
         .username span {
             display: inline-block;
             opacity: 1;
             animation: blink-char 1.5s infinite;
+            margin: 0 1px;
         }
         
-        /* Tạo hiệu ứng nhấp nháy cho từng ký tự với độ trễ khác nhau */
+        /* Khoảng cách giữa "Nguyễn" và "Nem" */
+        .username .space {
+            width: 8px;
+        }
+        
+        /* Tạo hiệu ứng nhấp nháy cho từng ký tự */
         @keyframes blink-char {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; text-shadow: 0 0 10px #ff79c6; }
+            0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); }
+            50% { opacity: 0.5; text-shadow: 0 0 15px #ff79c6; }
         }
         
         /* Độ trễ cho từng ký tự */
@@ -207,11 +216,12 @@
             align-items: center;
             gap: 8px;
             padding: 6px 15px;
-            background: rgba(255, 214, 10, 0.15);
+            background: rgba(255, 214, 10, 0.1);
             border-radius: 20px;
             color: #ffd60a;
             font-size: 0.95rem;
             margin-top: 8px;
+            backdrop-filter: blur(2px);
         }
         
         .bio {
@@ -228,21 +238,21 @@
             flex: 1;
         }
         
-        /* Card layout */
+        /* Card layout - tinh giản */
         .card {
-            background: rgba(35, 31, 51, 0.7);
+            background: rgba(35, 31, 51, 0.4);
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(6px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
         
         .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
             border-color: rgba(138, 92, 246, 0.3);
         }
         
@@ -253,6 +263,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-shadow: 0 0 10px rgba(138, 92, 246, 0.4);
         }
         
         .card-title i {
@@ -298,6 +309,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(2px);
         }
         
         .social-icon::before {
@@ -307,37 +319,37 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: 0.5s;
         }
         
         .social-link:hover .social-icon {
             transform: translateY(-8px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
         
         .social-link:hover .social-icon::before {
             left: 100%;
         }
         
-        .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.3); }
-        .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
-        .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.3); }
-        .tiktok .social-icon { background: rgba(0, 242, 234, 0.1); border-color: rgba(0, 242, 234, 0.3); }
-        .facebook .social-icon { background: rgba(59, 89, 152, 0.1); border-color: rgba(59, 89, 152, 0.3); }
+        .youtube .social-icon { background: rgba(255, 0, 0, 0.1); border-color: rgba(255, 0, 0, 0.2); }
+        .spotify .social-icon { background: rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.2); }
+        .discord .social-icon { background: rgba(114, 137, 218, 0.1); border-color: rgba(114, 137, 218, 0.2); }
+        .tiktok .social-icon { background: rgba(0, 242, 234, 0.1); border-color: rgba(0, 242, 234, 0.2); }
+        .facebook .social-icon { background: rgba(59, 89, 152, 0.1); border-color: rgba(59, 89, 152, 0.2); }
         
-        .social-link:hover .youtube .social-icon { background: rgba(255, 0, 0, 0.2); }
-        .social-link:hover .spotify .social-icon { background: rgba(29, 185, 84, 0.2); }
-        .social-link:hover .discord .social-icon { background: rgba(114, 137, 218, 0.2); }
-        .social-link:hover .tiktok .social-icon { background: rgba(0, 242, 234, 0.2); }
-        .social-link:hover .facebook .social-icon { background: rgba(59, 89, 152, 0.2); }
+        .social-link:hover .youtube .social-icon { background: rgba(255, 0, 0, 0.15); }
+        .social-link:hover .spotify .social-icon { background: rgba(29, 185, 84, 0.15); }
+        .social-link:hover .discord .social-icon { background: rgba(114, 137, 218, 0.15); }
+        .social-link:hover .tiktok .social-icon { background: rgba(0, 242, 234, 0.15); }
+        .social-link:hover .facebook .social-icon { background: rgba(59, 89, 152, 0.15); }
         
         .social-label {
             font-size: 0.85rem;
             text-align: center;
         }
         
-        /* Spotify Playlists - Đã chỉnh sửa để nhỏ gọn hơn */
+        /* Spotify Playlists */
         .playlists-container {
             display: flex;
             flex-direction: column;
@@ -346,19 +358,20 @@
         }
         
         .playlist-card {
-            background: rgba(40, 40, 62, 0.6);
+            background: rgba(40, 40, 62, 0.4);
             border-radius: 12px;
             padding: 0;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 160px; /* Giảm đáng kể chiều cao */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 160px;
+            backdrop-filter: blur(3px);
         }
         
         .playlist-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
             border-color: rgba(138, 92, 246, 0.3);
         }
         
@@ -368,7 +381,7 @@
             border: none;
         }
         
-        /* Footer - đã điều chỉnh vị trí */
+        /* Footer */
         .main-footer {
             position: fixed;
             bottom: 15px;
@@ -380,14 +393,14 @@
         
         .copyright {
             display: inline-block;
-            background: rgba(30, 30, 46, 0.7);
+            background: rgba(30, 30, 46, 0.4);
             padding: 8px 20px;
             border-radius: 20px;
             color: #b0b0c0;
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            box-shadow: 0 0 10px rgba(138, 92, 246, 0.2);
         }
         
         /* Responsive */
@@ -481,16 +494,16 @@
     </style>
 </head>
 <body>
-    <!-- Video nền từ file local -->
+    <!-- Video nền -->
     <video class="video-background" id="bgVideo" autoplay loop muted>
-        <source src="video/videoplayback.webm" type="video/webm">
+        <source src="https://assets.codepen.io/4175254/clouds.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
     
-    <!-- Số lượt xem ở góc trái trên -->
+    <!-- Số lượt xem -->
     <div class="global-view-counter" id="globalViewCounter">
         <i class="fas fa-eye"></i> Views: <span class="view-count">128</span>
     </div>
@@ -500,7 +513,7 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                <img src="https://i.pravatar.cc/150?u=nguyennem" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="status-container">
                     <div class="username-box">
                         <div class="username">
@@ -510,7 +523,7 @@
                             <span>y</span>
                             <span>ễ</span>
                             <span>n</span>
-                            <span> </span>
+                            <span class="space"></span>
                             <span>N</span>
                             <span>e</span>
                             <span>m</span>
@@ -520,8 +533,7 @@
                         <i class="fas fa-moon"></i> Idle
                     </div>
                     <div class="bio">
-                        Just a Content Creator boy like cat, BoyWithUke and Marino music 
-                        🐾🎧✨
+                        Just a Content Creator boy like cat, BoyWithUke and Marino music 🐾🎧✨
                     </div>
                 </div>
             </div>
@@ -559,7 +571,6 @@
                             <span class="social-label">Discord</span>
                         </a>
 
-                        <!-- Thêm Facebook -->
                         <a href="https://www.facebook.com/profile.php?id=61575822069584" target="_blank" class="social-link facebook">
                             <div class="social-icon">
                                 <i class="fab fa-facebook"></i>
@@ -569,15 +580,15 @@
                     </div>
                 </div>
                 
-                <!-- Spotify Playlists - đã được chỉnh sửa nhỏ gọn -->
+                <!-- Favorite Playlists -->
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-music"></i> Favorite Playlists</h2>
                     <div class="playlists-container">
                         <div class="playlist-card" id="playlist1">
-                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                         </div>
                         <div class="playlist-card" id="playlist2">
-                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                            <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4vLyj0srrBvo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 </div>
@@ -585,7 +596,7 @@
         </div>
     </div>
     
-    <!-- Footer ở giữa dưới - đã điều chỉnh vị trí -->
+    <!-- Footer -->
     <div class="main-footer">
         <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
@@ -629,29 +640,21 @@
             const playlist2 = document.querySelector('#playlist2 iframe');
             
             profilePic.addEventListener('click', function() {
-                // Thêm hiệu ứng nhấp nháy
-                this.classList.add('playing');
-                
-                // Chọn ngẫu nhiên playlist 1 hoặc 2
-                const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
-                
-                // Tạo URL mới với tham số autoplay và shuffle
-                const playlistUrl = randomPlaylist.src.split('?')[0];
-                const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
-                
-                // Cập nhật iframe với URL mới
-                randomPlaylist.src = newUrl;
-                
                 // Hiệu ứng visual feedback
                 this.style.boxShadow = '0 0 30px #50fa7b';
                 setTimeout(() => {
                     this.style.boxShadow = '0 0 15px rgba(138, 92, 246, 0.5)';
                 }, 1000);
                 
-                // Loại bỏ hiệu ứng nhấp nháy sau 3s
-                setTimeout(() => {
-                    this.classList.remove('playing');
-                }, 3000);
+                // Chọn ngẫu nhiên playlist 1 hoặc 2
+                const randomPlaylist = Math.random() > 0.5 ? playlist1 : playlist2;
+                
+                // Tạo URL mới với tham số autoplay
+                const playlistUrl = randomPlaylist.src.split('?')[0];
+                const newUrl = playlistUrl + '?utm_source=generator&autoplay=1';
+                
+                // Cập nhật iframe với URL mới
+                randomPlaylist.src = newUrl;
             });
         }
         
@@ -665,25 +668,14 @@
             viewCount++;
             localStorage.setItem('viewCount', viewCount);
             document.querySelector('.view-count').textContent = viewCount;
-            document.getElementById('globalViewCounter').innerHTML = `<i class="fas fa-eye"></i> Views: <span class="view-count">${viewCount}</span>`;
             
-            // Tự động tắt nhạc nền khi bật Spotify
-            document.querySelectorAll('.spotify-player').forEach(player => {
-                player.addEventListener('click', function() {
-                    const bgVideo = document.getElementById('bgVideo');
-                    if (bgVideo) {
-                        bgVideo.muted = true;
-                    }
-                });
-            });
-
             // Hiệu ứng khi hover vào view counter
             const viewCounter = document.getElementById('globalViewCounter');
             viewCounter.addEventListener('mouseover', function() {
-                this.style.background = 'rgba(138, 92, 246, 0.5)';
+                this.style.background = 'rgba(138, 92, 246, 0.3)';
             });
             viewCounter.addEventListener('mouseout', function() {
-                this.style.background = 'rgba(30, 30, 46, 0.7)';
+                this.style.background = 'rgba(30, 30, 46, 0.4)';
             });
         });
     </script>
