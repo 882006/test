@@ -12,7 +12,29 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%238a5cf6" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>'), auto;
+            cursor: none;
+        }
+        
+        /* Custom cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(138, 92, 246, 0.8);
+            box-shadow: 0 0 10px 5px rgba(138, 92, 246, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: screen;
+        }
+        
+        .custom-cursor.active {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 121, 198, 0.6);
+            box-shadow: 0 0 15px 7px rgba(255, 121, 198, 0.6);
         }
         
         /* Background với hiệu ứng ánh sáng */
@@ -84,7 +106,6 @@
         
         .global-view-counter:hover {
             background: rgba(138, 92, 246, 0.5);
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ff79c6" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>'), auto;
             animation: blinkCounter 0.5s infinite;
         }
         
@@ -143,7 +164,6 @@
             margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%2350fa7b" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>'), auto;
         }
         
         .profile-pic:hover {
@@ -187,18 +207,14 @@
             opacity: 1;
             margin: 0 2px;
             transition: all 0.3s;
-        }
-        
-        .username span.nem-char {
             position: relative;
-            animation: none;
         }
         
-        .username span.nem-char.active {
-            animation: nemBlink 0.5s ease-out;
+        .username span.active {
+            animation: charBlink 0.5s ease-out;
         }
         
-        @keyframes nemBlink {
+        @keyframes charBlink {
             0%, 100% { 
                 transform: translateY(0);
                 text-shadow: 0 0 5px rgba(138, 92, 246, 0.5);
@@ -413,21 +429,18 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(138, 92, 246, 0.3);
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
+            transition: all 0.3s ease;
         }
         
-        /* Cat paw cursor */
-        .cat-paw {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%238a5cf6" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8M15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8M12,17.5C9.67,17.5 7.69,16.04 6.89,14H17.11C16.31,16.04 14.33,17.5 12,17.5Z" /></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .copyright:hover {
+            background: rgba(138, 92, 246, 0.5);
+            color: white;
+            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
+        }
+        
+        .copyright:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 20px rgba(138, 92, 246, 0.7);
         }
         
         /* Responsive */
@@ -530,8 +543,8 @@
     <div class="light-overlay"></div>
     <div class="light-particles" id="particles"></div>
     
-    <!-- Custom cat paw cursor -->
-    <div class="cat-paw" id="catPaw"></div>
+    <!-- Custom cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
     
     <!-- Số lượt xem ở góc trái trên -->
     <div class="global-view-counter" id="globalViewCounter">
@@ -545,7 +558,7 @@
             <div class="profile-left">
                 <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
                 <div class="name-container">
-                    <div class="username">
+                    <div class="username" id="fullName">
                         <span>N</span>
                         <span>g</span>
                         <span>u</span>
@@ -553,9 +566,9 @@
                         <span>ễ</span>
                         <span>n</span>
                         <span> </span>
-                        <span class="nem-char">N</span>
-                        <span class="nem-char">e</span>
-                        <span class="nem-char">m</span>
+                        <span>N</span>
+                        <span>e</span>
+                        <span>m</span>
                     </div>
                 </div>
                 <div class="status-container">
@@ -632,7 +645,7 @@
     
     <!-- Footer -->
     <div class="main-footer">
-        <div class="copyright">© 2025 by Nem. Created with GitHub.</div>
+        <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
     
     <script>
@@ -667,31 +680,129 @@
             }
         }
         
-        // Tự động phát playlist 2 khi load trang
-        function autoPlayPlaylist2() {
-            const playlist2 = document.querySelector('#playlist2 iframe');
-            const playlistUrl = playlist2.src.split('?')[0];
-            const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
-            playlist2.src = newUrl;
+        // Custom cursor
+        function setupCustomCursor() {
+            const cursor = document.getElementById('customCursor');
             
-            // Kích hoạt hiệu ứng chữ Nem
-            activateNemEffect();
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            
+            document.addEventListener('mousedown', () => {
+                cursor.classList.add('active');
+            });
+            
+            document.addEventListener('mouseup', () => {
+                cursor.classList.remove('active');
+            });
+            
+            // Thay đổi kích thước khi hover vào các phần tử clickable
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright');
+            clickableElements.forEach(el => {
+                el.addEventListener('mouseover', () => {
+                    cursor.classList.add('active');
+                });
+                el.addEventListener('mouseout', () => {
+                    cursor.classList.remove('active');
+                });
+            });
         }
         
-        // Hiệu ứng chữ Nem phát sáng theo nhạc
-        function activateNemEffect() {
-            const nemChars = document.querySelectorAll('.nem-char');
+        // Hiệu ứng chữ "Nguyễn Nem"
+        function activateNameEffect() {
+            const nameChars = document.querySelectorAll('#fullName span');
             
-            setInterval(() => {
-                nemChars.forEach((char, index) => {
+            // Hiệu ứng khi load trang
+            setTimeout(() => {
+                nameChars.forEach((char, index) => {
                     setTimeout(() => {
                         char.classList.add('active');
                         setTimeout(() => {
                             char.classList.remove('active');
                         }, 500);
-                    }, index * 200);
+                    }, index * 100);
                 });
-            }, 2000);
+            }, 1000);
+            
+            // Lặp lại hiệu ứng mỗi 5 giây
+            setInterval(() => {
+                nameChars.forEach((char, index) => {
+                    setTimeout(() => {
+                        char.classList.add('active');
+                        setTimeout(() => {
+                            char.classList.remove('active');
+                        }, 500);
+                    }, index * 100);
+                });
+            }, 5000);
+            
+            // Hiệu ứng khi hover
+            const nameContainer = document.querySelector('.name-container');
+            nameContainer.addEventListener('mouseover', () => {
+                nameChars.forEach((char, index) => {
+                    setTimeout(() => {
+                        char.classList.add('active');
+                        setTimeout(() => {
+                            char.classList.remove('active');
+                        }, 500);
+                    }, index * 50);
+                });
+            });
+        }
+        
+        // Hiệu ứng cho footer copyright
+        function setupCopyrightEffect() {
+            const copyright = document.getElementById('copyright');
+            
+            copyright.addEventListener('click', () => {
+                copyright.style.animation = 'none';
+                void copyright.offsetWidth; // Trigger reflow
+                copyright.style.animation = 'pulse 0.5s ease-out';
+                
+                // Tạo hiệu ứng ánh sáng tỏa ra
+                const lightEffect = document.createElement('div');
+                lightEffect.style.position = 'fixed';
+                lightEffect.style.width = '10px';
+                lightEffect.style.height = '10px';
+                lightEffect.style.borderRadius = '50%';
+                lightEffect.style.background = 'radial-gradient(circle, rgba(138,92,246,0.8) 0%, rgba(138,92,246,0) 70%)';
+                lightEffect.style.pointerEvents = 'none';
+                lightEffect.style.zIndex = '99';
+                lightEffect.style.left = copyright.getBoundingClientRect().left + copyright.offsetWidth/2 + 'px';
+                lightEffect.style.top = copyright.getBoundingClientRect().top + copyright.offsetHeight/2 + 'px';
+                lightEffect.style.transform = 'translate(-50%, -50%)';
+                lightEffect.style.animation = 'expandLight 1s ease-out forwards';
+                
+                document.body.appendChild(lightEffect);
+                
+                setTimeout(() => {
+                    lightEffect.remove();
+                }, 1000);
+            });
+            
+            // Thêm keyframe animation động
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes pulse {
+                    0% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 92, 246, 0.3); }
+                    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(138, 92, 246, 0.7); }
+                    100% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 92, 246, 0.3); }
+                }
+                @keyframes expandLight {
+                    0% { width: 10px; height: 10px; opacity: 1; }
+                    100% { width: 300px; height: 300px; opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Tự động phát playlist 2
+        function autoPlayPlaylist2() {
+            const playlist2 = document.querySelector('#playlist2 iframe');
+            const playlistUrl = playlist2.src.split('?')[0];
+            const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
+            playlist2.src = newUrl;
         }
         
         // Hiệu ứng parallax cho background
@@ -710,35 +821,14 @@
             });
         }
         
-        // Custom cat paw cursor
-        function setupCatCursor() {
-            const catPaw = document.getElementById('catPaw');
-            
-            document.addEventListener('mousemove', (e) => {
-                catPaw.style.left = e.clientX + 'px';
-                catPaw.style.top = e.clientY + 'px';
-                catPaw.style.opacity = '1';
-            });
-            
-            document.addEventListener('mouseleave', () => {
-                catPaw.style.opacity = '0';
-            });
-            
-            // Hiệu ứng nhấp chuột
-            document.addEventListener('click', () => {
-                catPaw.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                setTimeout(() => {
-                    catPaw.style.transform = 'translate(-50%, -50%) scale(1)';
-                }, 100);
-            });
-        }
-        
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            setupCustomCursor();
+            activateNameEffect();
+            setupCopyrightEffect();
             autoPlayPlaylist2();
             setupParallax();
-            setupCatCursor();
             
             // Cập nhật lượt xem
             let viewCount = localStorage.getItem('viewCount') || 128;
