@@ -463,47 +463,11 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
         
-        /* Music control */
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(30, 30, 46, 0.7);
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        .music-control:hover {
-            background: rgba(138, 92, 246, 0.5);
-            transform: scale(1.1);
-        }
-        
-        .music-control.playing {
-            animation: pulseMusic 2s infinite;
-        }
-        
-        @keyframes pulseMusic {
-            0% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(138, 92, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
-        }
-        
         /* Video player */
         .video-player-container {
             position: fixed;
             bottom: 20px;
-            right: 90px;
+            right: 20px;
             width: 200px;
             height: 120px;
             border-radius: 12px;
@@ -588,14 +552,6 @@
                 padding: 6px 12px;
             }
             
-            .music-control {
-                bottom: 15px;
-                right: 15px;
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-            
             .video-player-container {
                 bottom: 80px;
                 right: 15px;
@@ -650,14 +606,6 @@
                 font-size: 0.8rem;
             }
             
-            .music-control {
-                bottom: 12px;
-                right: 12px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-            
             .video-player-container {
                 bottom: 70px;
                 right: 10px;
@@ -676,11 +624,6 @@
     
     <!-- Custom cursor - chấm sáng trắng -->
     <div class="custom-cursor" id="customCursor"></div>
-    
-    <!-- Music control -->
-    <div id="musicControl" class="music-control">
-        <i class="fas fa-play"></i>
-    </div>
     
     <!-- Video player for background music -->
     <div class="video-player-container">
@@ -817,7 +760,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control, .video-overlay');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .video-overlay');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -993,7 +936,6 @@
         
         // Thiết lập nhạc nền
         function setupBackgroundMusic() {
-            const musicControl = document.getElementById('musicControl');
             const videoPlayer = document.getElementById('bgMusicVideo');
             const videoOverlay = document.getElementById('videoOverlay');
             let isPlaying = false;
@@ -1007,8 +949,6 @@
                 videoPlayer.play()
                     .then(() => {
                         isPlaying = true;
-                        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                        musicControl.classList.add('playing');
                         videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                         document.title = '♪ ' + originalTitle;
                     })
@@ -1019,46 +959,15 @@
             
             tryPlayAudio();
             
-            // Xử lý nút điều khiển nhạc
-            musicControl.addEventListener('click', function() {
-                if (isPlaying) {
-                    videoPlayer.pause();
-                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                    musicControl.classList.remove('playing');
-                    videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
-                    document.title = originalTitle;
-                } else {
-                    videoPlayer.play()
-                        .catch(e => console.log("Play was prevented: ", e));
-                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    musicControl.classList.add('playing');
-                    videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
-                    document.title = '♪ ' + originalTitle;
-                }
-                isPlaying = !isPlaying;
-                
-                // Hiệu ứng bong bóng
-                for (let i = 0; i < 15; i++) {
-                    const rect = musicControl.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    createBubbleParticle(centerX, centerY);
-                }
-            });
-            
             // Xử lý video overlay
             videoOverlay.addEventListener('click', function() {
                 if (isPlaying) {
                     videoPlayer.pause();
-                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                    musicControl.classList.remove('playing');
                     videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                     document.title = originalTitle;
                 } else {
                     videoPlayer.play()
                         .catch(e => console.log("Play was prevented: ", e));
-                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    musicControl.classList.add('playing');
                     videoOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                     document.title = '♪ ' + originalTitle;
                 }
@@ -1083,8 +992,6 @@
                     if (isPlaying) {
                         videoPlayer.pause();
                         isPlaying = false;
-                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                        musicControl.classList.remove('playing');
                         videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                         document.title = originalTitle;
                     }
@@ -1119,8 +1026,6 @@
                     if (isPlaying) {
                         videoPlayer.pause();
                         isPlaying = false;
-                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                        musicControl.classList.remove('playing');
                         videoOverlay.innerHTML = '<i class="fas fa-play"></i>';
                         document.title = originalTitle;
                     }
