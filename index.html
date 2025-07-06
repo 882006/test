@@ -438,7 +438,7 @@
             left: 0;
             width: 100%;
             text-align: center;
-            z-index: 100;
+            z-index: 1000; /* Tăng z-index để luôn hiển thị trên */
             transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
@@ -617,8 +617,8 @@
 </head>
 <body>
     <!-- Video nền từ file local -->
-    <video class="video-background" id="bgVideo" autoplay loop muted>
-        <source src="video/soundbackgroup.mp4" type="video/mp4">
+    <video class="video-background" id="bgVideo" autoplay loop muted playsinline>
+        <source src="video/videoplayback.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
     
@@ -627,7 +627,7 @@
     
     <!-- Video player for background music -->
     <div class="video-player-container">
-        <video class="video-player" id="bgMusicVideo" loop muted>
+        <video class="video-player" id="bgMusicVideo" loop muted playsinline>
             <source src="video/soundbackgroup.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
