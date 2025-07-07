@@ -146,8 +146,8 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            width: 40px; /* Tăng kích thước badge */
-            height: 40px; /* Tăng kích thước badge */
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(255, 214, 10, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -167,7 +167,7 @@
 
         .status-badge i {
             color: #ffd60a;
-            font-size: 1.2rem; /* Tăng kích thước icon */
+            font-size: 1.2rem;
         }
 
         .name-container {
@@ -262,7 +262,7 @@
             width: 100%;
             background: rgba(40, 40, 62, 0.2);
             border-radius: 12px;
-            padding: 15px 12px; /* Tăng padding */
+            padding: 15px 12px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -495,7 +495,7 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
 
-        /* Music control - hình tròn */
+        /* Music control */
         .music-control {
             position: fixed;
             bottom: 20px;
@@ -720,10 +720,10 @@
         Your browser does not support the video tag.
     </video>
     
-    <!-- Overlay kích hoạt -->
+    <!-- Overlay kích hoạt đã sửa -->
     <div class="activation-overlay" id="activationOverlay">
-        <div class="activation-message">&#82F0FFH&#7DEEF7o&#78ECEEp&#73EAE6e&#6EE8DE &#69E6D6y&#64E4CDo&#5FE2C5u&#67E2C8 &#6FE1CCe&#77E1CFn&#7FE1D3j&#87E0D6o&#8FE0D9y&#96E0DD &#9EE0E0m&#A6DFE3y&#AEDFE7 &#B6DFEAp&#BEDEEEo&#C6DEF1r&#B2D5F1t&#9FCCF1f&#8BC4F2o&#77BBF2l&#64B2F2i&#50A9F2o</div>
-        <div class="activation-hint">Welcome to my profile! Click anywhere to experience the full site with music and animations.</div>
+        <div class="activation-message">Nguyễn Nem Profile</div>
+        <div class="activation-hint">Chào mừng bạn đến với trang cá nhân của tôi! Nhấp vào bất kỳ đâu để trải nghiệm trang web đầy đủ với nhạc và hiệu ứng.</div>
     </div>
     
     <!-- Custom cursor - chấm sáng trắng -->
@@ -771,7 +771,7 @@
                     </div>
                 </div>
                 
-                <!-- Phần liên hệ mới -->
+                <!-- Phần liên hệ -->
                 <div class="contact-info">
                     <div class="contact-box" id="phoneContact">
                         <div class="lh-title">LH:</div>
@@ -820,7 +820,7 @@
                             <span class="social-label">Discord</span>
                         </a>
 
-                        <!-- Thêm Facebook -->
+                        <!-- Facebook -->
                         <a href="https://www.facebook.com/profile.php?id=61575822069584" target="_blank" class="social-link facebook">
                             <div class="social-icon">
                                 <i class="fab fa-facebook"></i>
@@ -1091,7 +1091,6 @@
                     })
                     .catch(e => {
                         console.log("Play prevented: ", e);
-                        // Nếu không phát được, hiển thị nút play trên control
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
                     });
             });
