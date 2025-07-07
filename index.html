@@ -121,8 +121,8 @@
 
         .profile-pic-container {
             position: relative;
-            width: 180px;
-            height: 180px;
+            width: 220px; /* Tăng kích thước avatar 20% */
+            height: 220px; /* Tăng kích thước avatar 20% */
             margin-bottom: 15px;
         }
 
@@ -144,10 +144,10 @@
 
         .status-badge {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
+            bottom: 15px; /* Điều chỉnh vị trí */
+            right: 15px; /* Điều chỉnh vị trí */
+            width: 35px; /* Tăng kích thước */
+            height: 35px; /* Tăng kích thước */
             border-radius: 50%;
             background: rgba(255, 214, 10, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -167,7 +167,7 @@
 
         .status-badge i {
             color: #ffd60a;
-            font-size: 0.8rem;
+            font-size: 1.0rem; /* Tăng kích thước icon */
         }
 
         .name-container {
@@ -187,7 +187,7 @@
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
 
-        .name-container.active, .status-container.active, .copyright.active, .contact-box.active {
+        .name-container.active, .copyright.active, .contact-box.active {
             animation: elementPulse 0.5s ease-out;
         }
 
@@ -250,42 +250,12 @@
         .username span:nth-child(9) { color: #6DFBE5; }
         .username span:nth-child(10) { color: #68FFE2; }
 
-        .status-container {
-            width: 100%;
-            background: rgba(40, 40, 62, 0.2);
-            border-radius: 15px;
-            padding: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .status-container:hover {
-            background: rgba(40, 40, 62, 0.3);
-        }
-
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: rgba(255, 214, 10, 0.1);
-            border-radius: 20px;
-            color: #ffd60a;
-            font-size: 0.95rem;
-            position: relative;
-            z-index: 2;
-        }
-
         .contact-info {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-top: 8px;
+            margin-top: 15px; /* Tăng khoảng cách */
         }
 
         .contact-box {
@@ -475,15 +445,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.1);
             z-index: 5;
             cursor: pointer;
-            opacity: 0;
+            opacity: 1; /* Hiển thị mặc định */
             transition: opacity 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.8), rgba(0, 82, 204, 0.8));
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            text-align: center;
+            padding: 20px;
+            box-shadow: inset 0 0 20px rgba(0, 123, 255, 0.5);
         }
 
         .playlist-card:hover .spotify-overlay {
-            opacity: 1;
+            opacity: 0;
         }
 
         .spotify-hint {
@@ -575,6 +555,58 @@
             100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
         }
 
+        /* Overlay kích hoạt nhạc nền */
+        .activation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .activation-message {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+            background: linear-gradient(45deg, #007bff, #00bfff, #0062cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(0, 123, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.6);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(0, 123, 255, 1), 0 0 30px rgba(0, 123, 255, 0.8), 0 0 40px rgba(0, 123, 255, 0.6);
+            }
+        }
+
+        .activation-hint {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 123, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+        }
+
         @media (max-width: 900px) {
             .profile-header {
                 flex-direction: column;
@@ -584,6 +616,11 @@
 
             .profile-left {
                 flex: 0 0 auto;
+            }
+
+            .profile-pic-container {
+                width: 200px;
+                height: 200px;
             }
 
             .social-links {
@@ -618,6 +655,14 @@
                 height: 50px;
                 font-size: 1.5rem;
             }
+
+            .activation-message {
+                font-size: 2rem;
+            }
+
+            .activation-hint {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 500px) {
@@ -628,8 +673,8 @@
             }
 
             .profile-pic-container {
-                width: 150px;
-                height: 150px;
+                width: 180px;
+                height: 180px;
             }
 
             .username {
@@ -678,6 +723,15 @@
                 font-size: 0.8rem;
                 padding: 6px 10px;
             }
+
+            .activation-message {
+                font-size: 1.5rem;
+            }
+
+            .activation-hint {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
         }
     </style>
 </head>
@@ -688,12 +742,18 @@
         Your browser does not support the video tag.
     </video>
     
+    <!-- Overlay kích hoạt -->
+    <div class="activation-overlay" id="activationOverlay">
+        <div class="activation-message">Click anywhere to view</div>
+        <div class="activation-hint">Welcome to my profile! Click anywhere to experience the full site with music and animations. Enjoy your visit!</div>
+    </div>
+    
     <!-- Custom cursor - chấm sáng trắng -->
     <div class="custom-cursor" id="customCursor"></div>    
 
     <!-- Audio element for background music -->
     <audio id="bgMusicAudio" loop style="display: none;">
-        <source src="video/PUCH.mp3" type="audio/mp3">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
@@ -713,7 +773,7 @@
         <div class="profile-header">
             <div class="profile-left">
                 <div class="profile-pic-container">
-                    <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Profile Picture" class="profile-pic" id="profilePic">
                     <div class="status-badge" id="statusBadge">
                         <i class="fas fa-moon"></i>
                     </div>
@@ -730,11 +790,6 @@
                         <span>N</span>
                         <span>e</span>
                         <span>m</span>
-                    </div>
-                </div>
-                <div class="status-container" id="statusContainer">
-                    <div class="status">
-                        <i class="fas fa-moon"></i> Currently Idle
                     </div>
                 </div>
                 
@@ -805,12 +860,16 @@
                     <div class="playlists-container">
                         <div class="playlist-card" id="playlist1">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                            <div class="spotify-overlay" data-playlist="1"></div>
+                            <div class="spotify-overlay" data-playlist="1">
+                                <div>Click to play<br><small>My Favorite Songs</small></div>
+                            </div>
                             <div class="spotify-hint">Click to play</div>
                         </div>
                         <div class="playlist-card" id="playlist2">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                            <div class="spotify-overlay" data-playlist="2"></div>
+                            <div class="spotify-overlay" data-playlist="2">
+                                <div>Click to play<br><small>Chill Vibes</small></div>
+                            </div>
                             <div class="spotify-hint">Click to play</div>
                         </div>
                     </div>
@@ -842,7 +901,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control, .status-badge, .contact-box');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .name-container, .spotify-overlay, .music-control, .status-badge, .contact-box');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -933,21 +992,9 @@
             });
         }
         
-        // Hiệu ứng cho status
+        // Hiệu ứng cho status badge
         function setupStatusEffect() {
-            const statusContainer = document.getElementById('statusContainer');
             const statusBadge = document.getElementById('statusBadge');
-            
-            statusContainer.addEventListener('click', function(e) {
-                this.classList.add('active');
-                setTimeout(() => {
-                    this.classList.remove('active');
-                }, 500);
-                
-                for (let i = 0; i < 15; i++) {
-                    createBubbleParticle(e.clientX, e.clientY);
-                }
-            });
             
             statusBadge.addEventListener('click', function(e) {
                 this.classList.add('active');
@@ -1068,14 +1115,19 @@
         function setupBackgroundMusic() {
             const musicControl = document.getElementById('musicControl');
             const audioPlayer = document.getElementById('bgMusicAudio');
+            const activationOverlay = document.getElementById('activationOverlay');
             let isPlaying = false;
             let originalTitle = document.title;
             
             // Thiết lập âm lượng
             audioPlayer.volume = 0.7;
             
-            // Thử phát nhạc khi trang tải
-            const tryPlayAudio = () => {
+            // Xử lý khi người dùng click để kích hoạt
+            activationOverlay.addEventListener('click', function() {
+                // Ẩn overlay
+                activationOverlay.style.display = 'none';
+                
+                // Thử phát nhạc
                 audioPlayer.play()
                     .then(() => {
                         isPlaying = true;
@@ -1084,42 +1136,11 @@
                         document.title = '♪ ' + originalTitle;
                     })
                     .catch(e => {
-                        console.log("Autoplay prevented: ", e);
-                        // Tạo một nút để kích hoạt âm thanh
-                        const overlay = document.createElement('div');
-                        overlay.style.position = 'fixed';
-                        overlay.style.top = '0';
-                        overlay.style.left = '0';
-                        overlay.style.width = '100%';
-                        overlay.style.height = '100%';
-                        overlay.style.background = 'rgba(0,0,0,0.7)';
-                        overlay.style.display = 'flex';
-                        overlay.style.justifyContent = 'center';
-                        overlay.style.alignItems = 'center';
-                        overlay.style.zIndex = '10000';
-                        overlay.style.color = 'white';
-                        overlay.style.fontSize = '1.5rem';
-                        overlay.style.textAlign = 'center';
-                        overlay.style.cursor = 'pointer';
-                        overlay.innerHTML = '<div>Click anywhere to activate music</div>';
-                        
-                        overlay.addEventListener('click', () => {
-                            audioPlayer.play()
-                                .then(() => {
-                                    isPlaying = true;
-                                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                                    musicControl.classList.add('playing');
-                                    document.title = '♪ ' + originalTitle;
-                                    document.body.removeChild(overlay);
-                                })
-                                .catch(e => console.log("Play was prevented: ", e));
-                        });
-                        
-                        document.body.appendChild(overlay);
+                        console.log("Play prevented: ", e);
+                        // Nếu không phát được, hiển thị nút play trên control
+                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
                     });
-            };
-            
-            tryPlayAudio();
+            });
             
             // Xử lý nút điều khiển nhạc
             musicControl.addEventListener('click', function() {
@@ -1130,10 +1151,12 @@
                     document.title = originalTitle;
                 } else {
                     audioPlayer.play()
+                        .then(() => {
+                            musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                            musicControl.classList.add('playing');
+                            document.title = '♪ ' + originalTitle;
+                        })
                         .catch(e => console.log("Play was prevented: ", e));
-                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    musicControl.classList.add('playing');
-                    document.title = '♪ ' + originalTitle;
                 }
                 isPlaying = !isPlaying;
                 
@@ -1183,26 +1206,28 @@
                 });
             });
             
-            // Tự động phát playlist 2
+            // Tự động phát playlist 2 sau khi kích hoạt
             setTimeout(() => {
-                const playlist2 = document.querySelector('#playlist2 iframe');
-                if (playlist2) {
-                    const playlistUrl = playlist2.src.split('?')[0];
-                    const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
-                    playlist2.src = newUrl;
-                    
-                    // Dừng nhạc nền khi Spotify phát
-                    if (isPlaying) {
-                        audioPlayer.pause();
-                        isPlaying = false;
-                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                        musicControl.classList.remove('playing');
-                        document.title = originalTitle;
+                if (activationOverlay.style.display === 'none') {
+                    const playlist2 = document.querySelector('#playlist2 iframe');
+                    if (playlist2) {
+                        const playlistUrl = playlist2.src.split('?')[0];
+                        const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
+                        playlist2.src = newUrl;
+                        
+                        // Dừng nhạc nền khi Spotify phát
+                        if (isPlaying) {
+                            audioPlayer.pause();
+                            isPlaying = false;
+                            musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                            musicControl.classList.remove('playing');
+                            document.title = originalTitle;
+                        }
+                        
+                        // Lưu trạng thái Spotify đang phát
+                        sessionStorage.setItem('spotifyPlaying', 'true');
+                        sessionStorage.setItem('playlistId', '2');
                     }
-                    
-                    // Lưu trạng thái Spotify đang phát
-                    sessionStorage.setItem('spotifyPlaying', 'true');
-                    sessionStorage.setItem('playlistId', '2');
                 }
             }, 2000);
             
