@@ -13,7 +13,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             -webkit-user-select: none;
-            cursor: none; /* Ẩn con trỏ chuột mặc định */
+            cursor: none;
         }
 
         .custom-cursor {
@@ -97,10 +97,11 @@
             position: relative;
             background: rgba(30, 26, 46, 0.25);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Viền container nhỏ hơn */
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
-            margin-bottom: 50px;
+            /* Tăng margin-bottom để tạo khoảng cách */
+            margin-bottom: 80px;
             padding-bottom: 50px;
             transition: all 0.5s ease-out;
         }
@@ -133,8 +134,8 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid rgba(242, 198, 222, 0.8); /* Viền nhỏ hơn */
-            box-shadow: 0 0 15px rgba(242, 198, 222, 0.6); /* Bóng nhỏ hơn */
+            border: 1px solid rgba(242, 198, 222, 0.8);
+            box-shadow: 0 0 15px rgba(242, 198, 222, 0.6);
             position: relative;
             transition: all 0.3s ease;
         }
@@ -263,14 +264,14 @@
             width: 100%;
             background: rgba(40, 40, 62, 0.2);
             border-radius: 12px;
-            padding: 12px; /* Viền nhỏ hơn */
+            padding: 12px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            font-size: 1rem; /* Font nhỏ hơn */
+            font-size: 1rem;
         }
 
         .contact-box:hover {
@@ -279,13 +280,13 @@
         }
 
         .contact-box .lh-title {
-            font-size: 1rem; /* Font nhỏ hơn */
+            font-size: 1rem;
             margin-bottom: 5px;
             font-weight: bold;
         }
 
         .contact-box .phone-number, .contact-box .email {
-            font-size: 1.1rem; /* Font nhỏ hơn */
+            font-size: 1.1rem;
             font-weight: bold;
             color: #99DEFF;
         }
@@ -645,7 +646,8 @@
             .container {
                 width: 95%;
                 padding: 10px;
-                margin-bottom: 60px;
+                /* Tăng khoảng cách dưới cho mobile */
+                margin-bottom: 70px;
             }
 
             .profile-pic-container {
@@ -1016,7 +1018,7 @@
                 }
                 
                 // Copy email
-                navigator.clipboard.writeText('nem.nguyen@example.com');
+                navigator.clipboard.writeText('nguyenvietnam2k6@gmail.com');
                 alert('Email đã được sao chép!');
             });
         }
@@ -1114,7 +1116,6 @@
                     })
                     .catch(e => {
                         console.log("Play prevented: ", e);
-                        // Nếu không phát được, hiển thị nút play trên control
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
                     });
             });
