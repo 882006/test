@@ -121,8 +121,8 @@
 
         .profile-pic-container {
             position: relative;
-            width: 220px; /* Tăng kích thước avatar 20% */
-            height: 220px; /* Tăng kích thước avatar 20% */
+            width: 180px;
+            height: 180px;
             margin-bottom: 15px;
         }
 
@@ -144,10 +144,10 @@
 
         .status-badge {
             position: absolute;
-            bottom: 15px; /* Điều chỉnh vị trí */
-            right: 15px; /* Điều chỉnh vị trí */
-            width: 35px; /* Tăng kích thước */
-            height: 35px; /* Tăng kích thước */
+            bottom: 10px;
+            right: 10px;
+            width: 40px; /* Tăng kích thước badge */
+            height: 40px; /* Tăng kích thước badge */
             border-radius: 50%;
             background: rgba(255, 214, 10, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -167,7 +167,7 @@
 
         .status-badge i {
             color: #ffd60a;
-            font-size: 1.0rem; /* Tăng kích thước icon */
+            font-size: 1.2rem; /* Tăng kích thước icon */
         }
 
         .name-container {
@@ -255,21 +255,21 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-top: 15px; /* Tăng khoảng cách */
+            margin-top: 15px;
         }
 
         .contact-box {
             width: 100%;
             background: rgba(40, 40, 62, 0.2);
             border-radius: 12px;
-            padding: 8px 12px;
+            padding: 15px 12px; /* Tăng padding */
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         .contact-box:hover {
@@ -277,14 +277,16 @@
             transform: translateY(-3px);
         }
 
-        .contact-box.phone {
-            background: rgba(59, 89, 152, 0.1);
-            border-color: rgba(59, 89, 152, 0.3);
+        .contact-box .lh-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
-        .contact-box.email {
-            background: rgba(219, 68, 55, 0.1);
-            border-color: rgba(219, 68, 55, 0.3);
+        .contact-box .phone-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #99DEFF;
         }
 
         .bio {
@@ -426,6 +428,7 @@
             overflow: hidden;
             border: 1px solid rgba(138, 92, 246, 0.2);
             height: 160px;
+            cursor: pointer;
         }
 
         .playlist-card:hover {
@@ -437,33 +440,6 @@
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        .spotify-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-            cursor: pointer;
-            opacity: 1; /* Hiển thị mặc định */
-            transition: opacity 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(30, 136, 229, 0.8), rgba(0, 82, 204, 0.8));
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-            text-align: center;
-            padding: 20px;
-            box-shadow: inset 0 0 20px rgba(0, 123, 255, 0.5);
-        }
-
-        .playlist-card:hover .spotify-overlay {
-            opacity: 0;
         }
 
         .spotify-hint {
@@ -562,7 +538,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 2000;
             display: flex;
             justify-content: center;
@@ -571,7 +547,7 @@
             color: white;
             text-align: center;
             padding: 20px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             cursor: pointer;
         }
 
@@ -579,45 +555,24 @@
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 30px;
-            text-shadow: 0 0 15px rgba(0,0,0,0.8);
-        }
-
-        .activation-message span {
-            display: inline-block;
-            margin: 0 1px;
-            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+            background: linear-gradient(45deg, #007bff, #00bfff, #0062cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: glow 1.5s ease-in-out infinite alternate;
+            max-width: 90%;
+            text-align: center;
         }
 
         @keyframes glow {
             from {
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+                text-shadow: 0 0 10px rgba(0, 123, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.6);
             }
             to {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+                text-shadow: 0 0 20px rgba(0, 123, 255, 1), 0 0 30px rgba(0, 123, 255, 0.8), 0 0 40px rgba(0, 123, 255, 0.6);
             }
         }
-
-        /* Màu sắc cho từng ký tự trong thông điệp kích hoạt */
-        .activation-message span:nth-child(1) { color: #99DEFF; }
-        .activation-message span:nth-child(2) { color: #97E0FE; }
-        .activation-message span:nth-child(3) { color: #94E1FC; }
-        .activation-message span:nth-child(4) { color: #92E3FB; }
-        .activation-message span:nth-child(5) { color: #90E4F9; }
-        .activation-message span:nth-child(6) { color: #8BE7F7; }
-        .activation-message span:nth-child(7) { color: #89E9F5; }
-        .activation-message span:nth-child(8) { color: #86EBF4; }
-        .activation-message span:nth-child(9) { color: #84ECF3; }
-        .activation-message span:nth-child(10) { color: #82EEF1; }
-        .activation-message span:nth-child(11) { color: #7FEFF0; }
-        .activation-message span:nth-child(12) { color: #7DF1EE; }
-        .activation-message span:nth-child(13) { color: #7BF2ED; }
-        .activation-message span:nth-child(14) { color: #76F6EA; }
-        .activation-message span:nth-child(15) { color: #74F7E9; }
-        .activation-message span:nth-child(16) { color: #6FFAE6; }
-        .activation-message span:nth-child(17) { color: #6DFCE5; }
-        .activation-message span:nth-child(18) { color: #6AFDE3; }
-        .activation-message span:nth-child(19) { color: #68FFE2; }
 
         .activation-hint {
             font-size: 1.2rem;
@@ -639,11 +594,6 @@
 
             .profile-left {
                 flex: 0 0 auto;
-            }
-
-            .profile-pic-container {
-                width: 200px;
-                height: 200px;
             }
 
             .social-links {
@@ -696,8 +646,13 @@
             }
 
             .profile-pic-container {
-                width: 180px;
-                height: 180px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .status-badge {
+                width: 35px;
+                height: 35px;
             }
 
             .username {
@@ -743,8 +698,8 @@
             }
             
             .contact-box {
-                font-size: 0.8rem;
-                padding: 6px 10px;
+                font-size: 0.9rem;
+                padding: 10px;
             }
 
             .activation-message {
@@ -767,31 +722,8 @@
     
     <!-- Overlay kích hoạt -->
     <div class="activation-overlay" id="activationOverlay">
-        <div class="activation-message">
-            <span>C</span>
-            <span>l</span>
-            <span>i</span>
-            <span>c</span>
-            <span>k</span>
-            <span> </span>
-            <span>a</span>
-            <span>n</span>
-            <span>y</span>
-            <span>w</span>
-            <span>h</span>
-            <span>e</span>
-            <span>r</span>
-            <span>e</span>
-            <span> </span>
-            <span>t</span>
-            <span>o</span>
-            <span> </span>
-            <span>v</span>
-            <span>i</span>
-            <span>e</span>
-            <span>w</span>
-        </div>
-        <div class="activation-hint">Welcome to my profile! Click anywhere to experience the full site with music and animations. Enjoy your visit!</div>
+        <div class="activation-message">&#82F0FFH&#7DEEF7o&#78ECEEp&#73EAE6e&#6EE8DE &#69E6D6y&#64E4CDo&#5FE2C5u&#67E2C8 &#6FE1CCe&#77E1CFn&#7FE1D3j&#87E0D6o&#8FE0D9y&#96E0DD &#9EE0E0m&#A6DFE3y&#AEDFE7 &#B6DFEAp&#BEDEEEo&#C6DEF1r&#B2D5F1t&#9FCCF1f&#8BC4F2o&#77BBF2l&#64B2F2i&#50A9F2o</div>
+        <div class="activation-hint">Welcome to my profile! Click anywhere to experience the full site with music and animations.</div>
     </div>
     
     <!-- Custom cursor - chấm sáng trắng -->
@@ -839,13 +771,11 @@
                     </div>
                 </div>
                 
-                <!-- Thêm 2 khối liên hệ -->
+                <!-- Phần liên hệ mới -->
                 <div class="contact-info">
-                    <div class="contact-box phone" id="phoneContact">
-                        <i class="fas fa-phone-alt"></i> LH: 0898165655
-                    </div>
-                    <div class="contact-box email" id="emailContact">
-                        <i class="fas fa-envelope"></i> Gmail: nguyenvietnam2k6@gmail.com
+                    <div class="contact-box" id="phoneContact">
+                        <div class="lh-title">LH:</div>
+                        <div class="phone-number">0898165655</div>
                     </div>
                 </div>
                 
@@ -904,19 +834,13 @@
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-music"></i> My Favorite Playlists</h2>
                     <div class="playlists-container">
-                        <div class="playlist-card" id="playlist1">
+                        <div class="playlist-card" id="playlist1" data-link="https://open.spotify.com/playlist/3AFi6LIkP88acuvQDMytQx">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3AFi6LIkP88acuvQDMytQx?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                            <div class="spotify-overlay" data-playlist="1">
-                                <div>Click to play<br><small>My Favorite Songs</small></div>
-                            </div>
-                            <div class="spotify-hint">Click to play</div>
+                            <div class="spotify-hint">Click to open in Spotify</div>
                         </div>
-                        <div class="playlist-card" id="playlist2">
+                        <div class="playlist-card" id="playlist2" data-link="https://open.spotify.com/playlist/3Mp1DOUa7Mfn4Hsq741ayo">
                             <iframe class="spotify-player" src="https://open.spotify.com/embed/playlist/3Mp1DOUa7Mfn4Hsq741ayo?utm_source=generator" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                            <div class="spotify-overlay" data-playlist="2">
-                                <div>Click to play<br><small>Chill Vibes</small></div>
-                            </div>
-                            <div class="spotify-hint">Click to play</div>
+                            <div class="spotify-hint">Click to open in Spotify</div>
                         </div>
                     </div>
                 </div>
@@ -947,7 +871,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .name-container, .spotify-overlay, .music-control, .status-badge, .contact-box');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .name-container, .playlist-card, .music-control, .status-badge, .contact-box');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -1057,7 +981,6 @@
         // Hiệu ứng cho liên hệ
         function setupContactEffects() {
             const phoneContact = document.getElementById('phoneContact');
-            const emailContact = document.getElementById('emailContact');
             
             phoneContact.addEventListener('click', function(e) {
                 this.classList.add('active');
@@ -1072,21 +995,6 @@
                 // Copy số điện thoại
                 navigator.clipboard.writeText('0898165655');
                 alert('Số điện thoại đã được sao chép!');
-            });
-            
-            emailContact.addEventListener('click', function(e) {
-                this.classList.add('active');
-                setTimeout(() => {
-                    this.classList.remove('active');
-                }, 500);
-                
-                for (let i = 0; i < 15; i++) {
-                    createBubbleParticle(e.clientX, e.clientY);
-                }
-                
-                // Copy email
-                navigator.clipboard.writeText('nguyenvietnam2k6@gmail.com');
-                alert('Email đã được sao chép!');
             });
         }
         
@@ -1215,100 +1123,23 @@
                 }
             });
             
-            // Xử lý Spotify overlay
-            document.querySelectorAll('.spotify-overlay').forEach(overlay => {
-                overlay.addEventListener('click', function(e) {
-                    const playlistId = this.getAttribute('data-playlist');
-                    const iframe = this.closest('.playlist-card').querySelector('iframe');
-                    
-                    // Tạm dừng nhạc nền
-                    if (isPlaying) {
-                        audioPlayer.pause();
-                        isPlaying = false;
-                        musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                        musicControl.classList.remove('playing');
-                        document.title = originalTitle;
-                    }
-                    
-                    // Cập nhật src để phát Spotify
-                    let src = iframe.src;
-                    if (!src.includes('autoplay=1')) {
-                        if (src.includes('?')) {
-                            src += '&autoplay=1';
-                        } else {
-                            src += '?autoplay=1';
-                        }
-                        iframe.src = src;
-                    }
+            // Xử lý khi click vào playlist card
+            document.querySelectorAll('.playlist-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const link = this.getAttribute('data-link');
+                    window.open(link, '_blank');
                     
                     // Hiệu ứng bong bóng
                     for (let i = 0; i < 10; i++) {
                         createBubbleParticle(e.clientX, e.clientY);
                     }
-                    
-                    // Lưu trạng thái Spotify đang phát
-                    sessionStorage.setItem('spotifyPlaying', 'true');
-                    sessionStorage.setItem('playlistId', playlistId);
                 });
             });
-            
-            // Tự động phát playlist 2 sau khi kích hoạt
-            setTimeout(() => {
-                if (activationOverlay.style.display === 'none') {
-                    const playlist2 = document.querySelector('#playlist2 iframe');
-                    if (playlist2) {
-                        const playlistUrl = playlist2.src.split('?')[0];
-                        const newUrl = playlistUrl + '?utm_source=generator&autoplay=1&shuffle=true';
-                        playlist2.src = newUrl;
-                        
-                        // Dừng nhạc nền khi Spotify phát
-                        if (isPlaying) {
-                            audioPlayer.pause();
-                            isPlaying = false;
-                            musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                            musicControl.classList.remove('playing');
-                            document.title = originalTitle;
-                        }
-                        
-                        // Lưu trạng thái Spotify đang phát
-                        sessionStorage.setItem('spotifyPlaying', 'true');
-                        sessionStorage.setItem('playlistId', '2');
-                    }
-                }
-            }, 2000);
             
             // Xử lý khi audio kết thúc
             audioPlayer.addEventListener('ended', function() {
                 this.currentTime = 0;
                 this.play();
-            });
-            
-            // Kiểm tra xem Spotify có đang phát không
-            window.addEventListener('blur', function() {
-                const spotifyPlaying = sessionStorage.getItem('spotifyPlaying');
-                if (spotifyPlaying === 'true') {
-                    // Spotify đang phát - giữ nhạc nền dừng
-                }
-            });
-            
-            // Khi người dùng trở lại trang
-            window.addEventListener('focus', function() {
-                const spotifyPlaying = sessionStorage.getItem('spotifyPlaying');
-                if (spotifyPlaying === 'true') {
-                    // Spotify vẫn đang phát - giữ nhạc nền dừng
-                } else {
-                    // Spotify không phát - bật lại nhạc nền nếu cần
-                    if (!isPlaying && audioPlayer.paused) {
-                        audioPlayer.play()
-                            .then(() => {
-                                isPlaying = true;
-                                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                                musicControl.classList.add('playing');
-                                document.title = '♪ ' + originalTitle;
-                            })
-                            .catch(e => console.log("Play was prevented: ", e));
-                    }
-                }
             });
         }
         
