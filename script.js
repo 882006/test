@@ -1,3 +1,4 @@
+const audioPlayer = document.getElementById('bgMusicAudio');
 document.addEventListener('DOMContentLoaded', function() {
     // Lặp lại hiệu ứng sáng tối của trang web
     setInterval(function() {
