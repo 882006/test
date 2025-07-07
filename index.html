@@ -13,26 +13,28 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             -webkit-user-select: none;
+            cursor: none; /* Ẩn con trỏ chuột mặc định */
         }
 
         .custom-cursor {
             position: fixed;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background-color: white;
-            box-shadow: 0 0 10px white, 0 0 20px white;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5);
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: width 0.1s, height 0.1s;
+            transition: width 0.1s, height 0.1s, opacity 0.3s;
             mix-blend-mode: screen;
         }
 
         .custom-cursor.active {
-            width: 18px;
-            height: 18px;
-            box-shadow: 0 0 15px white, 0 0 30px white;
+            width: 25px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
         }
 
         body {
@@ -95,7 +97,7 @@
             position: relative;
             background: rgba(30, 26, 46, 0.25);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Viền container nhỏ hơn */
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
             overflow: hidden;
             margin-bottom: 50px;
@@ -131,15 +133,15 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(242, 198, 222, 0.8);
-            box-shadow: 0 0 20px rgba(242, 198, 222, 0.6);
+            border: 1px solid rgba(242, 198, 222, 0.8); /* Viền nhỏ hơn */
+            box-shadow: 0 0 15px rgba(242, 198, 222, 0.6); /* Bóng nhỏ hơn */
             position: relative;
             transition: all 0.3s ease;
         }
 
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(242, 198, 222, 0.8);
+            box-shadow: 0 0 25px rgba(242, 198, 222, 0.8);
         }
 
         .status-badge {
@@ -155,7 +157,6 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 10px rgba(255, 214, 10, 0.5);
         }
@@ -262,14 +263,14 @@
             width: 100%;
             background: rgba(40, 40, 62, 0.2);
             border-radius: 12px;
-            padding: 15px 12px;
+            padding: 12px; /* Viền nhỏ hơn */
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem; /* Font nhỏ hơn */
         }
 
         .contact-box:hover {
@@ -278,13 +279,13 @@
         }
 
         .contact-box .lh-title {
-            font-size: 1.1rem;
+            font-size: 1rem; /* Font nhỏ hơn */
             margin-bottom: 5px;
             font-weight: bold;
         }
 
-        .contact-box .phone-number {
-            font-size: 1.3rem;
+        .contact-box .phone-number, .contact-box .email {
+            font-size: 1.1rem; /* Font nhỏ hơn */
             font-weight: bold;
             color: #99DEFF;
         }
@@ -466,12 +467,14 @@
             width: 100%;
             text-align: center;
             z-index: 100;
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateY(100px);
+            opacity: 0;
         }
 
         .show-footer {
             transform: translateY(0);
+            opacity: 1;
         }
 
         .copyright {
@@ -556,7 +559,7 @@
             font-weight: bold;
             margin-bottom: 30px;
             text-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
-            background: linear-gradient(45deg, #007bff, #00bfff, #0062cc);
+            background: linear-gradient(45deg, #82F0FF, #7DEEF7, #78ECEE, #73EAE6, #69E6D6, #64E4CD, #5FE2C5, #5FE1CC, #77E1CF, #7FE1D3, #87E0D6, #8FE0D9, #9EE0E0, #A6DFE3, #B6DFEA, #BEDEEE, #C6DEF1, #B2D5F1, #9FCCF1, #8BC4F2, #77BBF2, #64B2F2, #50A9F2);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -714,16 +717,16 @@
     </style>
 </head>
 <body>
-    <!-- Video nền từ file local -->
+    <!-- Video nền -->
     <video class="video-background" id="bgVideo" autoplay loop muted>
         <source src="video/videoplayback.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
     
-    <!-- Overlay kích hoạt đã sửa -->
+    <!-- Overlay kích hoạt với hiệu ứng màu custom -->
     <div class="activation-overlay" id="activationOverlay">
-        <div class="activation-message">Nguyễn Nem Profile</div>
-        <div class="activation-hint">Chào mừng bạn đến với trang cá nhân của tôi! Nhấp vào bất kỳ đâu để trải nghiệm trang web đầy đủ với nhạc và hiệu ứng.</div>
+        <div class="activation-message">Hope you enjoy my portfolio</div>
+        <div class="activation-hint">Welcome to my profile! Click anywhere to experience the full site with music and animations.</div>
     </div>
     
     <!-- Custom cursor - chấm sáng trắng -->
@@ -771,11 +774,15 @@
                     </div>
                 </div>
                 
-                <!-- Phần liên hệ -->
+                <!-- Phần liên hệ với viền nhỏ hơn -->
                 <div class="contact-info">
                     <div class="contact-box" id="phoneContact">
-                        <div class="lh-title">LH:</div>
+                        <div class="lh-title">Phone:</div>
                         <div class="phone-number">0898165655</div>
+                    </div>
+                    <div class="contact-box" id="emailContact">
+                        <div class="lh-title">Email:</div>
+                        <div class="email">nem.nguyen@example.com</div>
                     </div>
                 </div>
                 
@@ -820,7 +827,7 @@
                             <span class="social-label">Discord</span>
                         </a>
 
-                        <!-- Facebook -->
+                        <!-- Thêm Facebook -->
                         <a href="https://www.facebook.com/profile.php?id=61575822069584" target="_blank" class="social-link facebook">
                             <div class="social-icon">
                                 <i class="fab fa-facebook"></i>
@@ -848,7 +855,7 @@
         </div>
     </div>
     
-    <!-- Footer -->
+    <!-- Footer với hiệu ứng xuất hiện từ từ -->
     <div class="main-footer" id="mainFooter">
         <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
@@ -881,13 +888,14 @@
                 });
             });
             
-            const spotifyIframes = document.querySelectorAll('.spotify-player');
-            spotifyIframes.forEach(iframe => {
-                iframe.addEventListener('mouseenter', () => {
-                    cursor.style.opacity = '0';
+            // Cho phép cursor sáng khi vào Spotify
+            const spotifyCards = document.querySelectorAll('.playlist-card');
+            spotifyCards.forEach(card => {
+                card.addEventListener('mouseover', () => {
+                    cursor.classList.add('active');
                 });
-                iframe.addEventListener('mouseleave', () => {
-                    cursor.style.opacity = '1';
+                card.addEventListener('mouseout', () => {
+                    cursor.classList.remove('active');
                 });
             });
         }
@@ -981,6 +989,7 @@
         // Hiệu ứng cho liên hệ
         function setupContactEffects() {
             const phoneContact = document.getElementById('phoneContact');
+            const emailContact = document.getElementById('emailContact');
             
             phoneContact.addEventListener('click', function(e) {
                 this.classList.add('active');
@@ -995,6 +1004,21 @@
                 // Copy số điện thoại
                 navigator.clipboard.writeText('0898165655');
                 alert('Số điện thoại đã được sao chép!');
+            });
+            
+            emailContact.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
+                for (let i = 0; i < 15; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
+                
+                // Copy email
+                navigator.clipboard.writeText('nem.nguyen@example.com');
+                alert('Email đã được sao chép!');
             });
         }
         
@@ -1091,6 +1115,7 @@
                     })
                     .catch(e => {
                         console.log("Play prevented: ", e);
+                        // Nếu không phát được, hiển thị nút play trên control
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
                     });
             });
@@ -1175,7 +1200,7 @@
                 const windowHeight = window.innerHeight;
                 const bodyHeight = document.body.offsetHeight;
                 
-                // Nếu ở cuối trang, hiển thị footer
+                // Nếu ở cuối trang, hiển thị footer với hiệu ứng mượt mà
                 if (scrollPosition + windowHeight >= bodyHeight - 10) {
                     mainFooter.classList.add('show-footer');
                 } else {
