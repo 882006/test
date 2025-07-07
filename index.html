@@ -119,14 +119,20 @@
             justify-content: center;
         }
 
-        .profile-pic {
+        .profile-pic-container {
+            position: relative;
             width: 180px;
             height: 180px;
+            margin-bottom: 15px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(242, 198, 222, 0.8);
             box-shadow: 0 0 20px rgba(242, 198, 222, 0.6);
-            margin-bottom: 15px;
             position: relative;
             transition: all 0.3s ease;
         }
@@ -134,6 +140,34 @@
         .profile-pic:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(242, 198, 222, 0.8);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 214, 10, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 214, 10, 0.5);
+        }
+
+        .status-badge:hover {
+            transform: scale(1.2);
+            background: rgba(255, 214, 10, 0.5);
+        }
+
+        .status-badge i {
+            color: #ffd60a;
+            font-size: 0.8rem;
         }
 
         .name-container {
@@ -153,7 +187,7 @@
             box-shadow: 0 0 10px rgba(138, 92, 246, 0.3);
         }
 
-        .name-container.active, .status-container.active, .copyright.active {
+        .name-container.active, .status-container.active, .copyright.active, .contact-box.active {
             animation: elementPulse 0.5s ease-out;
         }
 
@@ -244,6 +278,43 @@
             font-size: 0.95rem;
             position: relative;
             z-index: 2;
+        }
+
+        .contact-info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .contact-box {
+            width: 100%;
+            background: rgba(40, 40, 62, 0.2);
+            border-radius: 12px;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .contact-box:hover {
+            background: rgba(40, 40, 62, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .contact-box.phone {
+            background: rgba(59, 89, 152, 0.1);
+            border-color: rgba(59, 89, 152, 0.3);
+        }
+
+        .contact-box.email {
+            background: rgba(219, 68, 55, 0.1);
+            border-color: rgba(219, 68, 55, 0.3);
         }
 
         .bio {
@@ -434,12 +505,17 @@
 
         .main-footer {
             position: fixed;
-            bottom: -50px; /* Ẩn footer ban đầu */
+            bottom: 30px;
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 100;
             transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(100px);
+        }
+
+        .show-footer {
+            transform: translateY(0);
         }
 
         .copyright {
@@ -463,14 +539,14 @@
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
         }
 
-        /* Music control - Đã sửa thành hình tròn */
+        /* Music control - hình tròn */
         .music-control {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 60px;
             height: 60px;
-            border-radius: 50%; /* Đảm bảo hình tròn */
+            border-radius: 50%;
             background: rgba(30, 30, 46, 0.7);
             border: 1px solid rgba(138, 92, 246, 0.3);
             box-shadow: 0 0 15px rgba(138, 92, 246, 0.3);
@@ -497,57 +573,6 @@
             0% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(138, 92, 246, 0); }
             100% { box-shadow: 0 0 0 0 rgba(138, 92, 246, 0); }
-        }
-
-        /* Audio player - Đã sửa thành hình tròn */
-        .audio-player-container {
-            position: fixed;
-            bottom: 20px;
-            right: 90px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%; /* Hình tròn */
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(138, 92, 246, 0.5);
-            z-index: 999;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            opacity: 0.8;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(30, 30, 46, 0.7);
-        }
-
-        .audio-player-container:hover {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        .audio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 2;
-        }
-
-        .audio-overlay i {
-            font-size: 1.8rem;
-            color: white;
-            opacity: 0.8;
-            transition: all 0.3s;
-        }
-
-        .audio-overlay:hover i {
-            opacity: 1;
-            transform: scale(1.2);
         }
 
         @media (max-width: 900px) {
@@ -593,13 +618,6 @@
                 height: 50px;
                 font-size: 1.5rem;
             }
-
-            .audio-player-container {
-                bottom: 80px;
-                right: 15px;
-                width: 50px;
-                height: 50px;
-            }
         }
 
         @media (max-width: 500px) {
@@ -609,7 +627,7 @@
                 margin-bottom: 60px;
             }
 
-            .profile-pic {
+            .profile-pic-container {
                 width: 150px;
                 height: 150px;
             }
@@ -623,7 +641,7 @@
             }
 
             .playlist-card {
-                height: 120px; /* Điều chỉnh chiều cao cho mobile */
+                height: 100px;
             }
 
             .social-icon {
@@ -655,12 +673,10 @@
                 height: 45px;
                 font-size: 1.3rem;
             }
-
-            .audio-player-container {
-                bottom: 70px;
-                right: 10px;
-                width: 45px;
-                height: 45px;
+            
+            .contact-box {
+                font-size: 0.8rem;
+                padding: 6px 10px;
             }
         }
     </style>
@@ -681,13 +697,6 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Audio player container - hình tròn -->
-    <div class="audio-player-container">
-        <div class="audio-overlay" id="audioOverlay">
-            <i class="fas fa-play"></i>
-        </div>
-    </div>
-
     <!-- Nút điều khiển nhạc - hình tròn -->
     <div class="music-control" id="musicControl">
         <i class="fas fa-play"></i>
@@ -703,7 +712,12 @@
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-left">
-                <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                <div class="profile-pic-container">
+                    <img src="images/whitecat.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+                    <div class="status-badge" id="statusBadge">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
                 <div class="name-container" id="nameContainer">
                     <div class="username" id="fullName">
                         <span>N</span>
@@ -720,9 +734,20 @@
                 </div>
                 <div class="status-container" id="statusContainer">
                     <div class="status">
-                        <i class="fas fa-moon"></i> Idle
+                        <i class="fas fa-moon"></i> Currently Idle
                     </div>
                 </div>
+                
+                <!-- Thêm 2 khối liên hệ -->
+                <div class="contact-info">
+                    <div class="contact-box phone" id="phoneContact">
+                        <i class="fas fa-phone-alt"></i> LH: 0898165655
+                    </div>
+                    <div class="contact-box email" id="emailContact">
+                        <i class="fas fa-envelope"></i> Gmail: nguyenvietnam2k6@gmail.com
+                    </div>
+                </div>
+                
                 <div class="bio">
                     Just a Content Creator<br>
                     boy like cat, BoyWithUke<br>
@@ -795,7 +820,7 @@
     </div>
     
     <!-- Footer -->
-    <div class="main-footer">
+    <div class="main-footer" id="mainFooter">
         <div class="copyright" id="copyright">© 2025 by Nem. Created with GitHub.</div>
     </div>
     
@@ -817,7 +842,7 @@
                 cursor.classList.remove('active');
             });
             
-            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control, .audio-overlay');
+            const clickableElements = document.querySelectorAll('a, button, .profile-pic, .copyright, .social-icon, .status-container, .name-container, .spotify-overlay, .music-control, .status-badge, .contact-box');
             clickableElements.forEach(el => {
                 el.addEventListener('mouseover', () => {
                     cursor.classList.add('active');
@@ -911,6 +936,8 @@
         // Hiệu ứng cho status
         function setupStatusEffect() {
             const statusContainer = document.getElementById('statusContainer');
+            const statusBadge = document.getElementById('statusBadge');
+            
             statusContainer.addEventListener('click', function(e) {
                 this.classList.add('active');
                 setTimeout(() => {
@@ -920,6 +947,53 @@
                 for (let i = 0; i < 15; i++) {
                     createBubbleParticle(e.clientX, e.clientY);
                 }
+            });
+            
+            statusBadge.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
+                for (let i = 0; i < 15; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
+            });
+        }
+        
+        // Hiệu ứng cho liên hệ
+        function setupContactEffects() {
+            const phoneContact = document.getElementById('phoneContact');
+            const emailContact = document.getElementById('emailContact');
+            
+            phoneContact.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
+                for (let i = 0; i < 15; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
+                
+                // Copy số điện thoại
+                navigator.clipboard.writeText('0898165655');
+                alert('Số điện thoại đã được sao chép!');
+            });
+            
+            emailContact.addEventListener('click', function(e) {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+                
+                for (let i = 0; i < 15; i++) {
+                    createBubbleParticle(e.clientX, e.clientY);
+                }
+                
+                // Copy email
+                navigator.clipboard.writeText('nguyenvietnam2k6@gmail.com');
+                alert('Email đã được sao chép!');
             });
         }
         
@@ -994,7 +1068,6 @@
         function setupBackgroundMusic() {
             const musicControl = document.getElementById('musicControl');
             const audioPlayer = document.getElementById('bgMusicAudio');
-            const audioOverlay = document.getElementById('audioOverlay');
             let isPlaying = false;
             let originalTitle = document.title;
             
@@ -1008,7 +1081,6 @@
                         isPlaying = true;
                         musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                         musicControl.classList.add('playing');
-                        audioOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                         document.title = '♪ ' + originalTitle;
                     })
                     .catch(e => {
@@ -1037,7 +1109,6 @@
                                     isPlaying = true;
                                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                                     musicControl.classList.add('playing');
-                                    audioOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                                     document.title = '♪ ' + originalTitle;
                                     document.body.removeChild(overlay);
                                 })
@@ -1056,14 +1127,12 @@
                     audioPlayer.pause();
                     musicControl.innerHTML = '<i class="fas fa-play"></i>';
                     musicControl.classList.remove('playing');
-                    audioOverlay.innerHTML = '<i class="fas fa-play"></i>';
                     document.title = originalTitle;
                 } else {
                     audioPlayer.play()
                         .catch(e => console.log("Play was prevented: ", e));
                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                     musicControl.classList.add('playing');
-                    audioOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                     document.title = '♪ ' + originalTitle;
                 }
                 isPlaying = !isPlaying;
@@ -1071,33 +1140,6 @@
                 // Hiệu ứng bong bóng
                 for (let i = 0; i < 15; i++) {
                     const rect = musicControl.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    createBubbleParticle(centerX, centerY);
-                }
-            });
-            
-            // Xử lý audio overlay
-            audioOverlay.addEventListener('click', function() {
-                if (isPlaying) {
-                    audioPlayer.pause();
-                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
-                    musicControl.classList.remove('playing');
-                    audioOverlay.innerHTML = '<i class="fas fa-play"></i>';
-                    document.title = originalTitle;
-                } else {
-                    audioPlayer.play()
-                        .catch(e => console.log("Play was prevented: ", e));
-                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    musicControl.classList.add('playing');
-                    audioOverlay.innerHTML = '<i class="fas fa-pause"></i>';
-                    document.title = '♪ ' + originalTitle;
-                }
-                isPlaying = !isPlaying;
-                
-                // Hiệu ứng bong bóng
-                for (let i = 0; i < 15; i++) {
-                    const rect = audioOverlay.getBoundingClientRect();
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
                     createBubbleParticle(centerX, centerY);
@@ -1116,7 +1158,6 @@
                         isPlaying = false;
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
                         musicControl.classList.remove('playing');
-                        audioOverlay.innerHTML = '<i class="fas fa-play"></i>';
                         document.title = originalTitle;
                     }
                     
@@ -1156,7 +1197,6 @@
                         isPlaying = false;
                         musicControl.innerHTML = '<i class="fas fa-play"></i>';
                         musicControl.classList.remove('playing');
-                        audioOverlay.innerHTML = '<i class="fas fa-play"></i>';
                         document.title = originalTitle;
                     }
                     
@@ -1193,7 +1233,6 @@
                                 isPlaying = true;
                                 musicControl.innerHTML = '<i class="fas fa-pause"></i>';
                                 musicControl.classList.add('playing');
-                                audioOverlay.innerHTML = '<i class="fas fa-pause"></i>';
                                 document.title = '♪ ' + originalTitle;
                             })
                             .catch(e => console.log("Play was prevented: ", e));
@@ -1209,6 +1248,7 @@
             setupCopyrightEffect();
             setupAvatarEffect();
             setupStatusEffect();
+            setupContactEffects();
             setupNameEffect();
             setupBackgroundMusic();
            
@@ -1228,17 +1268,17 @@
             });
             
             // Hiển thị footer khi kéo xuống cuối trang
+            const mainFooter = document.getElementById('mainFooter');
             window.addEventListener('scroll', function() {
-                const mainFooter = document.querySelector('.main-footer');
                 const scrollPosition = window.scrollY || document.documentElement.scrollTop;
                 const windowHeight = window.innerHeight;
                 const bodyHeight = document.body.offsetHeight;
                 
                 // Nếu ở cuối trang, hiển thị footer
                 if (scrollPosition + windowHeight >= bodyHeight - 10) {
-                    mainFooter.style.bottom = '30px'; // Nhích lên 30px
+                    mainFooter.classList.add('show-footer');
                 } else {
-                    mainFooter.style.bottom = '-50px';
+                    mainFooter.classList.remove('show-footer');
                 }
             });
         });
