@@ -617,16 +617,10 @@
 </head>
 <body>
     <!-- Video nền từ file local -->
-    <div class="video-player-container">
-    <iframe
-        id="bgYoutube"
-        class="video-player"
-        src="https://www.youtube.com/embed/Q4dx6GhCxos?autoplay=1&loop=1&playlist=Q4dx6GhCxos"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-    ></iframe>
-</div>
+    <video class="video-background" id="bgVideo" autoplay loop muted playsinline>
+        <source src="video/videoplayback.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
     
     <!-- Custom cursor - chấm sáng trắng -->
     <div class="custom-cursor" id="customCursor"></div>
@@ -787,47 +781,6 @@
             });
         }
 
-let youtubePlayer;
-
-// Load YouTube IFrame API
-function loadYouTubeAPI() {
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScript = document.getElementsByTagName('script')[0];
-    firstScript.parentNode.insertBefore(tag, firstScript);
-}
-
-// Tạo player và giữ tham chiếu
-function onYouTubeIframeAPIReady() {
-    youtubePlayer = new YT.Player('bgYoutube', {
-        events: {
-            'onReady': function (event) {
-                event.target.setVolume(100); // phát có tiếng
-            }
-        }
-    });
-}
-
-// Mute YouTube khi Spotify được click
-function setupSpotifyMuteSync() {
-    const spotifyOverlays = document.querySelectorAll('.spotify-overlay');
-
-    spotifyOverlays.forEach(overlay => {
-        overlay.addEventListener('click', () => {
-            if (youtubePlayer && youtubePlayer.mute) {
-                youtubePlayer.mute(); // tắt tiếng YouTube
-            }
-        });
-    });
-}
-
-// Gọi khi DOM sẵn sàng
-document.addEventListener('DOMContentLoaded', function () {
-    loadYouTubeAPI();
-    setupSpotifyMuteSync();
-});
-
-        
         // Hiệu ứng chữ "Nguyễn Nem"
         function activateNameEffect() {
             const nameChars = document.querySelectorAll('#fullName span');
@@ -989,7 +942,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let originalTitle = document.title;
             
             // Thiết lập âm lượng
-            videoPlayer.volume = 1;
+            videoPlayer.volume = 0.9;
             
             // Thử phát nhạc khi trang tải
             const tryPlayAudio = () => {
@@ -1078,6 +1031,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }, 2000);
+            
+            // Xử lý khi video kết thúc
+            videoPlayer.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            });
+        }
         
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', function() {
