@@ -28,3 +28,14 @@ videoOverlay.addEventListener('click', function () {
 window.addEventListener('load', () => {
   document.body.classList.add('loaded');
 });
+// Thêm vào phần thiết lập con trỏ hiện có
+function createCursorTrail() {
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  document.body.appendChild(trail);
+  
+  document.addEventListener('mousemove', (e) => {
+    trail.style.left = `${e.clientX}px`;
+    trail.style.top = `${e.clientY}px`;
+  });
+}
