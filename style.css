@@ -28,7 +28,6 @@
     opacity: 0;
   }
 }
-
 .card {
   opacity: 0;
   transform: translateY(20px);
@@ -39,7 +38,6 @@
   opacity: 1;
   transform: translateY(0);
 }
-
 .social-icon {
   transition: all 0.3s ease;
   position: relative;
@@ -78,7 +76,6 @@
     opacity: 0;
   }
 }
-
 .bio {
   overflow: hidden;
   border-right: 2px solid rgba(255, 255, 255, 0.75);
@@ -95,7 +92,6 @@
   from, to { border-color: transparent }
   50% { border-color: rgba(255, 255, 255, 0.75) }
 }
-
 .profile-left {
   transform: translateZ(0);
   transition: transform 0.3s ease-out;
@@ -119,35 +115,6 @@
 .name-container, .contact-box {
   animation: border-glow 3s infinite;
 }
-
-@keyframes border-glow {
-  0% {
-    box-shadow: 0 0 5px rgba(138, 92, 246, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(138, 92, 246, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(138, 92, 246, 0.5);
-  }
-}
-
-.name-container, .contact-box {
-  animation: border-glow 3s infinite;
-}
-
-// Add this to your existing cursor setup
-function createCursorTrail() {
-  const trail = document.createElement('div');
-  trail.className = 'cursor-trail';
-  document.body.appendChild(trail);
-  
-  document.addEventListener('mousemove', (e) => {
-    trail.style.left = `${e.clientX}px`;
-    trail.style.top = `${e.clientY}px`;
-  });
-}
-
 .cursor-trail {
   position: fixed;
   width: 8px;
@@ -159,7 +126,6 @@ function createCursorTrail() {
   transform: translate(-50%, -50%);
   transition: width 0.2s, height 0.2s, opacity 0.2s;
 }
-
 .container > * {
   opacity: 0;
   transform: translateY(20px);
@@ -174,4 +140,3 @@ function createCursorTrail() {
   opacity: 1;
   transform: translateY(0);
 }
-
