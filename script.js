@@ -24,10 +24,10 @@ videoOverlay.addEventListener('click', function () {
         createBubbleParticle(centerX, centerY);
     }
 });
-
 window.addEventListener('load', () => {
   document.body.classList.add('loaded');
 });
+
 // Thêm vào phần thiết lập con trỏ hiện có
 function createCursorTrail() {
   const trail = document.createElement('div');
